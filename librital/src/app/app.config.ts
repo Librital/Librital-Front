@@ -7,11 +7,5 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(),
-    importProvidersFrom([
-      HttpClientXsrfModule.withOptions({
-        cookieName: "XSRF-TOKEN",
-        headerName: "X-XSRF-TOKEN",
-      })
-    ]),
   ]
 };
