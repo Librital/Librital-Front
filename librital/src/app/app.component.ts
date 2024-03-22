@@ -1,8 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import {AutenticacionService} from "./services/autenticacion.service";
 import { Application } from '@splinetool/runtime';
+import {LoadingSpinnerComponent} from "./views/loading-spinner/loading-spinner.component";
+import {FaIconComponent, FontAwesomeModule} from "@fortawesome/angular-fontawesome";
+import {FooterComponent} from "./views/footer/footer.component";
 
 @Component({
   selector: 'app-root',
@@ -10,6 +13,9 @@ import { Application } from '@splinetool/runtime';
   imports: [
     CommonModule,
     RouterOutlet,
+    LoadingSpinnerComponent,
+    FaIconComponent,
+    FooterComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -17,41 +23,38 @@ import { Application } from '@splinetool/runtime';
 export class AppComponent {
   title = 'librital';
 
-  ultimoMensaje: any = "";
+  isLoading: boolean = true; // Inicialmente, mostrar el spinner
+  cargaPrimera: boolean = true; // Inicialmente, mostrar el spinner
 
   constructor(private authService: AutenticacionService) {}
 
-
   ngOnInit() {
+    this.isLoading = true;
+
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1000);
 
 
-    //const canvas = document.getElementById('canvas3d');
-    //const app = new Application(<HTMLCanvasElement>canvas);
-    //app.load('https://prod.spline.design/wXjR3Q1zyAeZc12f/scene.splinecode');
-
-
-    this.getLocations();
-    this.sendTexto();
   }
 
 
-
-
-
-
-  public getLocations() {
+/*  public getLocations() {
     this.authService.obtenerMensaje().subscribe((res) => {
       console.log(res);
-      this.ultimoMensaje = res;
+      console.log(res[0].nombre);
+      this.usuarios = res;
     });
   }
 
   public sendTexto() {
-    let a = "Hola";
+    let a = {
+      "nombre": "prueba2",
+    };
     this.authService.recibir(a).subscribe((res) => {
       console.log(res);
     });
-  }
+  }*/
 
 }
 

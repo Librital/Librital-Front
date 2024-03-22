@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+
+/** VARIABLES **/
+
+:root {
+  --logoLibrital: #52b788; // or any global you wish to share with components
+  --colorFondo: #d8f3dc
+}

@@ -1,0 +1,188 @@
+body {
+  background: var(--colorFondo);
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.footer {
+  background: var(--logoLibrital);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  overflow-x: hidden;
+}
+
+.footer_top {
+  padding: 60px 0;
+  position: relative;
+}
+
+.company-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.help-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.footer_bottom {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: black;
+  display: flex;
+  justify-content: space-between;
+}
+
+
+
+.contact-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-social-media {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.footer-social-media a {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #e2e2eb;
+  border-radius: 50%;
+  font-size: 24px;
+  color: black;
+}
+
+.footer-social-media a:hover {
+  background: white;
+  border-color: white;
+  color: var(--logoLibrital);
+}
+
+.footer_top .footer-social-media a + a {
+  margin-left: 5%;
+}
+
+
+.footer-title {
+  margin-bottom: 30px;
+  color: #000000;
+}
+
+
+
+
+
+.footer_top .footer_background {
+  position: relative;
+  bottom: 0;
+  background: url("/assets/books.png") no-repeat scroll center 0;
+  background-size: contain;
+  width: 100%;
+  height: 300px;
+}
+
+.footer_top .footer_background .footer_background_one {
+  background: url("https://media.tenor.com/CRHadjHV2DgAAAAi/school-student.gif") no-repeat center center;
+  width: 400px;
+  height: 40%;
+  background-size:contain;
+  position: absolute;
+  bottom: 0;
+  left: 30%;
+  -webkit-animation: gifAnimation 22s linear infinite;
+  animation: gifAnimation 22s linear infinite;
+}
+
+.footer_top .footer_background .footer_background_two {
+  background: url("https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcTNnbTBta2dtOTd1aXQyYzQzY2RtdWJpcXB6YWx5bnh4anMwNnU5NCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/xr8DCRvORhLvPRJ5Pi/giphy.gif") no-repeat center center;
+  width: 100px;
+  height: 60%;
+  background-size:cover;
+  bottom: -9%;
+  left: 38%;
+  position: absolute;
+  -webkit-animation: gifAnimation 30s linear infinite;
+  animation: gifAnimation 30s linear infinite;
+}
+
+
+@-moz-keyframes gifAnimation {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@-webkit-keyframes gifAnimation {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+@keyframes gifAnimation {
+  0% {
+    left: -25%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+
+
+
+/** RESPONSIVE **/
+
+@media (max-width: 565px) {
+
+  .footer_top .footer_background {
+    background-size: cover;
+    background-position: center top;
+  }
+
+  .footer_top .footer_background .footer_background_one {
+    width: 40%;
+    height: 40%;
+    left: 10%;
+  }
+  .footer_top .footer_background .footer_background_two {
+    width: 40%;
+    height: 40%;
+    left: 18%;
+  }
+}
+
+
+
+@media (max-width: 410px) {
+  .footer {
+    position: relative;
+    overflow-x: hidden;
+  }
+}

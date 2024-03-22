@@ -9,14 +9,14 @@ export class AutenticacionService {
   constructor(private http: HttpClient) { }
 
   public obtenerMensaje() {
-    return this.http.get<any>( environment.apiUrl + "librital/api/obtener_mensaje/");
+    return this.http.get<any>( environment.apiUrl + "api/usuario/");
   }
 
-  public recibir(mensaje: string) {
+  public recibir(mensaje: {
+    nombre: string;
+  }) {
 
-    const requestBody = { mensaje };
-
-    return this.http.post<any>(environment.apiUrl + 'librital/api/recibir/', requestBody);
+    return this.http.post<any>(environment.apiUrl + 'api/librital/', mensaje);
   }
 
   private getCsrfToken(): string {
