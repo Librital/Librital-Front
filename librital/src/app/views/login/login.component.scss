@@ -1,0 +1,106 @@
+
+.section-login {
+  background: url("/assets/Librital-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.div-login {
+  border-radius: 20px;
+  box-shadow: 0 5px 5px rgb(85, 114, 55);
+  display: flex;
+  margin-top: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+.form-login {
+  background-color: white;
+  border-radius: 20px;
+
+
+  .container-fluid {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+}
+
+.title-login {
+  color: var(--logoLibrital);
+  font-size: 2rem;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  text-align: center;
+
+}
+
+.email-form, .password-form {
+  margin-bottom: 5%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
+}
+
+
+.btn-options {
+  padding-top: 2%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-social {
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  //padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  //user-select: none;
+  -webkit-user-select: none;
+  //white-space: nowrap;
+  width: 20%;
+}
+
+
+.btn-social:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
+
+.sign-up {
+  padding-top: 5%;
+
+  p {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
+
+.form-control {
+  padding: 0 1rem;
+  border: 0 solid transparent;
+  border-radius: 0;
+  border-bottom: 1px solid #aaa;
+}
+
+
+
+@media (max-width: 576px) {
+  .btn-social {
+    width: 100%;
+  }
+}

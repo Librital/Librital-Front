@@ -1,0 +1,108 @@
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+.section-sign-up {
+  background: url("/assets/Librital-bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+  min-height: 100vh;
+  //border: 2px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-sign-up {
+  max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+.div-form {
+  height: 100%;
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.form-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  h3 {
+    margin: 0;
+    font-weight: 400;
+  }
+
+  p, h3 {
+    padding: 0 10px;
+  }
+
+}
+
+.form-sign-up {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.div-options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.btn-social {
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+}
+
+
+.btn-social:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
+
+
+
+#form-date {
+  color-scheme: var(--logoLibrital);
+}
+
+
+
+@media (max-width: 840px) {
+  .div-sign-up {
+    margin: 5%;
+  }
+}

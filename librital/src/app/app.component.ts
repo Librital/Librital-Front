@@ -1,6 +1,6 @@
 import {Component, ElementRef, ViewChild, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import {Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
 import {AutenticacionService} from "./services/autenticacion.service";
 import { Application } from '@splinetool/runtime';
 import {LoadingSpinnerComponent} from "./views/loading-spinner/loading-spinner.component";
@@ -16,6 +16,8 @@ import {FooterComponent} from "./views/footer/footer.component";
     LoadingSpinnerComponent,
     FaIconComponent,
     FooterComponent,
+    RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
@@ -26,35 +28,51 @@ export class AppComponent {
   isLoading: boolean = true; // Inicialmente, mostrar el spinner
   cargaPrimera: boolean = true; // Inicialmente, mostrar el spinner
 
-  constructor(private authService: AutenticacionService) {}
+  constructor(private route: Router, private authService: AutenticacionService) {}
 
   ngOnInit() {
     this.isLoading = true;
 
+    this.comprobarToken();
+
     setTimeout(() => {
       this.isLoading = false;
     }, 1000);
+  }
 
+  public comprobarToken() {
+    if (this.authService.getToken()) {
+      if (this.authService.comprobarExpToken()) {
+        this.authService.refrescarToken().subscribe((data: any) => {
+          this.authService.eliminarToken();
+          this.authService.guardarToken(data.access)
 
+        });
+      } else {
+        alert('Debe iniciar sesión');
+        if (this.authService.getToken()) {
+          this.authService.logout();
+        }
+        this.route.navigate(['/login']);
+      }
+    }
   }
 
 
-/*  public getLocations() {
-    this.authService.obtenerMensaje().subscribe((res) => {
-      console.log(res);
-      console.log(res[0].nombre);
-      this.usuarios = res;
-    });
+  public isUsuarioLogueado() {
+    return this.authService.comprobarUsuarioLogueado();
   }
 
-  public sendTexto() {
-    let a = {
-      "nombre": "prueba2",
-    };
-    this.authService.recibir(a).subscribe((res) => {
-      console.log(res);
-    });
-  }*/
+  public isAdministrador() {
+    return this.authService.comprobarAdministrador();
+  }
+
+  public cerrarSesion() {
+    alert('Se ha cerrado sesión');
+    this.authService.logout();
+    this.route.navigate(['/']);
+  }
+
 
 }
 

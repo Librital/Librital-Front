@@ -3,6 +3,7 @@ import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.compon
 import {SpinnerService} from "../../services/spinner.service";
 import {NgIf} from "@angular/common";
 import {Application} from "@splinetool/runtime";
+import {FooterComponent} from "../footer/footer.component";
 
 @Component({
   selector: 'app-home',
@@ -10,6 +11,7 @@ import {Application} from "@splinetool/runtime";
   imports: [
     LoadingSpinnerComponent,
     NgIf,
+    FooterComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -20,6 +22,9 @@ export class HomeComponent {
   constructor(private spinnerService: SpinnerService) {}
 
   ngOnInit() {
+    /*setTimeout(() => {
+      this.reducirOpacidad();
+    }, 0);*/
 
   }
 

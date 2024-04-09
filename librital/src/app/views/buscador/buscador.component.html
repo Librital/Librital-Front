@@ -1,1 +1,60 @@
-<p>buscador works!</p>
+<section class="section-buscsador">
+  <div class="div-buscador">
+    <span class="span-lupa">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <input type="text" class="form-control form-buscador" placeholder="Busca tu libro..." (keyup.enter)="onEnter()" [(ngModel)]="valorBuscador" (input)="activarBorrarContenido()">
+    <span *ngIf="tieneContenido" class="span-borrar" (click)="borrarBuscador()">
+      <i class="fa-solid fa-circle-xmark"></i>
+    </span>
+  </div>
+  <div class="div-search-isbn">
+    <p>Buscar por ISBN: </p>
+    <!-- <video #videoElement></video>-->
+    <button class="btn-isbn"><i class="fa-solid fa-barcode" style="color: #000000;"></i></button>
+    <!-- <button (click)="stopCamera()">Cerrar Cámara</button>>> -->
+  </div>
+  <div class="buscador-filtros">
+    <div class="filtro-buscador">
+      <span class="span-filtro">Filtros:</span>
+      <select id="select-filtro-buscador" class="form-select" (change)="cambioFiltro()">
+        <option *ngFor="let filtro of listaFiltroGeneral">{{ filtro }}</option>
+      </select>
+    </div>
+    <div class="filtros-generos" *ngIf="filtroGeneroSelected">
+      <div class="div-titulo-generos">
+        <span class="span-filtro">Géneros:</span>
+      </div>
+      <div class="div-filtros-generos">
+        <select class="form-select select-generos"  [(ngModel)]="generoSelected" (change)="addGenero()">
+          <option *ngFor="let genero of generos">{{ genero }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="lista-generos">
+      <span class="card-generos" *ngFor="let generoL of listaGenerosSelected">{{generoL}} <i id="xmark-genero" class="fa-solid fa-xmark" style="color: black;" (click)="eliminarGenero(generoL)"></i> </span>
+    </div>
+  </div>
+  <div class="div-buscar-btn">
+    <button class="btn-buscar" (click)="buscarLibros()">Buscar</button>
+  </div>
+</section>
+
+<section class="section-resultados">
+  <div class="div-resultados-buscador">
+
+    <div class="card" *ngFor="let libro of listaLibros">
+      <span class="span-cover">
+        <img src="{{ libro }}" alt="Placeholder Image" class="card-img">
+      </span>
+      <div class="card-content">
+        <h2 class="card-title">Lorem ipsum</h2>
+        <p class="card-text">Descripcion</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<app-footer></app-footer>

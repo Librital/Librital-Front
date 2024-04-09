@@ -1,1 +1,130 @@
-<p>perfil works!</p>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<section class="section-profile">
+  <div class="profile">
+    <div class="div-profile page1">
+      <div class="book-page1">
+        <div class="span-perfil">
+          <span class="span">
+            <img id="perfil-foto" src="{{ fotoPerfil }}">
+          </span>
+          <div class="span-nombre">
+            <h3>{{ nombreIni }} {{ apellidoIni }}</h3>
+          </div>
+        </div>
+        <div class="perfil-info">
+          <form class="form-perfil-info">
+            <div class="form-group">
+              <label for="nombre-perfil">Nombre</label>
+              <input type="text" class="form-control" id="nombre-perfil" disabled="true">
+            </div>
+            <div class="form-group">
+              <label for="apellido-perfil">Apellido</label>
+              <input type="text" class="form-control" id="apellido-perfil" disabled="true">
+            </div>
+            <div class="form-group">
+              <label for="date-perfil">Fecha de nacimiento</label>
+              <input type="date" class="form-control" id="date-perfil" disabled="true">
+            </div>
+            <div class="form-group">
+              <label for="email-perfil">Email</label>
+              <input type="email" class="form-control" id="email-perfil" disabled="true">
+            </div>
+            <div class="form-group" *ngIf="editarInformacionPerfil">
+              <label for="password-perfil">Contraseña</label>
+              <input type="password" class="form-control" id="password-perfil">
+            </div>
+            <div class="form-group" *ngIf="editarInformacionPerfil">
+              <label for="password-confirm-perfil">Confirmar contraseña</label>
+              <input type="password" class="form-control" id="password-confirm-perfil">
+            </div>
+          </form>
+        </div>
+        <div class="btn-options">
+          <button type="submit" class="btn btn-editar" *ngIf="!editarInformacionPerfil" (click)="editarInformacion()">Editar</button>
+          <button class="btn btn-cancelar" *ngIf="editarInformacionPerfil" (click)="cancelarCambios()" >Cancelar Cambios</button>
+          <button class="btn btn-guardar" *ngIf="editarInformacionPerfil" (click)="guardarCambios()" >Guardar Cambios</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="div-profile page2">
+      <div class="book-page2">
+
+        <div class="tabs">
+          <input type="radio" class="tabs-radio" name="tabs-perfil" id="tab-config" checked>
+          <label for="tab-config" class="tab-opcion">Configuración avanzada</label>
+          <div class="tabs-content">
+            <div class="conf-page">
+
+              <div class="div-password-change">
+                <div class="title-password-change">
+                  <p>Cambiar la contraseña actual</p>
+                </div>
+                <div class="div-editar-password">
+                  <button class="btn-password-change" (click)="mostrarFormPassword()">Cambiar</button>
+                </div>
+              </div>
+              <div class="div-form-password-change">
+                <div *ngIf="cambiarPassword">
+                  <div class="form-group">
+                    <label for="password-anitgua">Contraseña actual</label>
+                    <input type="password" class="form-control" id="password-anitgua" placeholder="Contraseña actual">
+                  </div>
+                  <div class="form-group">
+                    <label for="password-change">Nueva Contraseña</label>
+                    <input type="password" class="form-control" id="password-change" placeholder="Contraseña">
+                  </div>
+                  <div class="form-group">
+                    <label for="password-confirm-change">Repita la contraseña</label>
+                    <input type="password" class="form-control" id="password-confirm-change" placeholder="Repita la contraseña">
+                  </div>
+                  <div class="btn-options">
+                    <button class="btn btn-cancelar" (click)="cancelarPasswordChange()">Cancelar Cambios</button>
+                    <button type="submit" class="btn btn-guardar" (click)="cambiarPasswordChange()" >Guardar Cambios</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-change-img-profile">
+                <div class="title-img-change">
+                  <p>Cambiar el avatar de tu perfil</p>
+                </div>
+                <div class="div-editar-imagen">
+                  <button class="btn-img-change" (click)="mostrarCambioAvatar()">Cambiar</button>
+                </div>
+              </div>
+              <div class="div-img-profiles" *ngIf="cambiarImgProfile">
+                <div class="lista-avatares">
+                  <div class="avatar-container">
+                    <img id="avatar" [class.selected-img]="isImagenSeleccionada(avatarImg)" *ngFor="let avatarImg of listaAvatares" (click)="seleccionarAvatar(avatarImg)" src="{{ avatarImg }}"/>
+                  </div>
+                </div>
+                <div class="btn-options">
+                  <button class="btn btn-cancelar" (click)="cancelarAvatarChange()">Cancelar Cambios</button>
+                  <button type="submit" class="btn btn-guardar" (click)="guardarCambioAvatar()" >Guardar Cambios</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <input type="radio" class="tabs-radio" name="tabs-perfil" id="tab-subscripcion">
+          <label for="tab-subscripcion" class="tab-opcion">Subscripción</label>
+          <div class="tabs-content">
+            <div class="tab-subscripcion">
+
+            </div>
+          </div>
+          <input type="radio" class="tabs-radio" name="tabs-perfil" id="tab-anuncios">
+          <label for="tab-anuncios" class="tab-opcion">Anuncios</label>
+          <div class="tabs-content">
+            Anuncios
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<app-footer></app-footer>

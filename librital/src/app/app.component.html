@@ -13,22 +13,40 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Inicio</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" routerLink="/buscador">Buscador</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
+          <a class="nav-link" routerLink="/anuncios">Anuncios</a>
         </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown link
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/biblioteca">Biblioteca</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about-us">Acerca de</a>
+        </li>
+        <li class="nav-item" *ngIf="!isUsuarioLogueado()" routerLinkActive="active">
+          <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isAdministrador()" routerLinkActive="active">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Administrador
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" >Estadísticas</a></li>
+            <li><a class="dropdown-item" >Libros</a></li>
+            <li><a class="dropdown-item" >Anuncios</a></li>
+          </ul>
+        </li>
+        <li class="nav-item dropdown" *ngIf="isUsuarioLogueado()" routerLinkActive="active">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Perfil
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/perfil">Acceder al Perfil</a></li>
+            <li><a class="dropdown-item" routerLink="/" (click)="cerrarSesion()">Cerrar Sesión</a></li>
           </ul>
         </li>
       </ul>
@@ -39,6 +57,4 @@
 <div class="content" [class.overlay]="isLoading">
   <router-outlet></router-outlet>
 </div>
-
-<app-footer></app-footer>
 

@@ -1,0 +1,272 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+/** SECCCION LIBRO INFO */
+.section-libro-info {
+  width: 100%;
+  height: 100%;
+  //height: 700px;
+}
+
+.div-libro-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 1%;
+}
+
+
+// FOTO LIBRO
+
+.div-foto-opciones {
+  width: 30%;
+  //height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.61);
+  border-radius: 10px;
+}
+
+
+.foto-cover {
+  width: 100%;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#foto {
+  padding: 2%;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.btn-opciones {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.btn-libro {
+
+}
+
+
+.div-custom-etiquetas {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.etiqueta {
+  width: auto;
+  margin: 0 1%;
+}
+
+.valoracion-libro-personal {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.rating-star-personal {
+  width: 100%;
+}
+
+
+
+
+// INFO LIBRO
+
+.libro-info {
+  width: 70%;
+  display: flex;
+  justify-content: flex-start;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.61);
+  border-radius: 10px;
+
+}
+
+.div-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2%;
+}
+
+.libro-titulo {
+  width: 100%;
+}
+
+.libro-categorias {
+  width: 100%;
+}
+
+.lista-generos {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card-generos {
+  width: auto;
+  margin: 0 1%;
+
+}
+
+.descripcion-libro {
+  width: 100%;
+}
+
+.libro-valoracion {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.div-valoracion {
+  width: 100%;
+}
+
+
+
+.rating {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center
+}
+
+.rating>input {
+  display: none
+}
+
+.rating>label {
+  position: relative;
+  width: 1em;
+  font-size: 30px;
+  font-weight: 300;
+  color: #FFD600;
+  cursor: pointer
+}
+
+.rating>label::before {
+  content: "\2605";
+  position: absolute;
+  opacity: 0
+}
+
+.rating>label:hover:before,
+.rating>label:hover~label:before {
+  opacity: 1 !important
+}
+
+.rating>input:checked~label:before {
+  opacity: 1
+}
+
+.rating:hover>input:checked~label:before {
+  opacity: 0.4
+}
+
+
+
+
+
+
+/** SECCION COMPRA **/
+
+.section-comprar {
+  margin: 5% 0;
+  width: 100%;
+  height: 100%;
+}
+
+.title-compra {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.div-lista-compras {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.card-click {
+  width: 30%;
+  height: 100%;
+}
+
+.card {
+  width: 100%;
+  height: auto;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/** RESPONSIVE **/
+
+@media (max-width: 970px) {
+  .div-libro-info {
+    flex-direction: column;
+  }
+
+  .div-foto-opciones {
+    width: 100%;
+  }
+
+  .libro-info {
+    width: 100%;
+  }
+
+  .div-lista-compras {
+    margin: auto;
+    flex-direction: column;
+  }
+
+  .card-click {
+    width: 100%;
+    height: auto;
+  }
+
+}

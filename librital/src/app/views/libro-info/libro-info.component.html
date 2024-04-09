@@ -1,1 +1,121 @@
-<p>libro-info works!</p>
+<section class="section-libro-info">
+  <div class="div-libro-info">
+    <div class="div-foto-opciones">
+      <div class="foto-cover">
+        <img id="foto" src="https://m.media-amazon.com/images/I/71yy+FF3noL._AC_UF894,1000_QL80_.jpg">
+      </div>
+      <div class="btn-opciones">
+        <button class="btn-libro" ><i class="fa-regular fa-heart"></i></button>
+        <button class="btn-libro">Leer más tarde</button>
+        <button class="btn-libro">Leído</button>
+        <button class="btn-libro"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <div class="div-custom-etiquetas">
+        <span class="etiqueta" *ngFor="let etiqueta of listaEtiquetas">{{ etiqueta }}</span>
+      </div>
+      <div class="valoracion-libro-personal">
+        <span>Valoracion propia: </span>
+      </div>
+      <div class="rating-star-personal">
+        <div class="rating">
+          <input type="radio" name="rating" value="5" id="5_personal"><label for="5_personal">☆</label>
+          <input type="radio" name="rating" value="4" id="4_personal"><label for="4_personal">☆</label>
+          <input type="radio" name="rating" value="3" id="3_personal"><label for="3_personal">☆</label>
+          <input type="radio" name="rating" value="2" id="2_personal"><label for="2_personal">☆</label>
+          <input type="radio" name="rating" value="1" id="1_personal"><label for="1_personal">☆</label>
+        </div>
+      </div>
+    </div>
+    <div class="libro-info">
+      <div class="div-info">
+        <div class="libro-titulo">
+          <h3 id="titulo">Titulo</h3>
+        </div>
+        <div class="libro-categorias">
+          <div class="titulo-generos">
+            <p id="categorias">Géneros</p>
+          </div>
+          <div class="lista-generos">
+            <span class="card-generos" *ngFor="let genero of listaGeneros">{{ genero }}</span>
+          </div>
+          <div class="libro-autor">
+            <p id="autor">Autor: XXXX</p>
+          </div>
+          <div class="libro-publicacion">
+            <p id="date-publicacion">Año de publicación: </p>
+          </div>
+          <div class="libro-editorial">
+            <p id="editorial">Editorial: </p>
+          </div>
+          <div class="libro-isbn">
+            <p id="isbn">ISBN: </p>
+          </div>
+          <div class="libro-isbn13">
+            <p id="isbn13">ISBN13: </p>
+          </div>
+        </div>
+        <div class="descripcion-libro">
+          <p>Lorem ipsum dolor sit amet ut dolor ea labore ea hendrerit ea. Magna dolore clita wisi vulputate aliquyam sit. Takimata tation feugiat feugiat amet lorem. Velit ut diam gubergren velit dolor nonumy elitr labore. Eirmod ipsum vulputate amet aliquam eros sed gubergren et et labore nonumy facilisi nam dolore erat at. Aliquyam ipsum lorem dolore elitr amet consetetur. Tempor aliquyam sed clita elitr nostrud vero enim amet. Dolor sadipscing vel aliquyam sit ut at esse diam sit diam nonumy ipsum nonumy no est. Diam aliquyam dolor stet dolore sanctus invidunt esse dolor labore sea at at ipsum sed at invidunt et invidunt. Ex minim sed. At dolore sadipscing ullamcorper dolore magna accusam lorem tempor consequat. Voluptua velit sit et tempor elit sed ipsum. Dolores consetetur rebum lorem amet. Dolore dolores et est. Mazim diam no ullamcorper accusam stet consetetur accusam dolores rebum. Ipsum dolor nostrud dolor consectetuer sed ipsum dolore dolores sed dolor at aliquam magna amet.</p>
+        </div>
+        <div class="libro-valoracion">
+          <span>Valoracion media: </span>
+        </div>
+        <div class="div-valoracion">
+
+          <div class="rating">
+            <input type="radio" name="rating" value="5" id="5"><label for="5">☆</label>
+            <input type="radio" name="rating" value="4" id="4"><label for="4">☆</label>
+            <input type="radio" name="rating" value="3" id="3"><label for="3">☆</label>
+            <input type="radio" name="rating" value="2" id="2"><label for="2">☆</label>
+            <input type="radio" name="rating" value="1" id="1"><label for="1">☆</label>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-comprar">
+  <div class="title-compra">
+    <h3>Consigue tu libro:</h3>
+  </div>
+  <div class="div-lista-compras">
+    <div class="card-click">
+      <a href="#" target="_blank" class="card-link">
+        <div class="card">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body ">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="card-click">
+      <a href="#" target="_blank" class="card-link">
+        <div class="card">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="card-click">
+      <div class="card">
+        <img src="..." class="card-img-top" alt="...">
+        <div class="card-body">
+          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-libros-relacionados">
+
+</section>
+
+
+<app-footer></app-footer>

@@ -1,1 +1,36 @@
-<p>login works!</p>
+<section class="section-login">
+  <div class="container-fluid">
+    <div class="row div-login">
+      <div class="col-md-4">
+        <span>
+          <img width="100%" height="100%" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExZDg2b2lyZDEyNmo3NzJhYmw1ZGszazJtbGljZjkzMG95emM4aG9zOSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/jRaOgNegMjiRAhWc37/giphy.gif">
+        </span>
+      </div>
+      <div class="col-md-8 col-xs-12 col-sm-12 form-login">
+        <div class="container-fluid">
+          <div class="row title-login">
+            <h3>Iniciar Sesión</h3>
+          </div>
+          <div class="row form-row">
+            <div>
+              <div class="row email-form">
+                <i class="fa-solid fa-circle-user" style="color: #000000;"></i>
+                <input type="email" class="form-control" id="email-login" placeholder="Email">
+              </div>
+              <div class="row password-form">
+                <span class="fa fa-lock" style="color: #000000;"></span>
+                <input type="password" class="form-control" id="password-login" placeholder="Contraseña">
+              </div>
+              <div class="row btn-options">
+                <button type="submit" class="btn-social" (click)="comprobarCampos()">Iniciar Sesión</button>
+              </div>
+            </div>
+          </div>
+          <div class="row sign-up">
+            <p>¿No tienes una cuenta? <a routerLink="/sign-up">Regístrate aquí</a> </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

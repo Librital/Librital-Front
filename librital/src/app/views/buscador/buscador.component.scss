@@ -1,0 +1,238 @@
+body {
+  background-color: var(--colorFondo);
+  margin: 0;
+  padding: 0;
+}
+
+/** SECCION BUSCADOR */
+.section-buscsador {
+  padding-top: 2%;
+  display: flex;
+  //height: 100%;
+  justify-content: center;
+  flex-direction: column;
+  background: url("/assets/librital-buscador.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.div-buscador {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.span-lupa {
+  left: 26%;
+  position: absolute;
+}
+
+.form-buscador {
+  width: 50%;
+  text-indent: 5%;
+}
+
+.span-borrar {
+  right: 26%;
+  position: absolute;
+}
+
+.div-search-isbn {
+  margin-top: 1%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin-bottom: 0;
+    margin-right: 1%;
+  }
+}
+
+.btn-isbn {
+  height: 100%;
+  border-radius: 12px;
+}
+
+
+
+/** FILTROS **/
+
+.buscador-filtros {
+  margin-top: 1%;
+  margin-bottom: 1%;
+}
+
+.filtro-buscador {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#select-filtro-buscador {
+  width: 50%;
+  margin-top: 1%;
+
+}
+
+.filtros-generos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.div-titulo-generos {
+  display: flex;
+  justify-content: center;
+
+}
+
+.div-filtros-generos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1%;
+}
+
+.select-generos {
+  width: 50%;
+  margin-right: 1%;
+}
+
+.lista-generos {
+  margin: 1% 0;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card-generos {
+  border-radius: 5px;
+  background-color: var(--logoLibrital);
+  color: white;
+  margin: 1% 1%;
+  padding: 0 1%;
+}
+
+#xmark-genero {
+  cursor: pointer;
+}
+
+.div-buscar-btn {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1%;
+}
+
+
+.btn-buscar {
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+}
+
+
+.btn-buscar:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
+
+
+
+
+
+/** RESULTADOS BUSQUEDA **/
+
+.section-resultados {
+  margin-top: 1%;
+  width: 100%;
+  height: 100%;
+}
+
+.div-resultados-buscador {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+
+.card {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+  background-color: var(--colorFondo);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+}
+
+.span-cover {
+  width: 250px;
+
+}
+
+.card-img {
+  width: 100%;
+  height: 100%;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  object-fit: cover;
+}
+
+
+.card-title {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.card-text {
+  margin-bottom: 15px;
+}
+
+
+@media (max-width: 568px) {
+  .card {
+    flex-direction: column;
+    margin: 10px 0;
+  }
+
+  .span-cover {
+    width: auto;
+    height: 250px;
+  }
+
+  .card-img {
+    object-fit: contain;
+    border-radius: 8px 8px 0 0;
+  }
+
+  .card-content {
+    padding: 15px;
+  }
+}
+
+
+
+
+

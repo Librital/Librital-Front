@@ -2,13 +2,15 @@ body {
   background: var(--colorFondo);
   margin: 0;
   padding: 0;
-  position: relative;
+  //position: relative;
 }
 
 .footer {
   background: var(--logoLibrital);
   width: 100%;
-  position: absolute;
+  //height: 717px;
+  //position: fixed;
+
   bottom: 0;
   overflow-x: hidden;
 }
@@ -31,6 +33,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
 }
 
 
@@ -56,8 +59,8 @@ body {
   width: 100%;
   display: flex;
   justify-content: flex-start;
+  align-items: center;
   flex-wrap: wrap;
-  gap: 10px;
 }
 
 .footer-social-media a {
@@ -71,6 +74,7 @@ body {
   border-radius: 50%;
   font-size: 24px;
   color: black;
+  margin: 5px;
 }
 
 .footer-social-media a:hover {
@@ -85,7 +89,7 @@ body {
 
 
 .footer-title {
-  margin-bottom: 30px;
+  margin-bottom: 10%;
   color: #000000;
 }
 
