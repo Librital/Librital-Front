@@ -1,0 +1,24 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<section class="section-camera">
+  <div class="div-camara">
+    <div class="camara-container">
+      <!--<video id="camara" #camara autoplay></video>-->
+      <!--<ngx-scanner-qrcode id="camara" #action="scanner"></ngx-scanner-qrcode>-->
+    </div>
+    <!--<button (click)="capturarFoto()"></button>-->
+  </div>
+</section>
+
+<!--<section>
+  <span id="datos">{{ action.data.value }}</span>&lt;!&ndash; value &ndash;&gt;
+  <span>{{ action.data }}</span>&lt;!&ndash; async &ndash;&gt;
+  <button (click)="action.isStart ? action.stop() : action.start()">{{action.isStart ? 'Stop' : 'Start'}}</button>
+</section>-->
+
+<section class="section-informacion">
+  <div class="info-container">
+    <p>Escanea tu ISBN para encontrar tu libro</p>
+  </div>
+  <canvas #canvas sytle=" display:none" id="canvas" width="640" height="480"></canvas>
+</section>

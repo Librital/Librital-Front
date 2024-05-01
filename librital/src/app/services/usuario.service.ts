@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {ElementRef, Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {Usuario} from "../models/usuario";
 import {environment} from "../../environments/environment";
@@ -8,8 +8,8 @@ import {environment} from "../../environments/environment";
 })
 export class UsuarioService {
 
-  constructor(private httpClient: HttpClient) { }
-
+  constructor(private httpClient: HttpClient) {
+  }
 
   public registrarUsuario(usuario: Usuario) {
     return this.httpClient.post<any>(environment.apiUrl + "api/usuario/registrarUsuario", usuario);
@@ -21,11 +21,17 @@ export class UsuarioService {
   }
 
   public actualizarInformacionUsuario(usuario: Usuario, emailInicial: string) {
-    return this.httpClient.put<any>(environment.apiUrl + "api/usuario/actualizarInfoUsuario", {'usuario': usuario, 'emailInicial': emailInicial});
+    return this.httpClient.put<any>(environment.apiUrl + "api/usuario/actualizarInfoUsuario", {
+      'usuario': usuario,
+      'emailInicial': emailInicial
+    });
   }
 
   public cambiarPassword(usuario: Usuario, passwordInicial: string) {
-    return this.httpClient.put<any>(environment.apiUrl + "api/usuario/cambiarPasswordUsuario", {'usuario': usuario, 'passwordInicial': passwordInicial});
+    return this.httpClient.put<any>(environment.apiUrl + "api/usuario/cambiarPasswordUsuario", {
+      'usuario': usuario,
+      'passwordInicial': passwordInicial
+    });
   }
 
   public cambiarImagenPerfil(usuario: Usuario) {
@@ -33,3 +39,4 @@ export class UsuarioService {
   }
 
 }
+

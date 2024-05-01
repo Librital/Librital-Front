@@ -2,7 +2,12 @@ import {Component, ElementRef, HostListener, input, ViewChild} from '@angular/co
 import {FooterComponent} from "../footer/footer.component";
 import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
+import {LibroService} from "../../services/libro.service";
 import {Libro} from "../../models/libro";
+import {Router, RouterLink} from "@angular/router";
+import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
+import {SpinnerService} from "../../services/spinner.service";
+import {NgxPaginationModule} from "ngx-pagination";
 
 @Component({
   selector: 'app-buscador',
@@ -11,12 +16,17 @@ import {Libro} from "../../models/libro";
     FooterComponent,
     NgIf,
     FormsModule,
-    NgForOf
+    NgForOf,
+    RouterLink,
+    LoadingSpinnerComponent,
+    NgxPaginationModule
   ],
   templateUrl: './buscador.component.html',
   styleUrl: './buscador.component.scss'
 })
 export class BuscadorComponent {
+
+  isLoading = false;
 
   tieneContenido = false;
   valorBuscador: string = '';
@@ -31,16 +41,74 @@ export class BuscadorComponent {
 
   listaGenerosSelected: string[] = [];
 
-  listaLibros: string[] = ['https://m.media-amazon.com/images/I/716ncIYKK3L._AC_UF1000,1000_QL80_.jpg',
-    'https://m.media-amazon.com/images/I/41W7CaDtu8L._SY445_SX342_.jpg',
-    'https://m.media-amazon.com/images/I/41Ucpdvdq8L._SY445_SX342_.jpg'];
-  //listaLibros: Libro[] = [];
+  listaLibros: Libro[] = [];
+
+
+  //paginacion
+  numLibrosPerPage = 0;
+  currentIndex = -1;
+  paginaActual = 1;
+  count = 0;
+  numeroTotalLibros = 0;
+
+  protected readonly decodeURIComponent = decodeURIComponent;
+
 
 
 /*  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
   private stream: MediaStream | undefined;*/
 
-  constructor() { }
+  constructor(private libroService: LibroService, private spinnerService: SpinnerService, private route: Router) { }
+
+  ngOnInit() {
+
+    this.isLoading = true;
+    this.spinnerService.setOpacidad(0.8);
+    this.obtenerNumPagina();
+    this.obtenerLibrosBuscador();
+
+  }
+
+  public obtenerNumPagina() {
+
+    if (this.libroService.obtenerPaginaActual() != null) {
+      this.paginaActual = parseInt(this.libroService.obtenerPaginaActual()!);
+    } else {
+      console.log("Entra a guardar pag 1")
+      this.libroService.almacenarPagActual(this.paginaActual);
+    }
+  }
+
+  public obtenerLibrosBuscador() {
+
+    this.isLoading = true;
+    this.spinnerService.setOpacidad(0.8);
+    setTimeout(() => {
+
+      this.libroService.getLibros(this.paginaActual).subscribe((data: any) => {
+
+        if (data.message == "Error") {
+          alert('Error al obtener los libros. Vuelva a intentarlo más tarde.');
+          this.isLoading = false;
+        } else if (data.message == "Obtenido") {
+          this.listaLibros = data.libros;
+          this.numeroTotalLibros = data.total;
+          this.numLibrosPerPage = data.librosPerPage;
+        }
+        this.isLoading = false;
+      });
+    }, 1000);
+
+
+  }
+
+  public comprobarTitulo(titulo : string) {
+    if (titulo.length > 50) {
+      return titulo.substring(0, 50) + '...';
+    }
+    return titulo;
+
+  }
 
 
   public onEnter() {
@@ -98,6 +166,28 @@ export class BuscadorComponent {
   }
 
 
+  public handlePageChange(event: number) {
+
+    this.paginaActual = event;
+
+    this.obtenerLibrosBuscador();
+
+    if (this.libroService.obtenerPaginaActual() != null) {
+      this.libroService.eliminarPaginaActual();
+      this.libroService.almacenarPagActual(this.paginaActual);
+    } else {
+      this.libroService.almacenarPagActual(this.paginaActual);
+    }
+
+    window.scrollTo(0, 0);
+
+  }
+
+  public irLibroId(libro: any) {
+    this.route.navigate(['/libro-info/', libro['id_libro']]);
+
+  }
+
 /*  async startCamera(): Promise<void> {
     const video = this.videoElement.nativeElement;
     try {
@@ -117,4 +207,5 @@ export class BuscadorComponent {
       this.videoElement.nativeElement.srcObject = null;
     }
   }*/
+
 }

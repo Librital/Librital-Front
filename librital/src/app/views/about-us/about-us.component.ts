@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {FooterComponent} from "../footer/footer.component";
+import {LibroService} from "../../services/libro.service";
 
 @Component({
   selector: 'app-about-us',
@@ -11,5 +12,19 @@ import {FooterComponent} from "../footer/footer.component";
   styleUrl: './about-us.component.scss'
 })
 export class AboutUsComponent {
+
+  constructor(private libroService: LibroService) { }
+
+  ngOnInit() {
+    this.comprobarExistePag();
+  }
+
+  public comprobarExistePag() {
+
+    if (this.libroService.obtenerPaginaActual() != null) {
+      this.libroService.eliminarPaginaActual();
+    }
+  }
+
 
 }

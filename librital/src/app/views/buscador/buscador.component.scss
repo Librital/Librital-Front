@@ -15,6 +15,7 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+  margin-top: 100px;
 }
 
 .div-buscador {
@@ -160,9 +161,11 @@ body {
 /** RESULTADOS BUSQUEDA **/
 
 .section-resultados {
-  margin-top: 1%;
+  //margin-top: 1%;
   width: 100%;
   height: 100%;
+  background-color: var(--colorFondo);
+  padding-bottom: 1%;
 }
 
 .div-resultados-buscador {
@@ -176,63 +179,115 @@ body {
 
 
 .card {
-  display: flex;
-  flex-direction: row;
-  margin: 10px;
-  background-color: var(--colorFondo);
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  width: 100%;
-
+  position: relative;
+  width: 320px;
+  height: 480px;
+  background: var(--usuarioSubscription);
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 2%;
+  cursor: pointer;
 }
 
-.span-cover {
-  width: 250px;
-
-}
-
-.card-img {
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
   width: 100%;
   height: 100%;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  object-fit: cover;
+  background: var(--logoLibrital);
+  transform: skewY(345deg);
+  transition: 0.5s;
 }
 
+.card:hover::before {
+  top: -70%;
+  transform: skewY(390deg);
+}
 
-.card-title {
-  margin-top: 0;
-  margin-bottom: 10px;
+.card::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: 600;
+  font-size: 6em;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.card .div-img {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  z-index: 1;
+}
+
+.card .card-info {
+  position: relative;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.card .card-info h3 {
   font-size: 18px;
+  color: black;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
 }
 
-.card-text {
-  margin-bottom: 15px;
+
+.card .card-info .btn-more {
+  position: relative;
+  top: 100px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #000000;
+  text-decoration: none;
+  background: var(--amarillo);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+
+.card:hover .card-info .btn-more {
+  top: 0;
+  opacity: 1;
+}
+
+.img-cover {
+  height: 300px;
+  width: auto;
 }
 
 
-@media (max-width: 568px) {
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--colorFondo);
+}
+
+
+@media (max-width: 650px) {
   .card {
-    flex-direction: column;
-    margin: 10px 0;
+    width: 220px;
+    height: auto;
+    cursor: pointer;
   }
 
-  .span-cover {
-    width: auto;
-    height: 250px;
+  .card .card-info h3 {
+    width: 100%;
   }
 
-  .card-img {
-    object-fit: contain;
-    border-radius: 8px 8px 0 0;
-  }
 
-  .card-content {
-    padding: 15px;
-  }
 }
-
-
-
-
-

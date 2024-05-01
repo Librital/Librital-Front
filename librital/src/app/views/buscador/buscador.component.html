@@ -1,3 +1,5 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
 <section class="section-buscsador">
   <div class="div-buscador">
     <span class="span-lupa">
@@ -11,7 +13,7 @@
   <div class="div-search-isbn">
     <p>Buscar por ISBN: </p>
     <!-- <video #videoElement></video>-->
-    <button class="btn-isbn"><i class="fa-solid fa-barcode" style="color: #000000;"></i></button>
+    <button class="btn-isbn" routerLink="/camera"><i class="fa-solid fa-barcode" style="color: #000000;"></i></button>
     <!-- <button (click)="stopCamera()">Cerrar Cámara</button>>> -->
   </div>
   <div class="buscador-filtros">
@@ -42,19 +44,31 @@
 
 <section class="section-resultados">
   <div class="div-resultados-buscador">
-
-    <div class="card" *ngFor="let libro of listaLibros">
-      <span class="span-cover">
-        <img src="{{ libro }}" alt="Placeholder Image" class="card-img">
-      </span>
-      <div class="card-content">
-        <h2 class="card-title">Lorem ipsum</h2>
-        <p class="card-text">Descripcion</p>
+    <div class="card" *ngFor="let libro of listaLibros | paginate: {
+      itemsPerPage: numLibrosPerPage,
+      currentPage: paginaActual,
+      totalItems: numeroTotalLibros
+    }; let i = index" [class.active]="i == currentIndex" (click)="irLibroId(libro)">
+      <div class="div-img">
+        <img [src]="libro.portada ? decodeURIComponent(libro.portada.substring(1)) : 'assets/NoCover.png'" class="img-cover">
+      </div>
+      <div class="card-info">
+        <h3>{{ comprobarTitulo(libro.titulo) }}</h3>
+        <a (click)="irLibroId(libro)" class="btn-more">Ver más</a>
       </div>
     </div>
-
   </div>
 </section>
+
+<div class="paginacion">
+  <pagination-controls
+    previousLabel="Anterior"
+    nextLabel="Siguiente"
+    (pageChange)="handlePageChange($event)"
+    [maxSize]="10"
+  ></pagination-controls>
+</div>
+
 
 
 <app-footer></app-footer>

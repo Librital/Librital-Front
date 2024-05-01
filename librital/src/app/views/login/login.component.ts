@@ -3,12 +3,14 @@ import {Router, RouterLink} from "@angular/router";
 import {UsuarioService} from "../../services/usuario.service";
 import {Usuario} from "../../models/usuario";
 import {AutenticacionService} from "../../services/autenticacion.service";
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-login',
   standalone: true,
   imports: [
-    RouterLink
+    RouterLink,
+    FontAwesomeModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -51,6 +53,8 @@ export class LoginComponent {
           this.autenticacionService.guardarToken(data.access_token);
           this.autenticacionService.guardarRefreshToken(data.refresh);
           this.route.navigate(['/']);
+
+
       }
     });
   }

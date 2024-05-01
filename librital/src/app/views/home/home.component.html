@@ -1,12 +1,135 @@
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<!--
-<div>
-  <h1>Home</h1>
-  <p>Welcome to the home page</p>
-  <button type="button" class="btn btn-primary" (click)="reducirOpacidad()">Primary</button>
-</div>
--->
+<section class="section-hostspot">
+  <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--fxemoji" preserveAspectRatio="xMidYMid meet"><path fill="#FF473E" d="M181.816 496.127l68.178-102.898c2.849-4.3 9.162-4.3 12.011 0l68.178 102.898c6.382 9.633 21.383 5.114 21.383-6.441V16.662c0-6.441-5.221-11.662-11.662-11.662h-167.81c-6.441 0-11.662 5.221-11.662 11.662v473.024c.001 11.555 15.002 16.074 21.384 6.441z"></path></svg>
+
+  <div class="container-home-banner">
+    <div class="home-description">
+      <h1>Da hogar a tus libros</h1>
+      <div class="desc-texto">
+        <p>La mejor plataforma en línea para tus libros</p>
+        <p>Surmérgete en este espacio digital, dónde los libros tienen un hogar en el que brillar</p>
+      </div>
+      <div class="div-btn-home">
+        <a class="btn">
+          <span class="span-btnIcon">
+            <img src="assets/book-educational.svg">
+          </span>
+          <span class="span-btnText">
+            <span class="text">Adentrarse</span>
+          </span>
+        </a>
+
+      </div>
+    </div>
+    <div class="fondo-images">
+      <div class="circle_home">
+        <div class="subcircle_home">
+        </div>
+      </div>
+      <img class="img-circle" src="assets/icon-home.png">
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section-icons">
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-3 col-sm-6">
+        <div class="container-icon">
+          <i class="fa-solid fa-book-bookmark"></i>
+          <h3 class="title-icon">Tu propia biblioteca</h3>
+          <p class="text-icon">Diseña tu propia biblioteca con los libros que quieras</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="container-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <h3 class="title-icon">Inicia la búsqueda</h3>
+          <p class="text-icon">A tu disposición un gran número de libros a buscar</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="container-icon">
+          <i class="fa-solid fa-arrow-trend-up"></i>
+          <h3 class="title-icon">Explora tendencias</h3>
+          <p class="text-icon">Descubre lo que más le gusta a la gente en estos días</p>
+        </div>
+      </div>
+
+      <div class="col-md-3 col-sm-6">
+        <div class="container-icon">
+          <i class="fa-solid fa-location-dot"></i>
+          <h3 class="title-icon">Busca en el mapa</h3>
+          <p class="text-icon">Encuentra tus puntos de intercambios de libros favoritos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-tendencias">
+  <h2>Tendencias</h2>
+  <div class="div-libros-tendencia">
+    <div class="lista-tendencias">
+      <a class="book-container" rel="noreferrer noopener" *ngFor="let libro of listaLibrosTendencia">
+        <div class="book" (click)="irAInfoLibro(libro.id_libro!)">
+          <img [src]="libro.portada ? decodeURIComponent(libro.portada) : 'assets/NoCover.png'"/>
+        </div>
+        <div class="card-info" (click)="irAInfoLibro(libro.id_libro!)">
+          <p>{{ comprobarTitulo(libro.titulo) }}</p>
+          <p>{{ comprobarAutor(libro.autor) }}</p>
+
+<!--          <div class="rating-libro-tendencia">
+            <div class="rating">
+              <p>{{ libro.media_calificaciones }}</p>
+            </div>
+          </div>-->
+
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-new-arrivals">
+  <h2>Recién llegados</h2>
+
+  <div class="arrival-slider">
+    <div class="wrapper">
+      <div class="card-new" *ngFor="let nuevo of listaLibrosNewArrivals">
+        <div class="card-new-image">
+          <img [src]="nuevo.portada ? decodeURIComponent(nuevo.portada.substring(1)) : 'assets/NoCover.png'" class="new-arrivals-img">
+        </div>
+        <div class="card-contenido">
+          <div class="card-info-libro">
+            <p class="title-new-arrcontenido-cardivals">{{ comprobarTitulo(nuevo.titulo) }}</p>
+            <p class="author-new-arrivals">{{ nuevo.autor }}</p>
+          </div>
+          <div class="btn-card-arrival">
+            <a class="btn-new-arrivals">
+              <span class="span-btnText">
+                <span class="text" (click)="irAInfoLibro(nuevo.id_libro!)">Ver más</span>
+              </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
+
 
 <app-footer></app-footer>
 

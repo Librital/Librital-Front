@@ -1,8 +1,104 @@
-<section class="section-filtros-biblioteca">
-
+<section class="section-addLibros">
+  <div class="div-addLibros">
+    <h3>Añade tu libro a tu colección</h3>
+    <button class="btn btn-primary" routerLink="/add-libro">Añadir Libro</button>
+  </div>
 </section>
+
+
+
+<section class="section-filtros-biblioteca">
+  <div class="div-biblioteca">
+    <span class="span-lupa">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </span>
+    <input type="text" class="form-control form-buscador" placeholder="Busca tu libro...">
+    <span class="span-borrar">
+      <i class="fa-solid fa-circle-xmark"></i>
+    </span>
+  </div>
+  <div class="filtros-biblioteca">
+    <div class="filtros-generales">
+      <div class="title-filtro">
+        <p>Filtrar por:</p>
+      </div>
+      <div class="form-filtros">
+        <select class="form-select select-filtro">
+          <option>Autor</option>
+          <option>Género</option>
+          <option>Fecha de publicación</option>
+        </select>
+      </div>
+      <div class="opciones-form-filtros">
+        <div class="option-abc">
+          <div class="div-btn-abc">
+            <button class="btn-abc">A-Z</button>
+          </div>
+        </div>
+        <div class="option-recent">
+          <div class="div-btn-recent">
+            <button>Más recientes</button> <!-- Mas antiguos -->
+          </div>
+          <div class="btn-recent-change">
+            <button (click)="cambiarIconoReciente()">
+              <i class="fa-solid fa-right-left"
+                 id="icon-recent"
+                 [ngClass]="{ 'fa-flip-horizontal': btnRecientePulsado }">
+              </i>
+            </button>
+          </div>
+        </div>
+        <div class="option-generos">
+          <select class="form-select select-generos">
+            <option>Generos</option>
+          </select>
+        </div>
+      </div>
+      <div class="div-etiquetas">
+        <div class="lista-etiquetas">
+          <ul>
+            <li><a type="button">Etiqueta 1</a></li>
+            <li><a type="button">Etiqueta 2</a></li>
+            <li><a type="button">Etiqueta 3</a></li>
+            <li><a type="button">Etiqueta 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
 
 <section class="section-biblioteca">
-
+  <div class="div-biblioteca">
+    <div class="container-fluid" id="div-principal">
+      <div class="row title-biblioteca">
+        <p>Tu Biblioteca:</p>
+      </div>
+      <div class="row biblioteca">
+        <div class="col-md-4" id="libro-row" *ngFor="let libro of librosUsuario">
+          <div class="card">
+            <div class="image-container">
+              <img id="cover" src="https://m.media-amazon.com/images/I/713KZTsaYpL._AC_UY218_.jpg">
+            </div>
+            <div class="card-body">
+              <p>{{ libro }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row arrows-biblioteca">
+        <div class="div-btn-izq">
+          <button><i class="fa-solid fa-circle-chevron-left" style="color: var(--logoLibrital);"></i></button>
+        </div>
+        <div class="div-btn-drch">
+          <button><i class="fa-solid fa-circle-chevron-right" style="color: var(--logoLibrital);"></i></button>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+
+<app-footer></app-footer>

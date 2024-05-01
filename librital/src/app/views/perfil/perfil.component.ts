@@ -9,6 +9,7 @@ import {AutenticacionService} from "../../services/autenticacion.service";
 import {Usuario} from "../../models/usuario";
 import {UsuarioService} from "../../services/usuario.service";
 import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
+import {LibroService} from "../../services/libro.service";
 
 @Component({
   selector: 'app-perfil',
@@ -62,13 +63,22 @@ export class PerfilComponent {
     'https://cdn-icons-png.flaticon.com/512/12817/12817725.png'];
 
 
-  constructor(private autenticacionService: AutenticacionService, private usuarioService: UsuarioService) { }
+  constructor(private autenticacionService: AutenticacionService, private usuarioService: UsuarioService, private libroService: LibroService) { }
 
 
   ngOnInit() {
     this.cargarInformacionUsuarioPerfil();
+    this.comprobarExistePag();
     this.isLoading = false;
   }
+
+  public comprobarExistePag() {
+
+    if (this.libroService.obtenerPaginaActual() != null) {
+      this.libroService.eliminarPaginaActual();
+    }
+  }
+
 
   private cargarInformacionUsuarioPerfil() {
 

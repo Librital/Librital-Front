@@ -10,6 +10,10 @@ import { BibliotecaComponent } from "./views/biblioteca/biblioteca.component";
 import { BuscadorComponent } from "./views/buscador/buscador.component";
 import { AnuncioComponent} from "./views/anuncio/anuncio.component";
 import { EstadisticasComponent } from "./views/estadisticas/estadisticas.component";
+import {CameraComponent} from "./views/camera/camera.component";
+import {AddLibroComponent} from "./views/add-libro/add-libro.component";
+
+
 import { adminGuard} from "./guards/admin.guard";
 import {registradoGuard} from "./guards/registrado.guard";
 
@@ -28,5 +32,8 @@ export const routes: Routes = [
   {path: 'buscador', component:BuscadorComponent},
   {path: 'anuncios', component:AnuncioComponent, canActivate: [registradoGuard] },
   {path: 'estadisticas', component:EstadisticasComponent, canActivate: [adminGuard] },
+  {path: 'camera', component:CameraComponent},
+  {path: 'add-libro', component:AddLibroComponent, canActivate: [registradoGuard]},
+  {path: '**', redirectTo: ''}
 
 ];

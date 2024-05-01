@@ -1,0 +1,86 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/** SECCION DE FILTROS */
+
+.section-filtros-biblioteca {
+
+  margin-top: 100px;
+
+}
+
+
+.div-biblioteca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.span-lupa {
+  left: 26%;
+  position: absolute;
+}
+
+.form-buscador {
+  width: 50%;
+  text-indent: 5%;
+}
+
+.span-borrar {
+  right: 26%;
+  position: absolute;
+}
+
+
+
+/** SECCION DE LIBROS */
+
+.section-biblioteca {
+  width: 100%;
+  height: 800px;
+  display: flex;
+  margin-bottom: 2%;
+}
+
+.div-biblioteca {
+  width: 100%;
+  height: 100%;
+}
+
+#div-principal {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.biblioteca {
+  width: 100%;
+  height: 100%;
+  border: 2px solid red;
+  overflow-y : scroll;
+}
+
+#libro-row {
+
+}
+
+.card {
+  width: 100%;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1% 0;
+}
+
+.image-container {
+  border: 2px solid blue;
+}
+
+#cover {
+  width: 100%;
+}

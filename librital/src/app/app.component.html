@@ -1,58 +1,134 @@
 
 <app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
 
-<nav class="navbar navbar-expand-lg" >
-  <div class="container-fluid">
-    <a class="navbar-brand" href="">
-      <img src="Librital_logo.png" loading="lazy" alt="Logo" height="50" width="50">
-      Librital
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="['/']">Inicio</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/buscador">Buscador</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/anuncios">Anuncios</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/biblioteca">Biblioteca</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/about-us">Acerca de</a>
-        </li>
-        <li class="nav-item" *ngIf="!isUsuarioLogueado()" routerLinkActive="active">
-          <a class="nav-link" routerLink="/login">Login</a>
-        </li>
-        <li class="nav-item dropdown" *ngIf="isAdministrador()" routerLinkActive="active">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Administrador
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" >Estadísticas</a></li>
-            <li><a class="dropdown-item" >Libros</a></li>
-            <li><a class="dropdown-item" >Anuncios</a></li>
-          </ul>
-        </li>
-        <li class="nav-item dropdown" *ngIf="isUsuarioLogueado()" routerLinkActive="active">
-          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Perfil
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/perfil">Acceder al Perfil</a></li>
-            <li><a class="dropdown-item" routerLink="/" (click)="cerrarSesion()">Cerrar Sesión</a></li>
-          </ul>
-        </li>
-      </ul>
+
+<header id="nav-menu">
+  <div class="container-navbar">
+    <div class="nav-start">
+      <a class="logo" routerLink="/">
+        <img src="Librital_logo.png" alt="Librital Logo" />
+      </a>
+      <nav class="menu">
+        <ul class="menu-bar">
+          <li>
+            <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+              <fa-icon class="icon-bar" [icon]="houseInicio"></fa-icon>
+              Inicio
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="/buscador" routerLinkActive="active">
+              <fa-icon class="icon-bar" [icon]="lupaBuscador"></fa-icon>
+              Buscador
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="/anuncios" routerLinkActive="active">
+              <fa-icon class="icon-bar" [icon]="mapMapas"></fa-icon>
+              Mapa
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="/biblioteca" routerLinkActive="active">
+              <fa-icon class="icon-bar" [icon]="libroBibliotecas"></fa-icon>
+              Biblioteca
+            </a>
+          </li>
+          <li>
+            <a class="nav-link" routerLink="/about-us" routerLinkActive="active">
+              <fa-icon class="icon-bar" [icon]="infoAcerca"></fa-icon>
+              Acerca
+            </a>
+          </li>
+          <li *ngIf="isAdministrador()" routerLinkActive="active" (click)="displayAdminOptions()">
+            <!--<button class="nav-link dropdown-btn" data-dropdown="dropdown1">
+              Administrador
+              <fa-icon [icon]="dropdownIcon"></fa-icon>
+            </button>-->
+            <a class="nav-link dropdown-btn" data-dropdown="dropdown1" [class.active]="isAdminOptionSelected">
+              <fa-icon class="icon-bar" [icon]="tuercaAdmin"></fa-icon>
+              Administrador
+              <fa-icon [icon]="dropdownIcon"></fa-icon>
+            </a>
+            <div id="dropdown1" class="dropdown">
+              <ul role="menu" class="dropdown-ul">
+                <li role="menuitem" routerLinkActive="active">
+                  <a class="dropdown-link" routerLink="/estadisticas" (click)="handleAdminOptionClick('estadisticas')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/7995/7995431.png" class="icon" />
+                    <div>
+                      <span class="dropdown-link-title">Estadísticas</span>
+                    </div>
+                  </a>
+                </li>
+                <li role="menuitem" routerLinkActive="active">
+                  <a class="dropdown-link" routerLink="/estadisticas" (click)="handleAdminOptionClick('estadisticas')">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3330/3330314.png" class="icon" />
+                    <div>
+                      <span class="dropdown-link-title">Libros</span>
+                    </div>
+                  </a>
+                </li>
+                <li role="menuitem" routerLinkActive="active">
+                  <a class="dropdown-link" href="#subscriptions" (click)="handleAdminOptionClick('estadisticas')">
+                    <img src="https://cdn-icons-png.flaticon.com/128/854/854929.png" class="icon" />
+                    <div>
+                      <span class="dropdown-link-title">Mapa</span>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li>
+            <a class="nav-link" *ngIf="!isUsuarioLogueado()" routerLinkActive="active" routerLink="/login">
+              <fa-icon class="icon-bar" [icon]="loginAcceder"></fa-icon>
+              Acceder
+            </a>
+          </li>
+          <li class="nav-link link-registro" *ngIf="!isUsuarioLogueado()" routerLinkActive="active" routerLink="/sign-up">
+            <a class="btn-registrar" role="button">
+              <a class="nav-link">Registrarse</a>
+              <div class="arrow-wrapper">
+                <div class="arrow"></div>
+              </div>
+            </a>
+          </li>
+          <li routerLinkActive="active" *ngIf="isUsuarioLogueado()" (click)="displayPerfilOptions()">
+            <a class="nav-link dropdown-btn" data-dropdown="dropdown2" [class.active]="isPerfilOptionSelected">
+              <fa-icon class="icon-bar" [icon]="userProfile"></fa-icon>
+              <fa-icon [icon]="dropdownIcon"></fa-icon>
+            </a>
+            <div id="dropdown2" class="dropdown perfil-drop">
+              <ul role="menu" class="dropdown-ul">
+                <li role="menuitem" routerLinkActive="active">
+                  <a class="dropdown-link" routerLink="/perfil" (click)="handlePerfilOptionClick('perfil')">
+                    <img src="https://cdn-icons-png.flaticon.com/512/4795/4795910.png" class="icon" />
+                    <div>
+                      <span class="dropdown-link-title">Acceder Perfil</span>
+                    </div>
+                  </a>
+                </li>
+                <li role="menuitem active" routerLinkActive="active">
+                  <a class="dropdown-link" (click)="cerrarSesion()">
+                    <img src="https://cdn-icons-png.flaticon.com/128/1574/1574351.png" class="icon" />
+                    <div>
+                      <span class="dropdown-link-title">Cerrar Sesión</span>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-end">
+      <button id="hamburger" aria-label="hamburger" aria-haspopup="true" aria-expanded="false" (click)="toogleNavBarResponsive()">
+        <fa-icon [icon]="optionsMenu"></fa-icon>
+      </button>
     </div>
   </div>
-</nav>
+</header>
 
 <div class="content" [class.overlay]="isLoading">
   <router-outlet></router-outlet>

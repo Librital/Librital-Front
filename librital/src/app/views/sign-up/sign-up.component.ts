@@ -57,7 +57,7 @@ export class SignUpComponent {
 
   private registrarUsuario(nombre : string, apellido : string, fechaNacimiento : string, email : string, contrasenia : string) {
 
-    let usuarioNuevo: Usuario = new Usuario(nombre, apellido, email, contrasenia, fechaNacimiento, 1, 0, 0, 'https://cdn-icons-png.flaticon.com/512/11116/11116689.png');
+    let usuarioNuevo: Usuario = new Usuario(nombre, apellido, email, contrasenia, fechaNacimiento, 1, 0, 1, 'https://cdn-icons-png.flaticon.com/512/11116/11116689.png');
     this.usuarioService.registrarUsuario(usuarioNuevo).subscribe((data: any) => {
       if (data.message == "Existente") {
         alert("El email introducido ya se encuentra en uso.");

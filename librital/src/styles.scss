@@ -35,9 +35,6 @@ $librital-theme: mat.define-light-theme((
 // that you are using.
 @include mat.all-component-themes($librital-theme);
 
-@import "@fortawesome/fontawesome-free/css/all.css";
-
-
 /** VARIABLES **/
 
 :root {
@@ -45,6 +42,8 @@ $librital-theme: mat.define-light-theme((
   --colorFondo2: #D7FFC2;
   --colorFondo: #d8f3dc;
   --amarillo: #F7BC47FF;
+  --amarilloOscuro: #d19b00;
+  --azulVerde: #00918a;
   --usuarioSubscription: linear-gradient(to top, var(--logoLibrital), 20%, #2d8d8d);
 }
 

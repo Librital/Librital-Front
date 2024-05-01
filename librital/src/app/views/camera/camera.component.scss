@@ -1,0 +1,47 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.section-camera {
+  width: 100%;
+  //height: 100%;
+  height: 80vh;
+  display: flex;
+  background: url('/assets/librital-camara-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.div-camara {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.camara-container {
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  //position: relative;
+
+}
+
+#camara {
+  width: 100%;
+  height: 100%;
+  padding: 1%;
+  border-radius: 20%;
+  border: 2px solid var(--logoLibrital);
+  background-color: white;
+}
+
+
+
+.section-informacion {
+  width: 100%;
+  height: auto;
+  border: 2px solid red;
+}
+
