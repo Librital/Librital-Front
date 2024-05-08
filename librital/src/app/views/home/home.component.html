@@ -16,7 +16,7 @@
             <img src="assets/book-educational.svg">
           </span>
           <span class="span-btnText">
-            <span class="text">Adentrarse</span>
+            <span class="text">Adentráte</span>
           </span>
         </a>
 
@@ -80,7 +80,7 @@
     <div class="lista-tendencias">
       <a class="book-container" rel="noreferrer noopener" *ngFor="let libro of listaLibrosTendencia">
         <div class="book" (click)="irAInfoLibro(libro.id_libro!)">
-          <img [src]="libro.portada ? decodeURIComponent(libro.portada) : 'assets/NoCover.png'"/>
+          <img [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libro.portada).substring(6) : decodeURIComponent(libro.portada))">
         </div>
         <div class="card-info" (click)="irAInfoLibro(libro.id_libro!)">
           <p>{{ comprobarTitulo(libro.titulo) }}</p>
@@ -106,7 +106,8 @@
     <div class="wrapper">
       <div class="card-new" *ngFor="let nuevo of listaLibrosNewArrivals">
         <div class="card-new-image">
-          <img [src]="nuevo.portada ? decodeURIComponent(nuevo.portada.substring(1)) : 'assets/NoCover.png'" class="new-arrivals-img">
+          <!--  -->
+          <img [src]="((nuevo.portada == null || nuevo.portada == '') ? 'assets/NoCover.png' : (nuevo.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(nuevo.portada).substring(6) : decodeURIComponent(nuevo.portada.substring(1)))">
         </div>
         <div class="card-contenido">
           <div class="card-info-libro">
@@ -126,6 +127,39 @@
 
   </div>
 
+</section>
+
+
+
+<!--
+<section class="section-know-categorias">
+  <div class="div-know-categorias">
+    <div class="div-image-categorias">
+      <img src="assets/book-categorias.png"/>
+    </div>
+    <div class="div-text-categorias">
+      <p>Lorem ipsum dolor sit amet, consectetur adip</p>
+    </div>
+  </div>
+</section>
+-->
+
+
+
+<section class="section-generos">
+  <h2>Géneros</h2>
+  <div class="div-categorias">
+    <div class="lista-categorias">
+      <a class="card-genero" *ngFor="let genero of listaCategorias" (click)="irBuscadorGenero(genero.nombre)">
+        <div class="card-img">
+          <img src="{{ decodeURIComponent(genero.img.substring(1)) }}">
+        </div>
+        <div class="div-title">
+          <p>{{ genero.nombre }}</p>
+        </div>
+      </a>
+    </div>
+  </div>
 </section>
 
 

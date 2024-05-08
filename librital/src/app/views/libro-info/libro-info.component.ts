@@ -9,6 +9,10 @@ import {AutenticacionService} from "../../services/autenticacion.service";
 import {Usuario} from "../../models/usuario";
 import {Categoria} from "../../models/categoria";
 
+import {MatDialog} from "@angular/material/dialog";
+import {AddEtiquetaComponent} from "../add-etiqueta/add-etiqueta.component";
+import {Etiqueta} from "../../models/etiqueta";
+
 @Component({
   selector: 'app-libro-info',
   standalone: true,
@@ -23,11 +27,11 @@ import {Categoria} from "../../models/categoria";
 export class LibroInfoComponent {
 
   listaGeneros: any[] = [];
-  categoriaLibro = new Categoria("","");
+  categoriaLibro = new Categoria("","", 1, "", null);
   masCategorias: boolean = false;
   categoriasVacia: boolean = false;
 
-  listaEtiquetas: string[] = ['A comprar', 'Vendido'];
+  listaEtiquetas: Etiqueta[] = [];
 
   valoracionLibro:number = 0;
   valoracionUserLibro: number = 0;
@@ -39,6 +43,14 @@ export class LibroInfoComponent {
   existeFecha: boolean = false;
   existeIsbn10: boolean = false;
   existeIsbn13: boolean = false;
+
+
+  esFavoritoLibroUser: boolean = false;
+  esReadLater: boolean = false;
+  esTerminadoLeer: boolean = false;
+  esActualmenteLeyendo: boolean = false;
+  addNuevaEtiqueta: boolean = false;
+  esAnadidoBiblioteca: boolean = false;
 
   usuarioLogueado: boolean = false;
   usuario: Usuario = new Usuario('', '', '', '', '', 1, 0, 1, '');
@@ -56,7 +68,8 @@ export class LibroInfoComponent {
 
 
 
-  constructor(private libroService: LibroService, private activatedRoute: ActivatedRoute, private route: Router, private authService: AutenticacionService) {}
+  constructor(private libroService: LibroService, private activatedRoute: ActivatedRoute, private route: Router,
+              private authService: AutenticacionService, private dialog: MatDialog) {}
 
   ngOnInit() {
     this.cargarLibroSelected();
@@ -70,6 +83,12 @@ export class LibroInfoComponent {
       if (usuarioLoad != null) {
         this.usuario = usuarioLoad;
         this.cargarInfoLibroUsuario();
+        this.cargarEtiquetasDefaultUserLibro();
+        this.cargarInfoEtiquetasLibroUser();
+        this.libroService.actualizarEtiquetasUser$.subscribe(() => {
+          this.cargarInfoEtiquetasLibroUser();
+        });
+
       }
     }
   }
@@ -173,6 +192,26 @@ export class LibroInfoComponent {
     });
   }
 
+  public cargarInfoEtiquetasLibroUser() {
+
+    if (!this.usuarioLogueado) {
+      alert("Debes estar logueado para poder realizar esta acción");
+    } else {
+      this.libroService.cargarEtiquetasCustomUserLibro(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+
+        if (data.message == "Obtenido") {
+          this.listaEtiquetas = data.etiquetas;
+        } else if (data.message == "No etiquetas") {
+          this.listaEtiquetas = [];
+        }
+
+      });
+    }
+
+  }
+
+
+
   public valorarLibro(valoracion: number) {
 
     if (!this.usuarioLogueado) {
@@ -210,6 +249,154 @@ export class LibroInfoComponent {
       });
     } else {
       alert("No tienes una valoración guardada para este libro");
+    }
+  }
+
+
+
+  public cargarEtiquetasDefaultUserLibro() {
+    this.libroService.cargarTodasEtiquetasDefaultUserLibro(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+
+      if (data.message == "No etiquetas") {
+        this.esFavoritoLibroUser = false;
+        this.esReadLater = false;
+        this.esTerminadoLeer = false;
+        this.esActualmenteLeyendo = false;
+        this.esAnadidoBiblioteca = false;
+      } else if (data.message == "Obtenido") {
+        this.esActualmenteLeyendo = data.etiquetas.actualmente_leyendo;
+        this.esFavoritoLibroUser = data.etiquetas.es_favorito;
+        this.esReadLater = data.etiquetas.es_leer_mas_tarde;
+        this.esTerminadoLeer = data.etiquetas.es_leido;
+        this.esAnadidoBiblioteca = data.etiquetas.en_biblioteca;
+      }
+
+    });
+  }
+
+
+  public addFavoritoLibro() {
+
+      if (!this.usuarioLogueado) {
+        alert("Debes estar logueado para poder realizar esta acción");
+      } else {
+        this.libroService.addFavoritoLibro(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+          if (data.message == "Guardado") {
+            if (data.es_favorito == false) {
+              alert("Libro eliminado de favoritos");
+              this.esFavoritoLibroUser = false;
+            } else {
+              alert("Libro añadido a favoritos");
+              this.esFavoritoLibroUser = true;
+            }
+          } else if (data.message == "Error") {
+            alert("Error al realizar la acción");
+          }
+        });
+      }
+  }
+
+
+  public addReadLater() {
+
+      if (!this.usuarioLogueado) {
+        alert("Debes estar logueado para poder realizar esta acción");
+      } else {
+        this.libroService.addReadLater(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+          if (data.message == "Guardado") {
+            if (data.es_leer_mas_tarde == false) {
+              alert("Libro eliminado de leer más tarde");
+              this.esReadLater = false;
+            } else {
+              alert("Libro añadido a leer más tarde");
+              this.esReadLater = true;
+            }
+          } else if (data.message == "Error") {
+            alert("Error al realizar la acción");
+          }
+        });
+      }
+  }
+
+  public addTerminadoLeer() {
+
+    if (!this.usuarioLogueado) {
+      alert("Debes estar logueado para poder realizar esta acción");
+    } else {
+      this.libroService.addTerminadoLeer(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+        if (data.message == "Guardado") {
+          if (data.es_leido == false) {
+            alert("Libro eliminado de terminado de leer");
+            this.esTerminadoLeer = false;
+          } else {
+            alert("Libro añadido a terminado de leer");
+            this.esTerminadoLeer = true;
+          }
+        } else if (data.message == "Error") {
+          alert("Error al realizar la acción");
+        }
+      });
+    }
+
+  }
+
+  public addActualmenteLeyendo() {
+
+    if (!this.usuarioLogueado) {
+      alert("Debes estar logueado para poder realizar esta acción");
+    } else {
+      this.libroService.addActualmenteLeyendo(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+        if (data.message == "Guardado") {
+          if (data.actualmente_leyendo == false) {
+            alert("Libro eliminado de actualmente leyendo");
+            this.esActualmenteLeyendo = false;
+          } else {
+            alert("Libro añadido a actualmente leyendo");
+            this.esActualmenteLeyendo = true;
+          }
+        } else if (data.message == "Error") {
+          alert("Error al realizar la acción");
+        }
+      });
+    }
+  }
+
+  public addBibliotecaUser() {
+    if (!this.usuarioLogueado) {
+      alert("Debes estar logueado para poder realizar esta acción");
+    } else {
+      this.libroService.addEnBibliotecaLibroUser(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
+        if (data.message = "Guardado") {
+          if (data.en_biblioteca == false) {
+            alert("Libro eliminado de la biblioteca");
+            this.esAnadidoBiblioteca = false;
+          } else {
+            alert("Libro añadido a la biblioteca");
+            this.esAnadidoBiblioteca = true;
+          }
+        }
+      });
+    }
+  }
+
+
+  public addEtiquetaPersonalizada() {
+
+    if (!this.usuarioLogueado) {
+      alert("Debes estar logueado para poder realizar esta acción");
+    } else {
+
+      let dialogRef = this.dialog.open(AddEtiquetaComponent, {
+        height: '400px',
+        width: '400px',
+        data: {id_user: this.usuario.id,
+          id_libro: this.libroMostrar.id_libro,
+          listaEtiquetas: this.listaEtiquetas}
+      });
+
+      dialogRef.afterClosed().subscribe(result => {
+        // Se cierra el dialogo
+      });
     }
 
   }

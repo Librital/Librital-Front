@@ -4,10 +4,12 @@ import {NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {LibroService} from "../../services/libro.service";
 import {Libro} from "../../models/libro";
-import {Router, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
 import {SpinnerService} from "../../services/spinner.service";
 import {NgxPaginationModule} from "ngx-pagination";
+import {CategoriaService} from "../../services/categoria.service";
+import {Categoria} from "../../models/categoria";
 
 @Component({
   selector: 'app-buscador',
@@ -31,13 +33,15 @@ export class BuscadorComponent {
   tieneContenido = false;
   valorBuscador: string = '';
 
+  buscadorDisabled = false;
+
   filtroGeneroSelected: boolean = false;
   filtroSelected: string = '';
 
   generoSelected: string = '';
 
   listaFiltroGeneral: string[] = ['Título', 'Autor', 'Género'];
-  generos: string[] = ['Aventura', 'Ciencia Ficción', 'Fantasía', 'Romance', 'Terror', 'Thriller'];
+  generos: Categoria[] = [];
 
   listaGenerosSelected: string[] = [];
 
@@ -53,18 +57,18 @@ export class BuscadorComponent {
 
   protected readonly decodeURIComponent = decodeURIComponent;
 
+  private sub: any;
 
-
-/*  @ViewChild('videoElement') videoElement!: ElementRef<HTMLVideoElement>;
-  private stream: MediaStream | undefined;*/
-
-  constructor(private libroService: LibroService, private spinnerService: SpinnerService, private route: Router) { }
+  constructor(private libroService: LibroService, private categoriaService: CategoriaService,
+              private spinnerService: SpinnerService, private route: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
 
     this.isLoading = true;
     this.spinnerService.setOpacidad(0.8);
+    this.obtenerCategoriasBuscador();
     this.obtenerNumPagina();
+    this.buscarCategoriaParamsHome();
     this.obtenerLibrosBuscador();
 
   }
@@ -74,8 +78,22 @@ export class BuscadorComponent {
     if (this.libroService.obtenerPaginaActual() != null) {
       this.paginaActual = parseInt(this.libroService.obtenerPaginaActual()!);
     } else {
-      console.log("Entra a guardar pag 1")
       this.libroService.almacenarPagActual(this.paginaActual);
+    }
+
+    if (this.libroService.obtenerFiltroBusqueda() != null) {
+      this.filtroSelected = this.libroService.obtenerFiltroBusqueda()!;
+      console.log("filtro busqueda" + this.filtroSelected);
+    }
+
+    if (this.libroService.obtenerGeneroBusqueda() != null) {
+      this.generoSelected = this.libroService.obtenerGeneroBusqueda()!;
+      console.log("genero busqueda" + this.generoSelected);
+    }
+
+    if (this.libroService.obtenerValorBusqueda() != null) {
+      this.valorBuscador = this.libroService.obtenerValorBusqueda()!;
+      console.log("valor busqueda" + this.valorBuscador);
     }
   }
 
@@ -83,45 +101,177 @@ export class BuscadorComponent {
 
     this.isLoading = true;
     this.spinnerService.setOpacidad(0.8);
+
     setTimeout(() => {
 
-      this.libroService.getLibros(this.paginaActual).subscribe((data: any) => {
+      this.libroService.getLibros(this.paginaActual, this.filtroSelected, this.valorBuscador, this.generoSelected).subscribe((data: any) => {
 
         if (data.message == "Error") {
           alert('Error al obtener los libros. Vuelva a intentarlo más tarde.');
           this.isLoading = false;
         } else if (data.message == "Obtenido") {
-          this.listaLibros = data.libros;
-          this.numeroTotalLibros = data.total;
-          this.numLibrosPerPage = data.librosPerPage;
+
+          if (data.libros.length == 0) {
+            alert('No se han encontrado libros con los criterios de búsqueda seleccionados.');
+            this.listaLibros = [];
+          } else {
+            this.listaLibros = data.libros;
+            console.log(this.listaLibros);
+            this.numeroTotalLibros = data.total;
+            this.numLibrosPerPage = data.librosPerPage;
+          }
         }
         this.isLoading = false;
       });
     }, 1000);
 
+/*    if (this.valorBuscador != '') {
+      this.paginaActual = 1;
+      this.libroService.eliminarPaginaActual();
+      this.libroService.almacenarPagActual(this.paginaActual);
+    } else if (this.listaGenerosSelected.length > 0 && this.listaGenerosSelected.filter((genero) => genero !== '').length > 0) {
+      this.libroService.eliminarPaginaActual();
+      this.libroService.almacenarPagActual(this.paginaActual);
+    }*/
+
 
   }
+
+
+  public capturarSeleccion() {
+
+    if (this.filtroSelected == 'titulo') {
+      this.filtroGeneroSelected = false;
+      this.buscadorDisabled = false;
+    } else if (this.filtroSelected == 'autor') {
+      this.filtroGeneroSelected = false;
+      this.buscadorDisabled = false;
+    } else if (this.filtroSelected == 'categoria') {
+      this.filtroGeneroSelected = true;
+      this.buscadorDisabled = true;
+      this.valorBuscador = '';
+    } else if (this.filtroSelected == 'isbn') {
+      this.filtroGeneroSelected = false;
+      this.buscadorDisabled = false;
+    } else if (this.filtroSelected == ''){
+      this.filtroGeneroSelected = false;
+      this.buscadorDisabled = false;
+    }
+  }
+
+
+
+
+  public onEnter() {
+
+    if (this.filtroSelected == '') {
+      this.paginaActual = 1;
+      this.generoSelected = ''
+      this.libroService.eliminarPaginaActual();
+      this.libroService.almacenarPagActual(this.paginaActual);
+
+      this.libroService.eliminarBusqueda();
+
+      this.obtenerLibrosBuscador();
+    } else if (this.filtroSelected == 'titulo') {
+      if (this.valorBuscador != '') {
+        this.paginaActual = 1;
+        this.generoSelected = ''
+        this.libroService.eliminarPaginaActual();
+        this.libroService.almacenarPagActual(this.paginaActual);
+        this.obtenerLibrosBuscador();
+
+        this.libroService.eliminarBusqueda();
+
+        this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
+
+      } else {
+        alert('Introduzca un título.');
+      }
+    } else if (this.filtroSelected == 'autor') {
+      if (this.valorBuscador != '') {
+        this.paginaActual = 1;
+        this.generoSelected = ''
+        this.libroService.eliminarPaginaActual();
+        this.libroService.almacenarPagActual(this.paginaActual);
+        this.obtenerLibrosBuscador();
+
+        this.libroService.eliminarBusqueda();
+
+        this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
+
+      } else {
+        alert('Introduzca un autor.');
+      }
+    } else if (this.filtroSelected == 'isbn') {
+
+      if (this.valorBuscador != '') {
+
+        if (this.valorBuscador.length == 13 || this.valorBuscador.length == 10) {
+          this.paginaActual = 1;
+          this.generoSelected = ''
+          this.libroService.eliminarPaginaActual();
+          this.libroService.almacenarPagActual(this.paginaActual);
+          this.obtenerLibrosBuscador();
+
+          this.libroService.eliminarBusqueda();
+
+          this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
+
+        } else {
+          alert('Introduzca un ISBN válido.');
+        }
+      } else {
+        alert('Introduzca un ISBN.');
+      }
+    } else if (this.filtroSelected == 'categoria') {
+      if (this.generoSelected != '') {
+
+        this.paginaActual = 1;
+        this.libroService.eliminarPaginaActual();
+        this.libroService.almacenarPagActual(this.paginaActual);
+
+        this.libroService.eliminarBusqueda();
+
+        this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
+
+        this.obtenerLibrosBuscador();
+      } else {
+        alert('Seleccione un género.');
+      }
+    }
+  }
+
+
 
   public comprobarTitulo(titulo : string) {
     if (titulo.length > 50) {
       return titulo.substring(0, 50) + '...';
     }
     return titulo;
-
   }
 
-
-  public onEnter() {
-
-    this.valorBuscador = this.valorBuscador.trim();
-
-    if (this.valorBuscador != '') {
-      this.buscarLibros();
-    } else {
-      alert('No hay nada que buscar.');
-      this.tieneContenido = false;
+  public comprobarAutor(autor: string) {
+    if (autor.length > 30) {
+      return autor.substring(0, 30) + '...';
     }
+    return autor;
   }
+
+
+
+  public obtenerCategoriasBuscador() {
+    this.categoriaService.obtenerTodasCategorias().subscribe((data: Categoria[]) => {
+      this.generos = data;
+    });
+  }
+
+
+
+
+
+
+
 
   public activarBorrarContenido() {
     this.tieneContenido = this.valorBuscador.length > 0;
@@ -132,38 +282,9 @@ export class BuscadorComponent {
     this.tieneContenido = false;
   }
 
-  public cambioFiltro() {
-
-    this.filtroSelected = (<HTMLInputElement>document.getElementById('select-filtro-buscador')).value;
-
-    console.log(this.filtroSelected);
-
-    if (this.filtroSelected === 'Género') {
-      this.filtroGeneroSelected = true;
-    } else {
-      this.listaGenerosSelected = [];
-      this.filtroGeneroSelected = false;
-    }
-  }
-
-  public addGenero() {
-
-    if (this.generoSelected != '') {
-      if (!(this.listaGenerosSelected.includes(this.generoSelected))) {
-        this.listaGenerosSelected.push(this.generoSelected);
-      }
-    }
-  }
-
-  public eliminarGenero(genero: string) {
-    this.listaGenerosSelected = this.listaGenerosSelected.filter((generoSelected) => generoSelected !== genero);
-  }
 
 
-  public buscarLibros() {
-    alert('Buscando...');
-    //this.valorBuscador = '';
-  }
+
 
 
   public handlePageChange(event: number) {
@@ -187,6 +308,29 @@ export class BuscadorComponent {
     this.route.navigate(['/libro-info/', libro['id_libro']]);
 
   }
+
+
+  public buscarCategoriaParamsHome() {
+
+    window.scrollTo(0, 0);
+
+    this.sub = this.activatedRoute.params.subscribe(params => {
+      const categoria = params['categoria'];
+
+      if (categoria) {
+        console.log("existe categoria" + categoria);
+        this.generoSelected = categoria;
+        this.filtroSelected = 'categoria';
+      } else {
+
+        if (this.libroService.obtenerFiltroBusqueda() == null) {
+          this.generoSelected = '';
+          this.filtroSelected = '';
+        }
+      }
+    });
+  }
+
 
 /*  async startCamera(): Promise<void> {
     const video = this.videoElement.nativeElement;

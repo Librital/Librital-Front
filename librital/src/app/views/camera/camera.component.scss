@@ -6,11 +6,12 @@ html, body {
 .section-camera {
   width: 100%;
   //height: 100%;
-  height: 80vh;
+  height: 100vh;
   display: flex;
   background: url('/assets/librital-camara-bg.png');
+  //background: url('/assets/librital-camara-bg.png');
   background-size: cover;
-  background-repeat: no-repeat;
+  //background-repeat: no-repeat;
 }
 
 .div-camara {
@@ -30,18 +31,14 @@ html, body {
 
 #camara {
   width: 100%;
-  height: 100%;
   padding: 1%;
-  border-radius: 20%;
+  //border-radius: 20%;
   border: 2px solid var(--logoLibrital);
   background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 
-
-.section-informacion {
-  width: 100%;
-  height: auto;
-  border: 2px solid red;
-}
 

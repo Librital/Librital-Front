@@ -1,5 +1,127 @@
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
 <section class="section-addLibro-biblioteca">
   <div class="div-addLibro">
-    <h3>Hola</h3>
+    <div class="form-add-libro">
+      <div class="section-camera">
+        <div class="div-camara">
+          <div class="background-camara">
+            <div class="camara-container" *ngIf="displayCameras">
+              <!--<video id="camara" #camara autoplay *ngIf="camaraEncendida"></video>-->
+              <video id="camara" #camara autoplay></video>
+              <!--<canvas #canvas id="canvas" *ngIf="tieneFotoSacada"></canvas>-->
+              <canvas #canvas id="canvas" *ngIf="tieneFotoSacada"></canvas>
+            </div>
+            <div class="div-portada-libro" *ngIf="tieneImagenPortada">
+              <img id="cover-libro" src="{{ portadaLibro }}">
+            </div>
+          </div>
+          <div class="check-scan">
+            <label>
+              <input type="checkbox" id="checkbox-cover" (click)="permitirEscaneoCover()" /> Escanear la portada
+            </label>
+          </div>
+          <div class="btn-camera">
+            <div class="camera-photo">
+              <button class="btn-photo" (click)="startCamera()">
+                <ng-container *ngIf="btnCamaraOn; else apagarCamara">
+                  <svg fill="#000000" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" data-name="Layer 1"><path d="M3.71,2.29A1,1,0,0,0,2.29,3.71L5.09,6.5H5a3,3,0,0,0-3,3v8a3,3,0,0,0,3,3H19.08l1.21,1.22a1,1,0,0,0,1.42,0,1,1,0,0,0,0-1.42Zm6.49,9.33,2.68,2.68a2,2,0,0,1-.88.2,2,2,0,0,1-2-2A2,2,0,0,1,10.2,11.62ZM5,18.5a1,1,0,0,1-1-1v-8a1,1,0,0,1,1-1H7.07l1.7,1.69A3.92,3.92,0,0,0,8,12.5a4,4,0,0,0,4,4,3.92,3.92,0,0,0,2.32-.77l2.77,2.77Zm14-12H17.72l-.31-1a3,3,0,0,0-2.85-2h-4.4a1,1,0,0,0,0,2h4.4a1,1,0,0,1,.95.68l.54,1.63A1,1,0,0,0,17,8.5h2a1,1,0,0,1,1,1v5.84a1,1,0,1,0,2,0V9.5A3,3,0,0,0,19,6.5Z"/></svg>
+                </ng-container>
+                <ng-template #apagarCamara>
+                  <svg fill="#000000" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20,10.5a1,1,0,0,0-1,1v7a1,1,0,0,1-1,1H4a1,1,0,0,1-1-1v-8a1,1,0,0,1,1-1H6a1,1,0,0,0,1-.68l.54-1.64a1,1,0,0,1,.95-.68H14a1,1,0,0,0,0-2H8.44A3,3,0,0,0,5.6,6.55l-.32,1H4a3,3,0,0,0-3,3v8a3,3,0,0,0,3,3H18a3,3,0,0,0,3-3v-7A1,1,0,0,0,20,10.5Zm-9-1a4,4,0,1,0,4,4A4,4,0,0,0,11,9.5Zm0,6a2,2,0,1,1,2-2A2,2,0,0,1,11,15.5Zm11-11H21v-1a1,1,0,0,0-2,0v1H18a1,1,0,0,0,0,2h1v1a1,1,0,0,0,2,0v-1h1a1,1,0,0,0,0-2Z"/></svg>
+                </ng-template>
+                </button>
+              <button class="btn-photo" (click)="capturarFoto()" >
+                <svg fill="#000000" width="25px" height="25px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M11,10.5 L11,13.0474376 C11,13.3783481 10.8839855,13.698786 10.6721417,13.9529985 C10.1720143,14.5531514 9.28006076,14.6342381 8.6799078,14.1341106 L7.75607376,13.3642489 C7.4736449,13.1288916 7.11763998,13 6.75,13 C6.48363526,13 6.24082605,13.1526146 6.12532205,13.3926334 L6.08962348,13.4668155 C5.95447865,13.7476481 5.99541029,14.0814869 6.19439734,14.321352 L10.607865,19.6414804 C11.3217788,20.502054 12.3818498,21 13.5,21 C15.9852814,21 18,18.9852814 18,16.5 L18,12.5 C18,12.2238576 17.7761424,12 17.5,12 C17.2238576,12 17,12.2238576 17,12.5 L17,13.5 C17,13.7761424 16.7761424,14 16.5,14 C16.2238576,14 16,13.7761424 16,13.5 L16,11.5 C16,11.2238576 15.7761424,11 15.5,11 C15.2238576,11 15,11.2238576 15,11.5 L15,13.5 C15,13.7761424 14.7761424,14 14.5,14 C14.2238576,14 14,13.7761424 14,13.5 L14,10.5 C14,10.2238576 13.7761424,10 13.5,10 C13.2238576,10 13,10.2238576 13,10.5 L13,13.5 C13,13.7761424 12.7761424,14 12.5,14 C12.2238576,14 12,13.7761424 12,13.5 L12,5.5 C12,5.22385763 11.7761424,5 11.5,5 C11.2238576,5 11,5.22385763 11,5.5 L11,10.5 Z M10,10.4999998 L10,8.66309589 C8.79275282,8.09029177 8,6.86845612 8,5.5 C8,3.56700338 9.56700338,2 11.5,2 C13.4329966,2 15,3.56700338 15,5.5 C15,6.86855757 14.2071316,8.09036134 13,8.66309811 L13,9.08535285 C13.1563895,9.03007711 13.3246823,9 13.5,9 C14.191734,9 14.7741062,9.46823386 14.9474595,10.1050446 C15.1184541,10.0372568 15.3048761,10 15.5,10 C16.191734,10 16.7741062,10.4682339 16.9474595,11.1050446 C17.1184541,11.0372568 17.3048761,11 17.5,11 C18.3284271,11 19,11.6715729 19,12.5 L19,16.5 C19,19.5375661 16.5375661,22 13.5,22 C12.0842933,22 10.7421216,21.3695431 9.83822457,20.279958 L5.42475695,14.9598296 C4.97611908,14.4190278 4.88383427,13.6663521 5.18853292,13.0331845 L5.2242315,12.9590024 C5.50634865,12.3727595 6.09940726,12 6.75,12 C7.35157648,12 7.9341143,12.2109078 8.39625816,12.5960277 L9.3200922,13.3658894 C9.49596826,13.5124527 9.75735708,13.4886901 9.90392046,13.3128141 C9.96600171,13.2383166 10,13.1444116 10,13.0474376 L10,10.5 Z M13,7.5007079 C13.6164427,7.03813328 14,6.30459988 14,5.5 C14,4.11928813 12.8807119,3 11.5,3 C10.1192881,3 9,4.11928813 9,5.5 C9,6.30455447 9.38351068,7.0381 10,7.50070513 L10,5.5 C10,4.67157288 10.6715729,4 11.5,4 C12.3284271,4 13,4.67157288 13,5.5 L13,7.5007079 Z"/>
+                </svg>
+              </button>
+            </div>
+            <div class="upload-image">
+              <!--<input #fileInput id="inputFile" type="file" class="file-upload" (change)="enviarImagen()">-->
+              <label for="inputFile" class="custom-file-upload">
+                <i class="fa fa-cloud-upload"></i> Subir imagen
+              </label>
+              <input #fileInput id="inputFile" type="file" class="file-upload" (change)="enviarImagenLocal()"/>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section-form">
+        <h3>Añade tu libro a tu biblioteca</h3>
+        <div class="div-form">
+          <div class="title-form">
+            <label class="label-title">Título</label>
+            <div class="span-info">
+              <span class="red">*
+                <span id="tip-titulo">Campo Obligatorio</span>
+              </span>
+            </div>
+            <input type="text" id="input-titulo" [ngModel]="tituloData">
+          </div>
+          <div class="autor-form">
+            <div class="span-info">
+              <label class="label-autor">Autor</label>
+              <span id="tip-autor">Por ejemplo: "J.K Rowling" ó "Suzzane Collins, Isabel Allende"</span>
+            </div>
+            <input type="text" id="input-autor" [ngModel]="autorData">
+          </div>
+          <div class="categoria-form">
+            <label class="label-categoria">Categoría</label>
+            <div class="span-info">
+              <span class="tip">Si no conoces la categoría, selecciona "Sin Categoría"</span>
+              <span class="red">*
+                <span id="tip-categoria">Campo Obligatorio</span>
+              </span>
+            </div>
+            <select id="select-categoria" [ngModel]="categoriaData">
+              <option value="" disabled selected>Selecciona un género</option>
+              <option *ngFor="let genero of generos"> {{ genero.nombre }}</option>
+            </select>
+          </div>
+          <div class="editorial-form">
+            <label class="label-editorial">Editorial</label>
+            <div class="span-info">
+              <span class="red">*
+                <span id="tip-editorial">Campo Obligatorio</span>
+              </span>
+            </div>
+            <input type="text" id="input-editorial" [ngModel]="editorialData">
+          </div>
+          <div class="date-form">
+            <label class="label-date">Fecha de publicación</label>
+            <div class="span-info">
+              <span class="red">*
+                <span id="tip-fecha">Campo Obligatorio</span>
+              </span>
+            </div>
+            <input type="date" id="input-fecha" [(ngModel)]="fechaData" max="{{ maximaFecha() }}">
+          </div>
+          <div class="isbn-form">
+            <label class="label-isbn">ISBN</label>
+            <div class="span-info">
+              <span class="red">*
+                <span id="tip-isbn">Campo Obligatorio</span>
+              </span>
+            </div>
+            <input type="text" id="input-isbn" [ngModel]="isbnData">
+          </div>
+        </div>
+        <div class="div-btn-submit">
+          <a class="btn" (click)="addLibroBiblioteca()">
+          <span class="span-btnIcon">
+            <img src="assets/library-book.svg">
+          </span>
+            <span class="span-btnText">
+            <span class="text">Añadir a tu biblioteca</span>
+          </span>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+
+<app-footer></app-footer>

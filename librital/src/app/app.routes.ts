@@ -8,7 +8,6 @@ import { LibroInfoComponent } from "./views/libro-info/libro-info.component";
 import { LibroDetailComponent } from "./views/libro-detail/libro-detail.component";
 import { BibliotecaComponent } from "./views/biblioteca/biblioteca.component";
 import { BuscadorComponent } from "./views/buscador/buscador.component";
-import { AnuncioComponent} from "./views/anuncio/anuncio.component";
 import { EstadisticasComponent } from "./views/estadisticas/estadisticas.component";
 import {CameraComponent} from "./views/camera/camera.component";
 import {AddLibroComponent} from "./views/add-libro/add-libro.component";
@@ -16,6 +15,9 @@ import {AddLibroComponent} from "./views/add-libro/add-libro.component";
 
 import { adminGuard} from "./guards/admin.guard";
 import {registradoGuard} from "./guards/registrado.guard";
+import {LibroAdminComponent} from "./views/libro-admin/libro-admin.component";
+import {MapaAdminComponent} from "./views/mapa-admin/mapa-admin.component";
+import {MapaComponent} from "./views/mapa/mapa.component";
 
 export const routes: Routes = [
   {path: '', component:HomeComponent},
@@ -28,12 +30,19 @@ export const routes: Routes = [
   {path: 'libro-info/:id', component:LibroInfoComponent},
 
   {path: 'libro-detail', component:LibroDetailComponent},
+  {path: 'mapa', component:MapaComponent, canActivate: [registradoGuard] },
   {path: 'biblioteca', component:BibliotecaComponent, canActivate: [registradoGuard] },
-  {path: 'buscador', component:BuscadorComponent},
-  {path: 'anuncios', component:AnuncioComponent, canActivate: [registradoGuard] },
-  {path: 'estadisticas', component:EstadisticasComponent, canActivate: [adminGuard] },
-  {path: 'camera', component:CameraComponent},
   {path: 'add-libro', component:AddLibroComponent, canActivate: [registradoGuard]},
-  {path: '**', redirectTo: ''}
+  {path: 'buscador', component:BuscadorComponent},
+  {path: 'buscador/:categoria', component:BuscadorComponent},
+  {path: 'camera', component:CameraComponent},
+
+
+  {path: 'estadisticas', component:EstadisticasComponent, canActivate: [adminGuard] },
+  {path: 'libro-admin', component:LibroAdminComponent, canActivate: [adminGuard] },
+  {path: 'mapa-admin', component:MapaAdminComponent, canActivate: [adminGuard] },
+
+
+  {path: '**', redirectTo: '', pathMatch: 'full'}
 
 ];

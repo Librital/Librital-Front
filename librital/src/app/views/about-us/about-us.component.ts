@@ -17,12 +17,19 @@ export class AboutUsComponent {
 
   ngOnInit() {
     this.comprobarExistePag();
+    this.comprobarExisteBusqueda();
   }
 
   public comprobarExistePag() {
 
     if (this.libroService.obtenerPaginaActual() != null) {
       this.libroService.eliminarPaginaActual();
+    }
+  }
+
+  public comprobarExisteBusqueda() {
+    if (this.libroService.obtenerFiltroBusqueda() != null) {
+      this.libroService.eliminarBusqueda();
     }
   }
 

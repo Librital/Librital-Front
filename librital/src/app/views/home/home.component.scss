@@ -308,7 +308,8 @@ svg {
   visibility: hidden;
   position: absolute;
   bottom: -50px;
-  width: 200px;
+  //width: 200px;
+  width: 100%;
   height: 160px;
   display: flex;
   justify-content: center;
@@ -316,7 +317,8 @@ svg {
   z-index: 10;
   flex-direction: column;
   backdrop-filter: blur(10px);
-  background-color: rgba(255, 255, 255, 0.63);
+  //background-color: rgba(255, 255, 255, 0.63);
+  background-color: rgba(74, 161, 122, 0.63);
   box-shadow: 0 -10px 10px rgba(0,0,0,0.1);
   border: 1px solid rgba(255,255,255,0.2);
   transition: bottom 0.5s;
@@ -353,73 +355,6 @@ svg {
   border-radius: 10px;
 }
 
-
-
-
-
-
-
-
-
-
-/** SECCION GENEROS **/
-
-.section-generos {
-  width: 100%;
-  height: 100%;
-  //margin: 1% 0;
-  background: var(--logoLibrital);
-}
-
-
-
-.card-genero {
-  background-color: white;
-  margin: 5% 2%;
-  border-radius: 10px;
-}
-
-.card-link {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-}
-
-.card-img {
-  width: 100%;
-  height: 140px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1%;
-}
-
-.card-img img {
-  max-width: 100%;
-  max-height: 100%;
-}
-
-.div-title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: black;
-}
-
-.card-genero:hover {
-
-  box-shadow: 0 0 10px 5px var(--logoLibrital);
-  transform: scale(1.1);
-
-  .card-img img {
-    height: 100px;
-    transform: translate(-20px, -20px) rotate(-15deg) scale(1.4);
-  }
-
-}
 
 
 
@@ -471,8 +406,7 @@ svg {
 
 .card-new-image {
   width: 100%;
-  height: 250px;
-
+  height: 280px;
 }
 
 .card-new-image img{
@@ -480,9 +414,10 @@ svg {
   margin-top: 2%;
   width: 180px;
   height: 250px;
-  object-fit: cover;
+  //object-fit: cover;
   box-shadow: 0 2px 2px 2px var(--colorFondo);
 }
+
 
 
 .card-contenido {
@@ -534,7 +469,154 @@ svg {
 
 
 
+/** SECTION GENEROS INTRO */
 
+.section-know-categorias {
+  width: 100%;
+  height: 100%;
+  background: var(--libritalOscuro);
+  padding: 5% 0;
+}
+
+.div-know-categorias {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-image-categorias {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  border: 2px solid red;
+}
+
+.div-image-categorias img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.div-text-categorias {
+  width: 100%;
+  height: 100%;
+  border: 2px solid blue;
+}
+
+
+
+
+
+
+/** SECCION GENEROS **/
+
+.div-image-categorias img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+
+.section-generos {
+  width: 100%;
+  height: 100%;
+  background: var(--logoLibrital);
+  padding-top: 5%;
+}
+
+.section-generos h2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  //font-size: 4rem;
+  color: white;
+  padding: 2% 0;
+}
+
+
+.div-categorias {
+  width: 100%;
+  height: 100%;
+}
+
+.lista-categorias {
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+
+}
+
+.card-genero {
+  width: 250px;
+  height: 300px;
+  margin: 1%;
+  border: 2px solid var(--colorFondo);
+  text-decoration: none;
+}
+
+
+.card-img {
+  width: 100%;
+  border-bottom: 2px solid var(--colorFondo);
+}
+
+.card-img img {
+  width: 100%;
+  object-fit: cover;
+  padding: 10%;
+}
+
+.div-title {
+  padding: 5% 0 0 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    margin: 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+  }
+
+}
+
+.card-genero:hover {
+  background: var(--colorFondo);
+  border: 2px solid var(--amarillo);
+
+  .card-img {
+    border-bottom: 2px solid var(--amarillo);
+  }
+
+  .card-img img {
+    animation: moveUpAndDown 4s infinite;
+  }
+
+  .div-title p {
+    color: var(--amarillo);
+  }
+
+}
+
+
+@keyframes moveUpAndDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
 
 
 
@@ -610,6 +692,18 @@ svg {
 
 }
 
+@media(max-width: 640px) {
+
+  .wrapper {
+    display: -webkit-box;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    overflow-x: scroll;
+  }
+
+}
+
+
 @media (max-width: 260px) {
 
   svg {
@@ -635,17 +729,19 @@ svg {
 
   .card-new-image {
     width: 100%;
-    height: 200px;
+    height: 250px;
   }
 
-  .card-new-image img {
-    width: 100%;
-    height: 100%;
-  }
 
   .card-contenido {
     height: 100%;
     width: 100%;
+  }
+
+  .card-genero {
+    width: 100%;
+    margin:5%;
+    height: auto;
   }
 
 }
@@ -664,13 +760,4 @@ svg {
 }
 
 
-@media(max-width: 640px) {
 
-  .wrapper {
-    display: -webkit-box;
-    flex-wrap: nowrap;
-    overflow: hidden;
-    overflow-x: scroll;
-  }
-
-}

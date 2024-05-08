@@ -7,6 +7,8 @@ import {FooterComponent} from "../footer/footer.component";
 import {LibroService} from "../../services/libro.service";
 import {Libro} from "../../models/libro";
 import {Router} from "@angular/router";
+import {Categoria} from "../../models/categoria";
+import {CategoriaService} from "../../services/categoria.service";
 
 @Component({
   selector: 'app-home',
@@ -27,34 +29,24 @@ export class HomeComponent {
 
   listaLibrosTendencia: any [] = [];
   listaLibrosNewArrivals: Libro[] = [];
-  listaLibrosNewArrivals2: Libro[] = [];
 
 
-  listaGeneros: string[] = [
-    'https://cdn-icons-png.flaticon.com/256/4289/4289411.png',
-    'https://cdn-icons-png.flaticon.com/256/8511/8511575.png',
-    'https://cdn-icons-png.flaticon.com/256/9764/9764185.png',
-    'https://cdn-icons-png.flaticon.com/256/10096/10096579.png',
-    'https://cdn-icons-png.flaticon.com/256/7143/7143843.png',
-    'https://cdn-icons-png.flaticon.com/256/4961/4961572.png',
-    'https://cdn-icons-png.flaticon.com/256/6347/6347139.png',
-    'https://cdn-icons-png.flaticon.com/256/7649/7649385.png',
-    'https://cdn-icons-png.flaticon.com/256/9254/9254628.png',
-    'https://cdn-icons-png.flaticon.com/512/4114/4114757.png',
-    'https://cdn-icons-png.flaticon.com/256/10541/10541811.png',
-    'https://cdn-icons-png.flaticon.com/256/4359/4359772.png',
-    'https://cdn-icons-png.flaticon.com/256/9496/9496794.png',
-    'https://cdn-icons-png.flaticon.com/256/7578/7578697.png',
+  listaCategorias: Categoria[] = [];
 
-  ]
 
-  constructor(private spinnerService: SpinnerService, private libroService: LibroService, private route: Router) {}
+
+  protected readonly decodeURIComponent = decodeURIComponent;
+
+
+  constructor(private spinnerService: SpinnerService, private libroService: LibroService, private route: Router, private categoriaService: CategoriaService) {}
 
 
   ngOnInit() {
     this.comprobarExistePag();
+    this.comprobarExisteBusqueda();
     this.obtenerBestRatings();
     this.obtenerNewArrivalsLibros();
+    this.obtenerCategoriasLista();
   }
 
 
@@ -92,6 +84,14 @@ export class HomeComponent {
     });
   }
 
+  public obtenerCategoriasLista() {
+    this.categoriaService.obtenerTodasCategorias().subscribe((data) => {
+        this.listaCategorias = data;
+        console.log("Categorias: ", this.listaCategorias);
+    });
+  }
+
+
   public irAInfoLibro(id_libro: number) {
     console.log("id_libro: ", id_libro);
     this.route.navigate(['/libro-info/', id_libro]);
@@ -106,6 +106,12 @@ export class HomeComponent {
     }
   }
 
+  public comprobarExisteBusqueda() {
+    if (this.libroService.obtenerFiltroBusqueda() != null) {
+      this.libroService.eliminarBusqueda();
+    }
+  }
+
 
    reducirOpacidad(): void {
     this.isLoading = true;
@@ -116,6 +122,12 @@ export class HomeComponent {
   }
 
 
-  protected readonly Array = Array;
-  protected readonly decodeURIComponent = decodeURIComponent;
+
+
+  public irBuscadorGenero(nombre_categoria: string) {
+    this.route.navigate(['/buscador/', nombre_categoria]);
+  }
+
+
+
 }

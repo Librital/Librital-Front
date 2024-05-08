@@ -1,0 +1,26 @@
+<section class="section-dialog-etiquetas">
+  <section class="section-add-etiqueta">
+    <div class="div-add-etiqueta">
+      <input class="input-etiqueta" type="text" placeholder="Nombre de la etiqueta" [(ngModel)]="inputEtiquetaValor">
+      <button class="btn-add" (click)="addEtiquetaLibro()">Añadir</button>
+    </div>
+  </section>
+
+  <section class="section-remove-etiqueta">
+    <div class="remove-title">
+      <p>Eliminar etiquetas</p>
+    </div>
+    <div class="container-lista-etiquetas">
+      <div class="lista-etiquetas">
+    <span class="span-etiqueta" *ngFor="let etiqueta of listaEtiquetasCustom" (click)="removeEtiquetaLibro(etiqueta)">
+      {{ etiqueta.nombre }}
+      <span class="icon-remove">
+        <i class="fa-solid fa-circle-xmark"></i>
+      </span>
+    </span>
+      </div>
+    </div>
+  </section>
+</section>
+
+

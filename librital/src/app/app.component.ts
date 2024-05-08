@@ -41,6 +41,15 @@ export class AppComponent {
   isAdminOptionSelected = false;
   isPerfilOptionSelected = false;
 
+  dropdownEstadisticaSelected = false;
+  dropdownLibroSelected = false;
+  dropdownMapaSelected = false;
+
+  dropdownAccederPerfilSelected = false;
+
+  dropdownBibliotecaSelected = false;
+  dropdownAddLibroSelected = false;
+
   isLoading: boolean = true;
   cargaPrimera: boolean = true;
 
@@ -55,10 +64,12 @@ export class AppComponent {
   tuercaAdmin = faGears;
   loginAcceder = faRightToBracket;
 
-
+  showGifAdmin = false;
+  showGifPerfil = false;
 
   dropdownAdminVisible = false;
   dropdownPerfilVisible = false;
+  dropdownBibliotecaVisible = false;
 
 
   constructor(private route: Router, private authService: AutenticacionService, private renderer: Renderer2, private elementRef: ElementRef,
@@ -70,6 +81,10 @@ export class AppComponent {
         this.cerrarDropDowns();
         this.isAdminOptionSelected = false;
         this.isPerfilOptionSelected = false;
+
+        this.showGifAdmin = false;
+        this.showGifPerfil = false;
+
       }
     });
 
@@ -85,6 +100,7 @@ export class AppComponent {
 
     this.dropdownPerfilVisible = false;
     this.dropdownAdminVisible = false;
+    this.dropdownBibliotecaVisible = false;
 
     setTimeout(() => {
       this.isLoading = false;
@@ -102,98 +118,53 @@ export class AppComponent {
 
   handleAdminOptionClick(option: string): void {
     this.isAdminOptionSelected = true;
+
+    if (option == 'mapa-admin') {
+      this.dropdownMapaSelected = true;
+
+      this.dropdownEstadisticaSelected = false;
+      this.dropdownLibroSelected = false;
+
+    }
+
+    if (option == 'admin') {
+      this.dropdownEstadisticaSelected = true;
+
+      this.dropdownMapaSelected = false;
+      this.dropdownLibroSelected = false;
+
+    }
+
+    if (option == 'libros-admin') {
+      this.dropdownLibroSelected = true;
+
+      this.dropdownEstadisticaSelected = false;
+      this.dropdownMapaSelected = false;
+    }
+
+    this.dropdownAccederPerfilSelected = false;
+    this.dropdownBibliotecaSelected = false;
+    this.dropdownAddLibroSelected = false;
+
+    this.dropdownAccederPerfilSelected = false;
+
   }
 
   public handlePerfilOptionClick(option: string): void {
     this.isPerfilOptionSelected = true;
+
+    if (option == 'acceder-perfil') {
+      this.dropdownAccederPerfilSelected = true;
+    }
+
+    this.dropdownEstadisticaSelected = false;
+    this.dropdownLibroSelected = false;
+    this.dropdownMapaSelected = false;
+
+    this.dropdownBibliotecaSelected = false;
+    this.dropdownAddLibroSelected = false;
+
   }
-
-
-
-  /*public cargarNavBar() {
-    setTimeout(() => {
-      const dropdownBtns = this.elementRef.nativeElement.querySelectorAll('.dropdown-btn');
-      const dropdowns = this.elementRef.nativeElement.querySelectorAll('.dropdown');
-      const hamburgerBtn = this.elementRef.nativeElement.querySelector('#hamburger');
-      const navMenu = this.elementRef.nativeElement.querySelector('.menu');
-      const links = this.elementRef.nativeElement.querySelectorAll('.dropdown a');
-
-      function setAriaExpandedFalse(): void {
-        dropdownBtns.forEach((btn: HTMLElement) => {
-          btn.setAttribute('aria-expanded', 'false');
-        });
-      }
-
-      function closeDropdownMenu(): void {
-        dropdowns.forEach((drop: HTMLElement) => {
-          drop.classList.remove('active');
-        });
-      }
-
-      function toggleHamburger(): void {
-
-        if (navMenu.classList.contains('show')) {
-          navMenu.classList.remove('show');
-        } else {
-          navMenu.classList.toggle('show');
-        }
-
-      }
-
-      dropdownBtns.forEach((btn: HTMLElement) => {
-        btn.addEventListener('click', (e: Event) => {
-          const dropdownIndex = btn.getAttribute('data-dropdown');
-          const dropdownElement = this.elementRef.nativeElement.querySelector(`#${dropdownIndex}`);
-
-          if (dropdownElement) {
-            dropdownElement.classList.toggle('active');
-
-            dropdowns.forEach((drop: HTMLElement) => {
-              if (drop.id !== dropdownIndex) {
-                drop.classList.remove('active');
-              }
-            });
-
-            btn.setAttribute(
-              'aria-expanded',
-              btn.getAttribute('aria-expanded') === 'false' ? 'true' : 'false'
-            );
-          }
-
-          e.stopPropagation();
-        });
-        this.cargarNavBar();
-      });
-
-      // Cerrar el menú desplegable al hacer clic en los enlaces dentro del menú desplegable
-      links.forEach((link: HTMLElement) => {
-        link.addEventListener('click', () => {
-          closeDropdownMenu();
-          setAriaExpandedFalse();
-          toggleHamburger();
-        });
-      });
-
-      // Cerrar el menú desplegable al hacer clic en cualquier parte del documento
-      document.documentElement.addEventListener('click', () => {
-        closeDropdownMenu();
-        setAriaExpandedFalse();
-      });
-
-      // Cerrar el menú desplegable al presionar la tecla Esc
-      document.addEventListener('keydown', (e: KeyboardEvent) => {
-        if (e.key === 'Escape') {
-          closeDropdownMenu();
-          setAriaExpandedFalse();
-        }
-      });
-      if (hamburgerBtn) {
-        hamburgerBtn.addEventListener('click', () => {
-          toggleHamburger();
-        });
-      }
-    }, 1000);
-  }*/
 
   public cerrarDropDowns() {
     const dropdownAdmin = this.elementRef.nativeElement.querySelector('#dropdown1');
@@ -202,6 +173,8 @@ export class AppComponent {
     if (dropdownAdmin !== null) {
       if (dropdownAdmin.classList.contains('active')) {
         dropdownAdmin.classList.remove('active');
+
+
       }
     }
 
@@ -211,8 +184,6 @@ export class AppComponent {
         dropdownPerfil.classList.remove('active');
       }
     }
-
-
   }
 
 
@@ -220,8 +191,13 @@ export class AppComponent {
     const dropdownAdmin = this.elementRef.nativeElement.querySelector('#dropdown1');
     const dropdownPerfil = this.elementRef.nativeElement.querySelector('#dropdown2');
 
-    if (dropdownPerfil.classList.contains('active')) {
-      dropdownPerfil.classList.remove('active');
+    this.showGifAdmin = !this.showGifAdmin;
+    this.showGifPerfil = false;
+
+    if (dropdownPerfil != null) {
+      if (dropdownPerfil.classList.contains('active')) {
+        dropdownPerfil.classList.remove('active');
+      }
     }
 
     if (dropdownAdmin.classList.contains('active')) {
@@ -237,6 +213,9 @@ export class AppComponent {
     const dropdownAdmin = this.elementRef.nativeElement.querySelector('#dropdown1');
     const dropdownPerfil = this.elementRef.nativeElement.querySelector('#dropdown2');
 
+    this.showGifPerfil = !this.showGifPerfil;
+    this.showGifAdmin = false;
+
     if (dropdownAdmin != null) {
 
       if (dropdownAdmin.classList.contains('active')) {
@@ -250,6 +229,7 @@ export class AppComponent {
       dropdownPerfil.classList.toggle('active');
       this.dropdownPerfilVisible = !this.dropdownPerfilVisible;
     }
+
   }
 
 

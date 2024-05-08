@@ -2,7 +2,7 @@
   <div class="card-libro">
     <div class="container-movie">
       <div class="container-cover">
-        <img [src]="libroMostrar.portada ? decodeURIComponent(libroMostrar.portada.substring(1)) : 'assets/NoCover.png'" class="cover" />
+        <img class="cover" [src]="((libroMostrar.portada == null || libroMostrar.portada == '') ? 'assets/NoCover.png' : (libroMostrar.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libroMostrar.portada).substring(6) : decodeURIComponent(libroMostrar.portada.substring(1)))">
       </div>
       <div class="book-bg">
         <div class="libro-detalle">
@@ -23,27 +23,73 @@
               <label for="star1"></label>
             </div>
             <div class="rating-numbers">
-              <p>Nº reseñas: {{ numResenas }}</p>
+              <p> {{ numResenas }} {{ numResenas == 1 ? 'reseña' : 'reseñas' }}<p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="section-options">
-        <button><i class="fa-regular fa-heart"></i> Añdir a Favoritos</button>
-        <button><i class="fa-regular fa-clock"></i> Leer más tarde</button>
-        <button><i class="fa-solid fa-book-open-reader"></i> Terminado de leer</button>
-        <button><i class="fa-solid fa-pen-to-square"></i> Añadir Etiqueta Personalizada</button>
+        <button class="btn-option-libro" (click)="addFavoritoLibro()">
+          <ng-container *ngIf="esFavoritoLibroUser; else noFavorito">
+            <i class="fa-solid fa-heart"></i>
+          </ng-container>
+          Añadir a Favoritos
+          </button>
+        <ng-template #noFavorito>
+          <i class="fa-regular fa-heart"></i>
+        </ng-template>
+
+        <button class="btn-option-libro" (click)="addReadLater()">
+          <ng-container *ngIf="esReadLater; else noReadLater">
+            <i class="fa-solid fa-clock"></i>
+          </ng-container>
+          Leer más tarde
+        </button>
+        <ng-template #noReadLater>
+          <i class="fa-regular fa-clock"></i>
+        </ng-template>
+
+        <button class="btn-option-libro" (click)="addActualmenteLeyendo()">
+          <ng-container *ngIf="esActualmenteLeyendo; else noActualmenteLeyendo">
+            <i class="fa-solid fa-book-open-reader"></i>
+          </ng-container>
+          Actualmente leyendo
+        </button>
+        <ng-template #noActualmenteLeyendo>
+          <i class="fa-solid fa-book"></i>
+        </ng-template>
+
+        <button class="btn-option-libro" (click)="addTerminadoLeer()">
+          <ng-container *ngIf="esTerminadoLeer; else noTerminadoLeer">
+            <i class="fa-solid fa-bookmark"></i>
+          </ng-container>
+          Terminado de leer
+        </button>
+        <ng-template #noTerminadoLeer>
+          <i class="fa-regular fa-bookmark"></i>
+        </ng-template>
+
+        <button class="btn-option-libro" (click)="addBibliotecaUser()">
+          <ng-container *ngIf="esAnadidoBiblioteca; else addBiblioteca">
+            <i class="fa-solid fa-store-slash"></i>
+          </ng-container>
+          Añadir a mi biblioteca
+        </button>
+        <ng-template #addBiblioteca>
+          <i class="fa-solid fa-store"></i>
+        </ng-template>
+
+
+        <button class="btn-option-libro" (click)="addEtiquetaPersonalizada()"><i class="fa-solid fa-pen-to-square"></i>Añadir Etiqueta Personalizada</button>
       </div>
 
-      <div class="libro-etiquetas">
+      <div class="libro-etiquetas" *ngIf="usuarioLogueado && listaEtiquetas.length > 0">
         <div class="title-etiquetas">
           <p>Etiquetas personalizadas:</p>
         </div>
-        <div class="lista-etiquetas">
-          <span class="etiqueta">Añadir</span>
-          <span class="etiqueta">Leer más tarde</span>
-          <span class="etiqueta">No me gusto</span>
+        <div class="lista-etiquetas" *ngFor="let etiqueta of listaEtiquetas">
+          <span class="etiqueta">{{ etiqueta.nombre }}</span>
         </div>
       </div>
 
@@ -81,15 +127,15 @@
             </div>
         </div>
         <div class="column2">
+          <div class="libro-autor" *ngIf="existeAutor">
+            <p id="autor">Autor: {{ libroMostrar.autor }}</p>
+          </div>
           <div class="descripcion-libro" *ngIf="existeDescripcion">
             <p>{{ libroMostrar.descripcion }}</p>
           </div>
           <div class="section-info">
             <div class="div-info">
               <div class="libro-categorias">
-                <div class="libro-autor" *ngIf="existeAutor">
-                  <p id="autor">Autor: {{ libroMostrar.autor }}</p>
-                </div>
                 <div class="libro-publicacion" *ngIf="existeFecha">
                   <p id="date-publicacion">Año de publicación: {{ libroMostrar.fecha }}</p>
                 </div>

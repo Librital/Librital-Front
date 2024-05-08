@@ -5,42 +5,52 @@
     <span class="span-lupa">
       <i class="fa-solid fa-magnifying-glass"></i>
     </span>
-    <input type="text" class="form-control form-buscador" placeholder="Busca tu libro..." (keyup.enter)="onEnter()" [(ngModel)]="valorBuscador" (input)="activarBorrarContenido()">
+    <input type="text" class="form-control form-buscador" [disabled]="buscadorDisabled" placeholder="Buscar" (keyup.enter)="onEnter()" [(ngModel)]="valorBuscador" (input)="activarBorrarContenido()">
     <span *ngIf="tieneContenido" class="span-borrar" (click)="borrarBuscador()">
       <i class="fa-solid fa-circle-xmark"></i>
     </span>
-  </div>
-  <div class="div-search-isbn">
-    <p>Buscar por ISBN: </p>
-    <!-- <video #videoElement></video>-->
-    <button class="btn-isbn" routerLink="/camera"><i class="fa-solid fa-barcode" style="color: #000000;"></i></button>
-    <!-- <button (click)="stopCamera()">Cerrar Cámara</button>>> -->
-  </div>
-  <div class="buscador-filtros">
-    <div class="filtro-buscador">
-      <span class="span-filtro">Filtros:</span>
-      <select id="select-filtro-buscador" class="form-select" (change)="cambioFiltro()">
-        <option *ngFor="let filtro of listaFiltroGeneral">{{ filtro }}</option>
-      </select>
+    <div class="div-search-isbn">
+      <!-- <video #videoElement></video>-->
+      <button class="btn-isbn" routerLink="/camera"><i class="fa-solid fa-barcode" style="color: #000000;"></i></button>
+      <!-- <button (click)="stopCamera()">Cerrar Cámara</button>>> -->
     </div>
-    <div class="filtros-generos" *ngIf="filtroGeneroSelected">
+  </div>
+
+  <div class="div-select-filtros">
+    <select class="select-filtros" (click)="capturarSeleccion()" [(ngModel)]="filtroSelected">
+      <option value="">Selecciona filtro</option>
+      <option value="titulo">Título</option>
+      <option value="autor">Autor</option>
+      <option value="categoria">Género</option>
+      <option value="isbn">ISBN</option>
+    </select>
+  </div>
+
+
+
+  <div class="buscador-filtros" *ngIf="filtroGeneroSelected">
+    <div class="filtros-generos">
       <div class="div-titulo-generos">
-        <span class="span-filtro">Géneros:</span>
+        <span class="span-filtro">Filtrar por Géneros</span>
       </div>
       <div class="div-filtros-generos">
-        <select class="form-select select-generos"  [(ngModel)]="generoSelected" (change)="addGenero()">
-          <option *ngFor="let genero of generos">{{ genero }}</option>
+        <select class="form-select select-generos" [(ngModel)]="generoSelected">
+          <option value="" disabled selected>Selecciona un género</option>
+          <option *ngFor="let genero of generos">{{ genero.nombre }}</option>
         </select>
       </div>
     </div>
-    <div class="lista-generos">
-      <span class="card-generos" *ngFor="let generoL of listaGenerosSelected">{{generoL}} <i id="xmark-genero" class="fa-solid fa-xmark" style="color: black;" (click)="eliminarGenero(generoL)"></i> </span>
-    </div>
+    <!--<div class="div-generos-card">
+      <div class="lista-generos">
+        <span class="card-generos" *ngFor="let generoL of listaGenerosSelected">{{generoL}} <i id="xmark-genero" class="fa-solid fa-xmark" style="color: black;" (click)="eliminarGenero(generoL)"></i> </span>
+      </div>
+    </div>-->
   </div>
   <div class="div-buscar-btn">
-    <button class="btn-buscar" (click)="buscarLibros()">Buscar</button>
+    <button class="btn-buscar" (click)="onEnter()">Buscar</button>
   </div>
 </section>
+
 
 <section class="section-resultados">
   <div class="div-resultados-buscador">
@@ -50,10 +60,11 @@
       totalItems: numeroTotalLibros
     }; let i = index" [class.active]="i == currentIndex" (click)="irLibroId(libro)">
       <div class="div-img">
-        <img [src]="libro.portada ? decodeURIComponent(libro.portada.substring(1)) : 'assets/NoCover.png'" class="img-cover">
+        <img class="img-cover" [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libro.portada).substring(6) : decodeURIComponent(libro.portada))">
       </div>
       <div class="card-info">
         <h3>{{ comprobarTitulo(libro.titulo) }}</h3>
+        <p>{{ comprobarAutor(libro.autor) }}</p>
         <a (click)="irLibroId(libro)" class="btn-more">Ver más</a>
       </div>
     </div>

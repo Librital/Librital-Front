@@ -1,3 +1,412 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+body {
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+
 .section-addLibro-biblioteca {
-  background-color: var(--logoLibrital);
+  width: 100%;
+  margin-top: 100px;
+}
+
+
+.div-addLibro {
+  width: 100%;
+  height: 100%;
+}
+
+.form-add-libro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--colorFondo);
+  padding: 5%;
+}
+
+.section-camera {
+  width: 100%;
+  //height: 550px;
+  height: 100%;
+  background-color: white;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.div-camara {
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.background-camara {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  background: url('/assets/librital-camara-bg.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+
+
+  border-radius: 10px;
+
+}
+
+
+.camara-container {
+  //width: 100%;
+  height: 50%;
+  width: min-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#camara {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  //padding: 5%;
+}
+
+#canvas {
+  position: absolute;
+  width: 600px;
+  //display: none;
+  height: 500px;
+  padding: 5%;
+}
+
+
+
+.check-scan {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0 0;
+}
+
+
+
+.btn-camera {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-camera btn {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.camera-photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0 0;
+
+}
+
+.div-portada-libro {
+  width: 100%;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0 0 0;
+}
+
+
+#cover-libro {
+  //width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1% 0 1% 0;
+}
+
+
+.btn-photo {
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  //white-space: nowrap;
+  margin: 0.5%;
+}
+
+
+.btn-photo:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
+
+input[type="file"] {
+  display: none;
+}
+
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 0 1rem;
+  cursor: pointer;
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  margin: 1rem;
+}
+
+.custom-file-upload:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/** SECTION FORM **/
+
+.section-form {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+}
+
+.section-form h3 {
+  font-family: "Pacifico", cursive;
+  //font-size: 3em;
+  font-weight: 400;
+  font-style: normal;
+  //text-transform: uppercase;
+  color: black;
+  text-align: center;
+  padding: 2% 0 0 0;
+}
+
+.div-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2% 0;
+}
+
+.title-form, .autor-form,
+.categoria-form, .editorial-form,
+.date-form, .isbn-form {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+
+.label-title, .label-autor,
+.label-categoria, .label-editorial,
+.label-date, .label-isbn {
+  font-size: 20px;
+  font-weight: 500;
+  color: black;
+}
+
+.span-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.red {
+  color: red;
+}
+
+#tip-titulo, #tip-autor,
+#tip-categoria, #tip-fecha,
+#tip-isbn, #tip-editorial {
+  font-weight: 400;
+  color: var(--tips);
+
+}
+
+
+#input-titulo, #input-autor,
+#select-categoria, #input-editorial,
+#input-fecha, #input-isbn {
+  width: 80%;
+}
+
+.div-btn-submit {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 2%;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--amarilloOscuro);
+  border-radius: 9999px;
+  background-color: var(--amarillo);
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+  color: rgb(61, 60, 60);
+  outline: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: rgb(61, 60, 60);
+}
+
+.span-btnIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-right: 0.5rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+
+
+@media (max-width: 650px) {
+
+  #camara {
+    width: 350px;
+    height: 350px;
+  }
+
+  #canvas {
+    width: 450px;
+    height: 350px;
+  }
+}
+
+
+@media (max-width: 485px) {
+
+  #camara {
+    width: 200px;
+    height: 200px;
+  }
+
+  #canvas {
+    width: 250px;
+    height: 200px;
+  }
+}
+
+@media (max-width: 290px) {
+
+  .camara-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  #camara {
+    width: 100px;
+    height: 100px;
+  }
+
+  #canvas {
+    width: 150px;
+    height: 100px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.5rem 1rem;
+  }
+
+  .span-btnIcon {
+    display: none;
+  }
+
+
+}
+
+@media (max-width: 180px) {
+
+  #camara {
+    width: 80px;
+    height: 80px;
+  }
+
+  #canvas {
+    width: 100px;
+    height: 80px;
+  }
 }

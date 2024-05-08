@@ -111,6 +111,12 @@
   float: left;
   text-align: center;
 
+  margin-top: 1%;
+
+}
+
+.libro-autor {
+  padding: 0 0 0 280px;
 }
 
 .list-genre {
@@ -120,6 +126,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+
+  padding-top: 50px;
 }
 
 .genero {
@@ -139,7 +147,8 @@
 
 .descripcion-libro {
   margin-top: 1%;
-  padding: 0 0 0 280px;
+  padding: 0 2% 0 280px;
+
 }
 
 .libro-etiquetas {
@@ -172,13 +181,25 @@
 
 }
 
-.etiqueta {
+/*.etiqueta {
   margin: 0 10px 0 0;
   padding: 5px;
   border: 1px solid #000000;
   border-radius: 10px;
   font-size: 12px;
   color: black;
+}*/
+
+
+.etiqueta {
+  display: inline-block;
+  border-radius: 20px;
+  padding: .2em .5em .3em;
+  font-weight: 400;
+  margin: .25em .1em;
+  background: #41b883;
+  color: white;
+  border: 1px solid var(--amarillo);
 }
 
 
@@ -224,6 +245,7 @@
   p {
     text-align: center;
     margin: 0;
+    font-weight: 500;
   }
 
 }
@@ -273,12 +295,35 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
   //margin: 10% 0 2% 0;
 }
 
+.btn-option-libro {
+  background: linear-gradient(to bottom right, var(--logoLibrital), #1fb9a5);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  padding: 0 1rem;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  margin: 0 10px 10px 0;
+}
 
 
-
+.btn-option-libro:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
+}
 
 
 
@@ -451,11 +496,27 @@
     width: auto;
     float: none;
     padding: 0;
+    margin: 0;
+  }
+
+  .libro-autor {
+    //margin-top: 5%;
+    padding: 5%;
+    text-align: center;
+  }
+
+  .list-genre {
+    padding: 0;
   }
 
   .descripcion-libro {
     padding: 0 5%;
     width: 100%;
+
+    p {
+      text-align: center;
+    }
+
   }
 
   .section-info {
@@ -505,6 +566,14 @@
 
   }
 
+  .btn-option-libro {
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    white-space: normal;
+    margin: 5%;
+  }
+
   .div-rating {
     display: flex;
     flex-direction: column;
@@ -532,6 +601,10 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+  }
+
+  .genero {
+    margin: 5%;
   }
 
   .rating {

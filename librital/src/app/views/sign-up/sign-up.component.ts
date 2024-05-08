@@ -3,6 +3,7 @@ import {Router, RouterLink} from "@angular/router";
 import {UsuarioService} from "../../services/usuario.service";
 import {Usuario} from "../../models/usuario";
 import {AutenticacionService} from "../../services/autenticacion.service";
+import {LibroService} from "../../services/libro.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -22,13 +23,31 @@ export class SignUpComponent {
   emailUsuario: string = '';
   contraseniaUsuario: string = '';
 
-  constructor(private route: Router, private usuarioService: UsuarioService, private autenticacionService: AutenticacionService) {}
+  constructor(private route: Router, private usuarioService: UsuarioService, private autenticacionService: AutenticacionService, private libroService: LibroService) {}
 
   ngOnInit(): void {
     if (this.autenticacionService.comprobarUsuarioLogueado() && this.autenticacionService.obtenerUsuarioDelToken().tipo != 3) {
       this.route.navigate(['/']);
     }
+
+    this.comprobarExisteBusqueda();
+    this.comprobarExistePag();
   }
+
+  public comprobarExistePag() {
+
+    if (this.libroService.obtenerPaginaActual() != null) {
+      this.libroService.eliminarPaginaActual();
+    }
+  }
+
+  public comprobarExisteBusqueda() {
+    if (this.libroService.obtenerFiltroBusqueda() != null) {
+      this.libroService.eliminarBusqueda();
+    }
+  }
+
+
 
 
   public obtenerDatosRegistro() {

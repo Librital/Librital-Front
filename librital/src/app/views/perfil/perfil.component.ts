@@ -69,6 +69,7 @@ export class PerfilComponent {
   ngOnInit() {
     this.cargarInformacionUsuarioPerfil();
     this.comprobarExistePag();
+    this.comprobarExisteBusqueda();
     this.isLoading = false;
   }
 
@@ -78,6 +79,14 @@ export class PerfilComponent {
       this.libroService.eliminarPaginaActual();
     }
   }
+
+  public comprobarExisteBusqueda() {
+    if (this.libroService.obtenerFiltroBusqueda() != null) {
+      this.libroService.eliminarBusqueda();
+    }
+  }
+
+
 
 
   private cargarInformacionUsuarioPerfil() {

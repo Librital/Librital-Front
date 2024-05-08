@@ -39,12 +39,16 @@ $librital-theme: mat.define-light-theme((
 
 :root {
   --logoLibrital: #52b788;
+  --libritalOscuro: #4aa17a;
   --colorFondo2: #D7FFC2;
   --colorFondo: #d8f3dc;
   --amarillo: #F7BC47FF;
   --amarilloOscuro: #d19b00;
   --azulVerde: #00918a;
   --usuarioSubscription: linear-gradient(to top, var(--logoLibrital), 20%, #2d8d8d);
+
+  --tips: rgba(51, 49, 49, 0.71);
+
 }
 
 html, body { height: 100%; }

@@ -13,30 +13,35 @@
           <li>
             <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
               <fa-icon class="icon-bar" [icon]="houseInicio"></fa-icon>
+              <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXIyOGIycWd1c2g3djR6NDE1OGl6Mjhkc3ZkdThnendxbmNic3Q3ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/VSrYAdzaJrt8qn1l7q/giphy.gif" class="gif" />
               Inicio
             </a>
           </li>
           <li>
             <a class="nav-link" routerLink="/buscador" routerLinkActive="active">
               <fa-icon class="icon-bar" [icon]="lupaBuscador"></fa-icon>
+              <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExczg0bndpb3lxd3dwamNvdmxsOGE5ZGN3MnJkeDdtMjB3dTkyejgyNyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/1pUvx2WHilZYxZ60e1/giphy.gif" class="gif" />
               Buscador
             </a>
           </li>
           <li>
-            <a class="nav-link" routerLink="/anuncios" routerLinkActive="active">
+            <a class="nav-link" routerLink="/mapa" routerLinkActive="active">
               <fa-icon class="icon-bar" [icon]="mapMapas"></fa-icon>
+              <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExNDJvNjJmOGJ5amJuenRmeTQwcW92eTFsbDJxcXk5cDBnOGQ5eml5ayZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/YqtwH3a5SYAtVOD2Mm/giphy.gif" class="gif" />
               Mapa
             </a>
           </li>
           <li>
             <a class="nav-link" routerLink="/biblioteca" routerLinkActive="active">
               <fa-icon class="icon-bar" [icon]="libroBibliotecas"></fa-icon>
+              <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExeDVmaWQwZzFkZ2x2cXJ4OXBvYThwejFncjc0NXpjbm44Zm1udjl3OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/kc18xerlB5WlGABIcD/giphy.gif" class="gif" />
               Biblioteca
             </a>
           </li>
           <li>
             <a class="nav-link" routerLink="/about-us" routerLinkActive="active">
               <fa-icon class="icon-bar" [icon]="infoAcerca"></fa-icon>
+              <img src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExeWcxdDI2d3FsdXJ6NGY4MTI2NWpyMngzNm5tam9xMDBiY3Z5MHlkdCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MasfNVDb2lkeB44QIC/giphy.gif" class="gif" />
               Acerca
             </a>
           </li>
@@ -46,33 +51,34 @@
               <fa-icon [icon]="dropdownIcon"></fa-icon>
             </button>-->
             <a class="nav-link dropdown-btn" data-dropdown="dropdown1" [class.active]="isAdminOptionSelected">
-              <fa-icon class="icon-bar" [icon]="tuercaAdmin"></fa-icon>
+              <fa-icon *ngIf="!showGifAdmin" class="icon-bar-dropdown" [icon]="tuercaAdmin"></fa-icon>
+              <img *ngIf="showGifAdmin" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExa3ZwOHc4YnV1a3FpOW9pa3VqeXdldWhhcnF3MzFzbG5sdzQzZTdzMSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/LY7RTbrtVfuT01MenI/giphy.gif" class="gif-dropdwon" />
               Administrador
               <fa-icon [icon]="dropdownIcon"></fa-icon>
             </a>
             <div id="dropdown1" class="dropdown">
               <ul role="menu" class="dropdown-ul">
-                <li role="menuitem" routerLinkActive="active">
-                  <a class="dropdown-link" routerLink="/estadisticas" (click)="handleAdminOptionClick('estadisticas')">
+                <li class="dropdown-li" role="menuitem" routerLinkActive="active" routerLink="/estadisticas">
+                  <a class="dropdown-link" (click)="handleAdminOptionClick('estadisticas')">
                     <img src="https://cdn-icons-png.flaticon.com/512/7995/7995431.png" class="icon" />
                     <div>
-                      <span class="dropdown-link-title">Estadísticas</span>
+                      <span class="dropdown-link-title" [class.active]="dropdownEstadisticaSelected" (click)="handleAdminOptionClick('admin')">Estadísticas</span>
                     </div>
                   </a>
                 </li>
-                <li role="menuitem" routerLinkActive="active">
-                  <a class="dropdown-link" routerLink="/estadisticas" (click)="handleAdminOptionClick('estadisticas')">
+                <li class="dropdown-li" role="menuitem" routerLinkActive="active" routerLink="/libro-admin">
+                  <a class="dropdown-link" (click)="handleAdminOptionClick('estadisticas')">
                     <img src="https://cdn-icons-png.flaticon.com/128/3330/3330314.png" class="icon" />
                     <div>
-                      <span class="dropdown-link-title">Libros</span>
+                      <span class="dropdown-link-title" [class.active]="dropdownLibroSelected" (click)="handleAdminOptionClick('libros-admin')">Libros</span>
                     </div>
                   </a>
                 </li>
                 <li role="menuitem" routerLinkActive="active">
-                  <a class="dropdown-link" href="#subscriptions" (click)="handleAdminOptionClick('estadisticas')">
+                  <a class="dropdown-link" routerLink="/mapa-admin" (click)="handleAdminOptionClick('estadisticas')">
                     <img src="https://cdn-icons-png.flaticon.com/128/854/854929.png" class="icon" />
                     <div>
-                      <span class="dropdown-link-title">Mapa</span>
+                      <span class="dropdown-link-title" [class.active]="dropdownMapaSelected" (click)="handleAdminOptionClick('mapa-admin')">Mapa</span>
                     </div>
                   </a>
                 </li>
@@ -82,6 +88,7 @@
           <li>
             <a class="nav-link" *ngIf="!isUsuarioLogueado()" routerLinkActive="active" routerLink="/login">
               <fa-icon class="icon-bar" [icon]="loginAcceder"></fa-icon>
+              <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExYmpia2U4ZDNkbjM4djI4dTlkdGZnMmZiYmZxZGVkbGk3Y2Q3YWxzcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/J5B00esp0BoiCrqdCe/giphy.gif" class="gif" />
               Acceder
             </a>
           </li>
@@ -95,7 +102,8 @@
           </li>
           <li routerLinkActive="active" *ngIf="isUsuarioLogueado()" (click)="displayPerfilOptions()">
             <a class="nav-link dropdown-btn" data-dropdown="dropdown2" [class.active]="isPerfilOptionSelected">
-              <fa-icon class="icon-bar" [icon]="userProfile"></fa-icon>
+              <fa-icon *ngIf="!showGifPerfil" class="icon-bar-dropdown" [icon]="userProfile"></fa-icon>
+              <img *ngIf="showGifPerfil" src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNTkyMTAyMnBhOWc5ZGxldmhyMzB4aDAzMGJ6M3lmdDgzbmEwNWljaiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/ekqKSKYrVvrP6VMwsf/giphy.gif" class="gif-dropdwon"/>
               <fa-icon [icon]="dropdownIcon"></fa-icon>
             </a>
             <div id="dropdown2" class="dropdown perfil-drop">
@@ -104,11 +112,11 @@
                   <a class="dropdown-link" routerLink="/perfil" (click)="handlePerfilOptionClick('perfil')">
                     <img src="https://cdn-icons-png.flaticon.com/512/4795/4795910.png" class="icon" />
                     <div>
-                      <span class="dropdown-link-title">Acceder Perfil</span>
+                      <span class="dropdown-link-title" [class.active]="dropdownAccederPerfilSelected" (click)="handlePerfilOptionClick('acceder-perfil')">Acceder Perfil</span>
                     </div>
                   </a>
                 </li>
-                <li role="menuitem active" routerLinkActive="active">
+                <li role="menuitem" routerLinkActive="active">
                   <a class="dropdown-link" (click)="cerrarSesion()">
                     <img src="https://cdn-icons-png.flaticon.com/128/1574/1574351.png" class="icon" />
                     <div>
