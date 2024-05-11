@@ -68,6 +68,7 @@
 .cover {
   width: 100%;
   height: 100%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .libro-detalle {
@@ -178,7 +179,8 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   flex-direction: row;
-
+  align-items: center;
+  margin: 0 0.5rem;
 }
 
 /*.etiqueta {
@@ -193,13 +195,14 @@
 
 .etiqueta {
   display: inline-block;
+  font-size: 15px;
+  padding: 4px 8px;
   border-radius: 20px;
-  padding: .2em .5em .3em;
-  font-weight: 400;
-  margin: .25em .1em;
-  background: #41b883;
-  color: white;
-  border: 1px solid var(--amarillo);
+  background-color: var(--colorFondo);
+  color: var(--logoLibrital);
+  text-decoration: none;
+  margin: 2%;
+  text-align: center;
 }
 
 
@@ -455,6 +458,13 @@
     height: auto;
   }
 
+}
+
+@media (max-width: 800px) {
+
+  .column1 {
+    padding-top: 0;
+  }
 }
 
 

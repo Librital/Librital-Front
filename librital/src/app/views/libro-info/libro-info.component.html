@@ -2,7 +2,7 @@
   <div class="card-libro">
     <div class="container-movie">
       <div class="container-cover">
-        <img class="cover" [src]="((libroMostrar.portada == null || libroMostrar.portada == '') ? 'assets/NoCover.png' : (libroMostrar.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libroMostrar.portada).substring(6) : decodeURIComponent(libroMostrar.portada.substring(1)))">
+        <img class="cover" [src]="((libroMostrar.portada == null || libroMostrar.portada == '') ? 'assets/NoCover.png' : (libroMostrar.portada.startsWith('/https')) ? decodeURIComponent(libroMostrar.portada.substring(1)) : environment.imageLocalLibro+libroMostrar.portada )">
       </div>
       <div class="book-bg">
         <div class="libro-detalle">
@@ -34,7 +34,7 @@
           <ng-container *ngIf="esFavoritoLibroUser; else noFavorito">
             <i class="fa-solid fa-heart"></i>
           </ng-container>
-          Añadir a Favoritos
+          {{ esFavoritoLibroUser ? 'Eliminar de favoritos' : 'Añadir a Favoritos' }}
           </button>
         <ng-template #noFavorito>
           <i class="fa-regular fa-heart"></i>
@@ -44,7 +44,7 @@
           <ng-container *ngIf="esReadLater; else noReadLater">
             <i class="fa-solid fa-clock"></i>
           </ng-container>
-          Leer más tarde
+          {{ esReadLater ? 'Eliminar de leer más tarde' : 'Añadir a leer más tarde' }}
         </button>
         <ng-template #noReadLater>
           <i class="fa-regular fa-clock"></i>
@@ -54,7 +54,7 @@
           <ng-container *ngIf="esActualmenteLeyendo; else noActualmenteLeyendo">
             <i class="fa-solid fa-book-open-reader"></i>
           </ng-container>
-          Actualmente leyendo
+          {{ esActualmenteLeyendo ? 'Eliminar de actualmente leyendo' : 'Añadir a actualmente leyendo'}}
         </button>
         <ng-template #noActualmenteLeyendo>
           <i class="fa-solid fa-book"></i>
@@ -64,7 +64,7 @@
           <ng-container *ngIf="esTerminadoLeer; else noTerminadoLeer">
             <i class="fa-solid fa-bookmark"></i>
           </ng-container>
-          Terminado de leer
+          {{ esTerminadoLeer ? 'Eliminar de terminado de leer' : 'Añadir a terminado de leer'}}
         </button>
         <ng-template #noTerminadoLeer>
           <i class="fa-regular fa-bookmark"></i>
@@ -74,7 +74,7 @@
           <ng-container *ngIf="esAnadidoBiblioteca; else addBiblioteca">
             <i class="fa-solid fa-store-slash"></i>
           </ng-container>
-          Añadir a mi biblioteca
+          {{ esAnadidoBiblioteca ? 'Eliminar de mi biblioteca' : 'Añadir a mi biblioteca'}}
         </button>
         <ng-template #addBiblioteca>
           <i class="fa-solid fa-store"></i>

@@ -1,6 +1,6 @@
 import {Component, ElementRef, HostListener, input, ViewChild} from '@angular/core';
 import {FooterComponent} from "../footer/footer.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {LibroService} from "../../services/libro.service";
 import {Libro} from "../../models/libro";
@@ -10,6 +10,7 @@ import {SpinnerService} from "../../services/spinner.service";
 import {NgxPaginationModule} from "ngx-pagination";
 import {CategoriaService} from "../../services/categoria.service";
 import {Categoria} from "../../models/categoria";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-buscador',
@@ -21,7 +22,8 @@ import {Categoria} from "../../models/categoria";
     NgForOf,
     RouterLink,
     LoadingSpinnerComponent,
-    NgxPaginationModule
+    NgxPaginationModule,
+    NgClass
   ],
   templateUrl: './buscador.component.html',
   styleUrl: './buscador.component.scss'
@@ -40,10 +42,10 @@ export class BuscadorComponent {
 
   generoSelected: string = '';
 
-  listaFiltroGeneral: string[] = ['Título', 'Autor', 'Género'];
+  botonSeleccionado: string = 'titulo';
+
   generos: Categoria[] = [];
 
-  listaGenerosSelected: string[] = [];
 
   listaLibros: Libro[] = [];
 
@@ -83,17 +85,17 @@ export class BuscadorComponent {
 
     if (this.libroService.obtenerFiltroBusqueda() != null) {
       this.filtroSelected = this.libroService.obtenerFiltroBusqueda()!;
-      console.log("filtro busqueda" + this.filtroSelected);
+      this.botonSeleccionado = this.filtroSelected;
     }
 
     if (this.libroService.obtenerGeneroBusqueda() != null) {
       this.generoSelected = this.libroService.obtenerGeneroBusqueda()!;
-      console.log("genero busqueda" + this.generoSelected);
+      this.botonSeleccionado = this.filtroSelected;
     }
 
     if (this.libroService.obtenerValorBusqueda() != null) {
       this.valorBuscador = this.libroService.obtenerValorBusqueda()!;
-      console.log("valor busqueda" + this.valorBuscador);
+      this.botonSeleccionado = this.filtroSelected;
     }
   }
 
@@ -116,7 +118,6 @@ export class BuscadorComponent {
             this.listaLibros = [];
           } else {
             this.listaLibros = data.libros;
-            console.log(this.listaLibros);
             this.numeroTotalLibros = data.total;
             this.numLibrosPerPage = data.librosPerPage;
           }
@@ -138,8 +139,9 @@ export class BuscadorComponent {
   }
 
 
-  public capturarSeleccion() {
-
+  public capturarSeleccion(filtro: string) {
+    this.filtroSelected = filtro;
+    this.botonSeleccionado = filtro;
     if (this.filtroSelected == 'titulo') {
       this.filtroGeneroSelected = false;
       this.buscadorDisabled = false;
@@ -318,38 +320,22 @@ export class BuscadorComponent {
       const categoria = params['categoria'];
 
       if (categoria) {
-        console.log("existe categoria" + categoria);
-        this.generoSelected = categoria;
+        this.filtroGeneroSelected = true;
+
         this.filtroSelected = 'categoria';
+        this.botonSeleccionado = 'categoria';
+        this.generoSelected = categoria;
       } else {
 
         if (this.libroService.obtenerFiltroBusqueda() == null) {
           this.generoSelected = '';
           this.filtroSelected = '';
+          this.botonSeleccionado = '';
         }
       }
     });
   }
 
 
-/*  async startCamera(): Promise<void> {
-    const video = this.videoElement.nativeElement;
-    try {
-      this.stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      video.srcObject = this.stream;
-      video.play();
-    } catch (error) {
-      console.error('Error al acceder a la cámara:', error);
-    }
-  }
-
-  stopCamera(): void {
-    if (this.stream) {
-      const videoTracks = this.stream.getVideoTracks();
-      videoTracks.forEach(track => track.stop());
-      this.stream = undefined;
-      this.videoElement.nativeElement.srcObject = null;
-    }
-  }*/
-
+  protected readonly environment = environment;
 }

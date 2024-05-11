@@ -100,6 +100,7 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
+  width: 100%;
 }
 
 .span-etiqueta {
@@ -109,11 +110,13 @@
   border-radius: 20px;
   padding: 1%;
   font-weight: 400;
-  margin: 0 1%;
+  margin: 1%;
   background: var(--amarillo);
   color: black;
   border: 1px solid var(--amarilloOscuro);
   text-align: center;
+  width: min-content;
+  height: min-content;
 }
 
 .icon-remove {

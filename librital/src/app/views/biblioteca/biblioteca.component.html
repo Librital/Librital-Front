@@ -1,92 +1,93 @@
-
-<section class="section-filtros-biblioteca">
-  <div class="div-biblioteca">
-    <span class="span-lupa">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </span>
-    <input type="text" class="form-control form-buscador" placeholder="Busca tu libro...">
-    <span class="span-borrar">
-      <i class="fa-solid fa-circle-xmark"></i>
-    </span>
-  </div>
-  <div class="filtros-biblioteca">
-    <div class="filtros-generales">
-      <div class="title-filtro">
-        <p>Filtrar por:</p>
-      </div>
-      <div class="form-filtros">
-        <select class="form-select select-filtro">
-          <option>Autor</option>
-          <option>Género</option>
-          <option>Fecha de publicación</option>
-        </select>
-      </div>
-      <div class="opciones-form-filtros">
-        <div class="option-abc">
-          <div class="div-btn-abc">
-            <button class="btn-abc">A-Z</button>
-          </div>
-        </div>
-        <div class="option-recent">
-          <div class="div-btn-recent">
-            <button>Más recientes</button> <!-- Mas antiguos -->
-          </div>
-          <div class="btn-recent-change">
-            <button (click)="cambiarIconoReciente()">
-              <i class="fa-solid fa-right-left"
-                 id="icon-recent"
-                 [ngClass]="{ 'fa-flip-horizontal': btnRecientePulsado }">
-              </i>
-            </button>
-          </div>
-        </div>
-        <div class="option-generos">
-          <select class="form-select select-generos">
-            <option>Generos</option>
-          </select>
-        </div>
-      </div>
-      <div class="div-etiquetas">
-        <div class="lista-etiquetas">
-          <ul>
-            <li><a type="button">Etiqueta 1</a></li>
-            <li><a type="button">Etiqueta 2</a></li>
-            <li><a type="button">Etiqueta 3</a></li>
-            <li><a type="button">Etiqueta 4</a></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<app-loading-spinner *ngIf="isLoading" ></app-loading-spinner>
 
 
 <section class="section-biblioteca">
-  <div class="div-biblioteca">
-    <div class="container-fluid" id="div-principal">
-      <div class="row title-biblioteca">
-        <p>Tu Biblioteca:</p>
+  <div class="biblioteca-content">
+
+
+    <div class="column1-info">
+      <div class="div-title">
+        <h3>
+          Mi Biblioteca
+          <span class="icon-biblioteca">
+          <img src="assets/library.svg">
+        </span>
+        </h3>
       </div>
-      <div class="row biblioteca">
-        <div class="col-md-4" id="libro-row" *ngFor="let libro of librosUsuario">
-          <div class="card">
-            <div class="image-container">
-              <img id="cover" src="https://m.media-amazon.com/images/I/713KZTsaYpL._AC_UY218_.jpg">
-            </div>
-            <div class="card-body">
-              <p>{{ libro }}</p>
+      <div class="div-etiquetas-default">
+        <div class="lista-etiquetas-default">
+          <a class="etiqueta-defualt" *ngFor="let etqiuetaDefualt of listaEtiquetasDefault" [ngClass]="{'etiquetaDefaultChecked': etiquetaDefaultSeleccionada === etqiuetaDefualt}" (click)="pulsarEtiquetaFiltrarLibrosUser(etqiuetaDefualt)">
+            {{ etqiuetaDefualt }}
+          </a>
+        </div>
+      </div>
+
+      <div class="div-etiquetas-custom">
+        <p>Tus etiquetas
+          <span class="icon-etiquetas">
+            <i class="fa-solid fa-tags"></i>
+          </span>
+        </p>
+        <div class="lista-etiquetas-custom">
+          <a class="etiqueta-custom" *ngFor="let etiquetaCustom of listaEtiquetasCustom" [ngClass]="{'etiquetaCustomtChecked': etiquetaDefaultSeleccionada === etiquetaCustom.nombre}" (click)="pulsarEtiquetaFiltrarLibrosUser(etiquetaCustom.nombre)">
+            {{ etiquetaCustom.nombre }}
+          </a>
+        </div>
+      </div>
+      <div class="section-addLibro">
+        <h3>¡Hora de añadir un libro!
+          <span>
+
+          </span>
+        </h3>
+        <p>¡Añade un libro y así todo el mundo lo conocerá!</p>
+        <span class="span-cover">
+          <img src="assets/addLibro.png"/>
+        </span>
+        <a class="btn-addLibro" routerLink="/add-libro">
+          <span class="span-btnText">
+            <span class="text">Añadir</span>
+          </span>
+          <span class="span-btnIcon">
+            <i class="fa-solid fa-chevron-right"></i>
+          </span>
+        </a>
+      </div>
+    </div>
+
+
+    <div class="column2-biblioteca">
+      <div class="biblioteca-container">
+        <div class="buscador-biblioteca">
+          <span class="span-lupa">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </span>
+          <input type="text" class="form-control form-buscador" placeholder="Buscar libro" (keyup.enter)="onEnter()" [(ngModel)]="valorBuscarInput" (input)="activarBorrarContenido()">
+          <span class="span-borrar" *ngIf="tieneContenido" (click)="borrarBuscador()">
+            <i class="fa-solid fa-circle-xmark"></i>
+          </span>
+        </div>
+        <div class="shelf-libros">
+          <div class="lista-shelf-libros">
+            <div class="book" *ngFor="let libroUser of librosUsuario | paginate: {
+                itemsPerPage: numLibrosPerPage,
+                currentPage: paginaActual,
+                totalItems: numeroTotalLibros
+                }; let i = index" [class.active]="i == currentIndex" (click)="irLibroId(libroUser.id_libro)">
+              <img [src]="((libroUser.portada == null || libroUser.portada == '') ? 'assets/NoCover.png' : (libroUser.portada.startsWith('https')) ? decodeURIComponent(libroUser.portada) : environment.imageLocalLibro+libroUser.portada)">
             </div>
           </div>
         </div>
-      </div>
-      <div class="row arrows-biblioteca">
-        <div class="div-btn-izq">
-          <button><i class="fa-solid fa-circle-chevron-left" style="color: var(--logoLibrital);"></i></button>
+
+        <div class="paginacion">
+          <pagination-controls
+            previousLabel="Anterior"
+            nextLabel="Siguiente"
+            (pageChange)="handlePageChange($event)"
+            [maxSize]="10"
+          ></pagination-controls>
         </div>
-        <div class="div-btn-drch">
-          <button><i class="fa-solid fa-circle-chevron-right" style="color: var(--logoLibrital);"></i></button>
-        </div>
+
       </div>
     </div>
   </div>
@@ -94,9 +95,8 @@
 
 
 
-<section>
-  <button routerLink="/add-libro" routerLinkActive="active">Ir</button>
-</section>
+
+
 
 
 <app-footer></app-footer>

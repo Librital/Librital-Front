@@ -42,6 +42,8 @@ export class AddLibroComponent {
 
   escanearCover = false;
 
+  nombreArchivoSeleccionado = new FormData();
+
 
   @ViewChild('camara') videoElement!: ElementRef;
   @ViewChild('canvas') canvas!: ElementRef;
@@ -54,6 +56,7 @@ export class AddLibroComponent {
   categoriaData = '';
   fechaData = '';
   isbnData = '';
+  descripcionData = '';
 
   generos: Categoria[] = [];
 
@@ -259,7 +262,11 @@ export class AddLibroComponent {
       if (this.escanearCover) {
         this.enviarImagen(formData);
       } else {
+        this.portadaLibro = URL.createObjectURL(blob);
         console.log('Imagen capturada');
+        this.nombreArchivoSeleccionado = formData;
+        console.log(formData);
+        console.log(this.nombreArchivoSeleccionado);
       }
 
     }
@@ -273,6 +280,8 @@ export class AddLibroComponent {
 
     const archivoSeleccionado = fileInput.files[0];
 
+    console.log(archivoSeleccionado);
+
     if (archivoSeleccionado) {
 
       this.fileInput.nativeElement.value = '';
@@ -283,12 +292,19 @@ export class AddLibroComponent {
         const formData = new FormData();
         formData.append('cover', archivoSeleccionado);
 
+        console.log(formData.get('cover'));
+
         if (this.escanearCover) {
           this.enviarImagen(formData);
         } else {
           this.tieneImagenPortada = true;
           this.displayCameras = false;
+          // Se manda un blob al back
+          this.nombreArchivoSeleccionado = formData;
           this.portadaLibro = URL.createObjectURL(archivoSeleccionado);
+          console.log('Imagen seleccionada');
+          console.log(formData);
+          console.log(this.nombreArchivoSeleccionado);
         }
       }
     } else {
@@ -311,6 +327,12 @@ export class AddLibroComponent {
           this.autorData = data.autor;
           this.editorialData = data.editorial;
           this.portadaLibro = data.image_url.replace('unsagfe ', '');
+          this.descripcionData = data.descripcion;
+
+          const formDataNuevo = new FormData();
+          formDataNuevo.append('cover', this.portadaLibro);
+
+          this.nombreArchivoSeleccionado = formDataNuevo;
 
           this.tieneImagenPortada = true;
           this.camaraEncendida = false;
@@ -354,6 +376,7 @@ export class AddLibroComponent {
           this.categoriaData = '';
           this.fechaData = '';
           this.isbnData = '';
+          this.descripcionData = '';
 
 
           this.stopCamera();
@@ -440,6 +463,8 @@ export class AddLibroComponent {
       }
 
 
+
+
       if (camposCorrectos) {
         console.log("Todos campso correctos");
 
@@ -448,17 +473,20 @@ export class AddLibroComponent {
         let libroNuevo: Libro = new Libro('', '', '', '', '', '', '', '', true);
         let categoriaLibro = categoriaSelect.value;
         if (inputIsbn.value.length == 10) {
-          libroNuevo = new Libro(tituloInput.value, autorInput.value, editorialInput.value, fechaInput.value, '', this.portadaLibro, 'No ISBN', inputIsbn.value, true);
+          libroNuevo = new Libro(tituloInput.value, autorInput.value, editorialInput.value, fechaInput.value, this.descripcionData, this.portadaLibro, 'No ISBN', inputIsbn.value, true);
         } else if (inputIsbn.value.length == 13) {
-          libroNuevo = new Libro(tituloInput.value, autorInput.value, editorialInput.value, fechaInput.value, '', this.portadaLibro, inputIsbn.value, 'No ISBN', true);
+          libroNuevo = new Libro(tituloInput.value, autorInput.value, editorialInput.value, fechaInput.value, this.descripcionData, this.portadaLibro, inputIsbn.value, 'No ISBN', true);
         }
 
-        this.libroService.addLibroNuevoBiblioteca(libroNuevo, categoriaLibro, usuario).subscribe((data: any) => {
+        this.libroService.addLibroNuevoBiblioteca(libroNuevo, categoriaLibro, usuario, this.nombreArchivoSeleccionado).subscribe((data: any) => {
           if (data.message == 'Guardado') {
             alert('Libro añadido a la biblioteca');
-            //this.router.navigate(['/biblioteca']);
-          } else if (data.message == 'Error') {
-            alert('Error al añadir el libro a la biblioteca');
+            this.router.navigate(['/biblioteca']);
+          } else if (data.message == 'Ya existe en tu biblioteca') {
+              alert('El libro ya existe en tu biblioteca');
+          } else if (data.message == 'Guardado en tu biblioteca') {
+            alert('Libro añadido a la biblioteca');
+            this.router.navigate(['/biblioteca']);
           }
         });
 

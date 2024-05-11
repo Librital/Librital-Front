@@ -12,6 +12,7 @@ import {Categoria} from "../../models/categoria";
 import {MatDialog} from "@angular/material/dialog";
 import {AddEtiquetaComponent} from "../add-etiqueta/add-etiqueta.component";
 import {Etiqueta} from "../../models/etiqueta";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-libro-info',
@@ -402,7 +403,5 @@ export class LibroInfoComponent {
   }
 
 
-
-
-
+  protected readonly environment = environment;
 }

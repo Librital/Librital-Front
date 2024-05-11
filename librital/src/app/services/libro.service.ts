@@ -4,6 +4,7 @@ import {environment} from "../../environments/environment";
 import {Libro} from "../models/libro";
 import {Etiqueta} from "../models/etiqueta";
 import {Subject} from "rxjs";
+import {Usuario} from "../models/usuario";
 
 @Injectable({
   providedIn: 'root'
@@ -168,8 +169,27 @@ export class LibroService {
   }
 
 
-  public addLibroNuevoBiblioteca(libro: Libro, nombre_categoria: string, usuario: string) {
-    return this.httpClient.post<any>(environment.apiUrl + "api/libro/addLibroNuevoBiblioteca", {"libro": libro, "categoria": nombre_categoria, 'usuario': usuario});
+  public addLibroNuevoBiblioteca(libro: Libro, nombre_categoria: string, usuario: Usuario, formData: FormData) {
+
+    const data = new FormData();
+
+    // Agregar el libro, la categoría y el usuario como campos en el objeto FormData
+    data.append('libro', JSON.stringify(libro));
+    data.append('categoria', nombre_categoria);
+    data.append('usuario', JSON.stringify(usuario));
+
+    // Iterar sobre las claves y valores del objeto FormData original y agregarlos al nuevo objeto FormData
+    formData.forEach((value, key) => {
+      data.append(key, value);
+    });
+    return this.httpClient.post<any>(environment.apiUrl + "api/libro/addLibroNuevoBiblioteca", data);
+
+  }
+
+
+
+  public cargarTodosLibrosUsuario(id_user: number, pagina: number, etiqueta: string, tipoEtiqueta: string, valorBuscar: string) {
+    return this.httpClient.post<any>(environment.apiUrl + "api/libro_usuario/cargarTodosLibrosUsuario", { "id_user": id_user, "pagina": pagina, "etiqueta": etiqueta, "tipoEtiqueta": tipoEtiqueta,"valorBuscar": valorBuscar });
   }
 
 

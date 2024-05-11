@@ -6,9 +6,10 @@ import {Application} from "@splinetool/runtime";
 import {FooterComponent} from "../footer/footer.component";
 import {LibroService} from "../../services/libro.service";
 import {Libro} from "../../models/libro";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Categoria} from "../../models/categoria";
 import {CategoriaService} from "../../services/categoria.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ import {CategoriaService} from "../../services/categoria.service";
     FooterComponent,
     NgForOf,
     NgClass,
+    RouterLink,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -69,6 +71,7 @@ export class HomeComponent {
     this.libroService.obtenerNewArrivals().subscribe((data) => {
       if (data.message == "Obtenido") {
         this.listaLibrosNewArrivals = data.libros;
+        console.log(this.listaLibrosNewArrivals);
       }
     });
   }
@@ -129,5 +132,5 @@ export class HomeComponent {
   }
 
 
-
+  protected readonly environment = environment;
 }

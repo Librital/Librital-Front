@@ -80,11 +80,13 @@
     <div class="lista-tendencias">
       <a class="book-container" rel="noreferrer noopener" *ngFor="let libro of listaLibrosTendencia">
         <div class="book" (click)="irAInfoLibro(libro.id_libro!)">
-          <img [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libro.portada).substring(6) : decodeURIComponent(libro.portada))">
+          <img [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('https')) ? decodeURIComponent(libro.portada) : environment.imageLocalLibro+libro.portada)">
         </div>
         <div class="card-info" (click)="irAInfoLibro(libro.id_libro!)">
           <p>{{ comprobarTitulo(libro.titulo) }}</p>
           <p>{{ comprobarAutor(libro.autor) }}</p>
+
+
 
 <!--          <div class="rating-libro-tendencia">
             <div class="rating">
@@ -107,7 +109,7 @@
       <div class="card-new" *ngFor="let nuevo of listaLibrosNewArrivals">
         <div class="card-new-image">
           <!--  -->
-          <img [src]="((nuevo.portada == null || nuevo.portada == '') ? 'assets/NoCover.png' : (nuevo.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(nuevo.portada).substring(6) : decodeURIComponent(nuevo.portada.substring(1)))">
+          <img [src]="((nuevo.portada == null || nuevo.portada == '') ? 'assets/NoCover.png' : (nuevo.portada.startsWith('/https')) ? decodeURIComponent(nuevo.portada.substring(1)) : environment.imageLocalLibro+nuevo.portada)">
         </div>
         <div class="card-contenido">
           <div class="card-info-libro">
@@ -131,18 +133,45 @@
 
 
 
-<!--
 <section class="section-know-categorias">
   <div class="div-know-categorias">
     <div class="div-image-categorias">
-      <img src="assets/book-categorias.png"/>
+      <img src="assets/girl-book.png"/>
     </div>
     <div class="div-text-categorias">
-      <p>Lorem ipsum dolor sit amet, consectetur adip</p>
+      <h3>Ven a conocer nuestros distintos tipos de libros</h3>
+      <p>Aquí en Librital tenemos un amplio abánico de mundos literarios que te están esperando para ser descubiertos</p>
+      <p>¡Busca tu género favorito y encuentra los mejores libros para ti!</p>
+      <div class="div-categorias-ejemplo">
+        <div class="lista-categorias-ejemplo">
+        <span class="circle-category">
+          <img class="category-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExc2VtNThzbmM0M2x2bmw2a3A3ZXcwYW1xNjlvZzA3cDhhOW83ZTJvZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/uB0c6g8LlDYIkTTtTD/giphy.gif"/>
+          <p>Ciencias</p>
+        </span>
+          <span class="circle-category">
+          <img class="category-gif" src="https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExOWg0YmJwZjNiMWxoYXNuaHZzeXRrZ3Z6MGs4cm1tMjExb2dxd3ptaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/KNpJH3cUKSWkkYPA3q/giphy.gif"/>
+          <p>Infantil</p>
+        </span>
+          <span class="circle-category">
+          <img class="category-gif" src="https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExbGp5ZXcxeDkxZ2V3YWZuZWNzaDVucmJrc21rdHBrcXVpNTdzOXp0eSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/XFvN3jrFTiA7FnjA7g/giphy.gif">
+          <p>Comics</p>
+        </span>
+        </div>
+      </div>
+
+      <p>Y mucho más...</p>
     </div>
   </div>
 </section>
--->
+<section class="scroll-down-icon">
+  <div class='scrolldown'>
+    <div class="chevrons">
+      <div class='chevrondown'></div>
+      <div class='chevrondown'></div>
+    </div>
+  </div>
+</section>
+
 
 
 
@@ -157,6 +186,30 @@
         <div class="div-title">
           <p>{{ genero.nombre }}</p>
         </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-mapa-info">
+  <div class="div-mapa-info">
+    <div class="div-text-mapa">
+      <h3>Un mapa lleno de libros</h3>
+      <p>Descubre los puntos de intercambio de libros más cercanos a ti</p>
+      <p>¡Ven a visitarlos y encuentra tu próximo libro favorito!</p>
+    </div>
+    <div class="div-image-mapa">
+      <img src="assets/librital-map.png"/>
+    </div>
+    <div class="div-btn-mapa">
+      <a class="btn btn-mapa" routerLink="/mapa">
+        <span class="span-btnIcon mapa">
+          <img src="assets/map.svg">
+        </span>
+        <span class="span-btnText">
+          <span class="text">Explora tu alrededor</span>
+        </span>
       </a>
     </div>
   </div>

@@ -474,8 +474,8 @@ svg {
 .section-know-categorias {
   width: 100%;
   height: 100%;
-  background: var(--libritalOscuro);
-  padding: 5% 0;
+  background: var(--logoLibrital);
+  padding: 5% 0 0 0;
 }
 
 .div-know-categorias {
@@ -484,28 +484,172 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 5%;
+  background-color: var(--libritalOscuro);
+
 }
 
 .div-image-categorias {
-  width: 500px;
-  height: 500px;
-  display: flex;
-  border: 2px solid red;
+  height: 100%;
 }
 
+
 .div-image-categorias img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  padding: 5%;
 }
 
 .div-text-categorias {
   width: 100%;
   height: 100%;
-  border: 2px solid blue;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-text-categorias h3 {
+  color: white;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  padding: 2% 0;
+}
+
+.div-categorias-ejemplo {
+  width: 100%;
+  height: 100%;
+  //padding: 5% 0;
+}
+
+.lista-categorias-ejemplo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.circle-category {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle-category p {
+  color: white;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  padding: 2% 0;
 }
 
 
+.category-gif {
+  width: 100px;
+  height: 100px;
+
+}
+
+
+
+
+
+/** SECTION SCROLLDOWN */
+
+.scroll-down-icon {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--libritalOscuro);
+}
+
+.scrolldown {
+  --color: white;
+  --sizeX: 30px;
+  --sizeY: 50px;
+  position: relative;
+  width: var(--sizeX);
+  height: var(--sizeY);
+  //margin-left: var(sizeX / 2);
+  border: calc(var(--sizeX) / 10) solid var(--color);
+  border-radius: 50px;
+  box-sizing: border-box;
+  margin-bottom: 5%;
+  margin-top: 1%;
+}
+
+.scrolldown::before {
+  content: "";
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  background-color: var(--color);
+  border-radius: 100%;
+  animation: scrolldown-anim 2s infinite;
+  box-sizing: border-box;
+  box-shadow: 0px -5px 3px 1px #ffffff66;
+}
+
+@keyframes scrolldown-anim {
+  0% {
+    opacity: 0;
+    height: 6px;
+  }
+  40% {
+    opacity: 1;
+    height: 10px;
+  }
+  80% {
+    transform: translate(0, 20px);
+    height: 10px;
+    opacity: 0;
+  }
+  100% {
+    height: 3px;
+    opacity: 0;
+  }
+}
+.chevrons {
+  padding: 6px 0 0 0;
+  margin-left: -3px;
+  margin-top: 48px;
+  width: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chevrondown {
+  margin-top: -6px;
+  position: relative;
+  border: solid var(--color);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+.chevrondown:nth-child(odd) {
+  animation: pulse 500ms ease infinite alternate;
+}
+.chevrondown:nth-child(even) {
+  animation: pulse 500ms ease infinite alternate 250ms;
+}
+@keyframes pulse {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 0.5;
+  }
+}
 
 
 
@@ -523,7 +667,7 @@ svg {
   width: 100%;
   height: 100%;
   background: var(--logoLibrital);
-  padding-top: 5%;
+  padding: 5% 0;
 }
 
 .section-generos h2 {
@@ -620,19 +764,65 @@ svg {
 
 
 
+/** SECTION MAPA */
+.section-mapa-info {
+  width: 100%;
+  height: 100%;
+  background: var(--libritalOscuro);
+  padding: 2% 0;
+}
+
+.div-mapa-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  //padding: 5% 0;
+}
+
+.div-text-mapa {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-text-mapa h3 {
+  color: white;
+  font-family: 'Pacifico', cursive;
+  text-align: center;
+  padding: 2% 0;
+}
+
+.div-image-mapa {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.div-image-mapa img {
+  width: 80%;
+  height: 80%;
+  //padding: 0 3%;
+}
+
+.span-btnIcon.mapa {
+
+  margin-right: 0.5rem;
+}
 
 
 
 
 
-
-
-
-
-
-
-
-
+/** RESPONSIVE **/
 
 @media (max-width: 1100px) {
 
@@ -645,6 +835,11 @@ svg {
     height: 100%;
     width: 100%;
   }
+
+  .scroll-down-icon {
+    display: none;
+  }
+
 }
 
 
@@ -702,6 +897,39 @@ svg {
   }
 
 }
+
+
+@media(max-width: 600px) {
+
+  .div-know-categorias {
+    flex-direction: column;
+  }
+
+}
+
+
+@media (max-width: 395px) {
+
+  .circle-category {
+    width: 100%;
+    height: 100%;
+  }
+
+  .category-gif {
+    width: 80px;
+    height: 80px;
+  }
+
+}
+
+@media (max-width: 285px) {
+
+  .div-categorias-ejemplo {
+    display: none;
+  }
+
+}
+
 
 
 @media (max-width: 260px) {

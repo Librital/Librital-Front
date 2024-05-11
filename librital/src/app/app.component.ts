@@ -82,6 +82,12 @@ export class AppComponent {
         this.isAdminOptionSelected = false;
         this.isPerfilOptionSelected = false;
 
+/*        this.dropdownEstadisticaSelected = false;
+        this.dropdownLibroSelected = false;
+        this.dropdownMapaSelected = false;
+
+        this.dropdownAccederPerfilSelected = false;*/
+
         this.showGifAdmin = false;
         this.showGifPerfil = false;
 
@@ -118,6 +124,7 @@ export class AppComponent {
 
   handleAdminOptionClick(option: string): void {
     this.isAdminOptionSelected = true;
+    this.dropdownAccederPerfilSelected = false;
 
     if (option == 'mapa-admin') {
       this.dropdownMapaSelected = true;
@@ -152,6 +159,9 @@ export class AppComponent {
 
   public handlePerfilOptionClick(option: string): void {
     this.isPerfilOptionSelected = true;
+    this.dropdownEstadisticaSelected = false;
+    this.dropdownLibroSelected = false;
+    this.dropdownMapaSelected = false;
 
     if (option == 'acceder-perfil') {
       this.dropdownAccederPerfilSelected = true;

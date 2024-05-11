@@ -17,13 +17,18 @@
   </div>
 
   <div class="div-select-filtros">
-    <select class="select-filtros" (click)="capturarSeleccion()" [(ngModel)]="filtroSelected">
-      <option value="">Selecciona filtro</option>
-      <option value="titulo">Título</option>
-      <option value="autor">Autor</option>
-      <option value="categoria">Género</option>
-      <option value="isbn">ISBN</option>
-    </select>
+    <button class="btn-filtro" [ngClass]="{'seleccionado': botonSeleccionado === 'titulo'}" (click)="capturarSeleccion('titulo')">Título</button>
+    <button class="btn-filtro" [ngClass]="{'seleccionado': botonSeleccionado === 'autor'}" (click)="capturarSeleccion('autor')">Autor</button>
+    <button class="btn-filtro" [ngClass]="{'seleccionado': botonSeleccionado === 'categoria'}" (click)="capturarSeleccion('categoria')">Géneros</button>
+    <button class="btn-filtro" [ngClass]="{'seleccionado': botonSeleccionado === 'isbn'}" (click)="capturarSeleccion('isbn')">ISBN</button>
+
+<!--    <select class="select-filtros" (click)="capturarSeleccion()" [(ngModel)]="filtroSelected">-->
+<!--      <option value="">Selecciona filtro</option>-->
+<!--      <option value="titulo">Título</option>-->
+<!--      <option value="autor">Autor</option>-->
+<!--      <option value="categoria">Género</option>-->
+<!--      <option value="isbn">ISBN</option>-->
+<!--    </select>-->
   </div>
 
 
@@ -36,7 +41,7 @@
       <div class="div-filtros-generos">
         <select class="form-select select-generos" [(ngModel)]="generoSelected">
           <option value="" disabled selected>Selecciona un género</option>
-          <option *ngFor="let genero of generos">{{ genero.nombre }}</option>
+          <option *ngFor="let genero of generos">{{ generoSelected == '' ? genero.nombre : generoSelected}}</option>
         </select>
       </div>
     </div>
@@ -60,7 +65,7 @@
       totalItems: numeroTotalLibros
     }; let i = index" [class.active]="i == currentIndex" (click)="irLibroId(libro)">
       <div class="div-img">
-        <img class="img-cover" [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/http%')) ? 'http:/'+decodeURIComponent(libro.portada).substring(6) : decodeURIComponent(libro.portada))">
+        <img class="img-cover" [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('https')) ? decodeURIComponent(libro.portada) : environment.imageLocalLibro+libro.portada)">
       </div>
       <div class="card-info">
         <h3>{{ comprobarTitulo(libro.titulo) }}</h3>
