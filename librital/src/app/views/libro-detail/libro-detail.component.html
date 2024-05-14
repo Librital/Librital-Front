@@ -1,1 +1,95 @@
-<p>libro-detail works!</p>
+
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<section class="section-edit-libro">
+  <div class="div-edit-libro">
+    <div class="column-cover">
+      <div class="div-cover">
+        <img class="cover" id="portada" *ngIf="!hayImagenLocal" [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/https')) ? decodeURIComponent(libro.portada.substring(1)) : environment.imageLocalLibro+libro.portada )">
+        <img class="cover" id="portada-local" *ngIf="hayImagenLocal" src="{{ portadaData }}">
+      </div>
+      <div class="upload-image">
+        <label for="inputFile" class="custom-file-upload">
+          <i class="fa fa-cloud-upload"></i> Subir imagen
+        </label>
+        <input #fileInput id="inputFile" type="file" class="file-upload" (change)="subirLibroCoverLocal()"/>
+      </div>
+    </div>
+    <div class="column2-info">
+      <div class="div-info">
+        <div class="div-activo">
+          <label>
+            <input type="checkbox" id="activo" [(ngModel)]="activoData">
+            {{ activoData ? 'Activo' : 'Inactivo' }}
+          </label>
+        </div>
+        <div class="div-title">
+          <label>Título:</label>
+          <div class="info">
+            <span class="red">*
+                <span id="tip-titulo">Campo Obligatorio</span>
+              </span>
+          </div>
+          <input id="title" type="text" [(ngModel)]="tituloData">
+        </div>
+        <div class="div-autor">
+          <label>Autor:</label>
+          <input id="autor" type="text" [(ngModel)]="autorData">
+        </div>
+        <div class="div-categorias">
+          <label>Género:</label>
+          <div class="info">
+            <span class="red">*
+                <span id="tip-categoria">Campo Obligatorio</span>
+              </span>
+          </div>
+          <select class="select-categorias" id="categorias" [ngModel]="categoriaData">
+            <option *ngFor="let genero of listaGeneros">{{ genero.nombre }}</option>
+          </select>
+        </div>
+        <div class="div-editorial">
+          <label>Editorial:</label>
+          <div class="info">
+            <span class="red">*
+                <span id="tip-editorial">Campo Obligatorio</span>
+              </span>
+          </div>
+          <input id="editorial" type="text" [(ngModel)]="editorialData">
+        </div>
+        <div class="div-fecha">
+          <label>Fecha de publicación:</label>
+          <div class="info">
+            <span class="red">*
+                <span id="tip-fecha">Campo Obligatorio</span>
+              </span>
+          </div>
+          <input id="fecha" type="date" [(ngModel)]="fechaData">
+        </div>
+        <div class="div-descripcion">
+          <label>Descripción:</label>
+          <textarea id="desc" type="text" [(ngModel)]="descripcionData"></textarea>
+        </div>
+        <div class="div-isbn">
+          <div class="info">
+            <span class="red">*
+                <span id="tip-isbn">Campos Obligatorios: Al menos un ISBN, si no poner "No ISBN"</span>
+              </span>
+          </div>
+          <label>ISBN13:</label>
+          <input id="isbn13" type="text" [(ngModel)]="isbn13Data">
+          <label>ISBN10:</label>
+          <input id="isbn10" type="text" [(ngModel)]="isbn10Data">
+        </div>
+      </div>
+    </div>
+    <div class="div-btn">
+      <button class="btn-guardar" (click)="comprobarCampos()">Guardar cambios</button>
+      <button class="btn-cancelar" (click)="cancelarCambios()">Cancelar</button>
+    </div>
+  </div>
+</section>
+
+
+
+
+<app-footer></app-footer>

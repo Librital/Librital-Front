@@ -23,7 +23,7 @@
       </div>
 
       <div class="div-etiquetas-custom">
-        <p>Tus etiquetas
+        <p class="title-etiquetas">Tus etiquetas
           <span class="icon-etiquetas">
             <i class="fa-solid fa-tags"></i>
           </span>
@@ -32,15 +32,13 @@
           <a class="etiqueta-custom" *ngFor="let etiquetaCustom of listaEtiquetasCustom" [ngClass]="{'etiquetaCustomtChecked': etiquetaDefaultSeleccionada === etiquetaCustom.nombre}" (click)="pulsarEtiquetaFiltrarLibrosUser(etiquetaCustom.nombre)">
             {{ etiquetaCustom.nombre }}
           </a>
+          <p *ngIf="!hayEtiquetasUser">Crea tus propias etiquetas y personaliza tu biblioteca como quieras</p>
         </div>
       </div>
       <div class="section-addLibro">
-        <h3>¡Hora de añadir un libro!
-          <span>
-
-          </span>
-        </h3>
-        <p>¡Añade un libro y así todo el mundo lo conocerá!</p>
+        <h3>¡Hora de añadir un libro!</h3>
+        <p>¿No encuentras el libro que quieres?</p>
+        <p>¡Añadelo y así todo el mundo lo conocerá!</p>
         <span class="span-cover">
           <img src="assets/addLibro.png"/>
         </span>
@@ -69,6 +67,9 @@
         </div>
         <div class="shelf-libros">
           <div class="lista-shelf-libros">
+            <div class="div-no-libros" *ngIf="hayLibrosBibliotecaUser">
+              <p>¡Añade un libro para rellenar tu biblioteca!</p>
+            </div>
             <div class="book" *ngFor="let libroUser of librosUsuario | paginate: {
                 itemsPerPage: numLibrosPerPage,
                 currentPage: paginaActual,

@@ -19,7 +19,7 @@
               </div>
               <div class="row password-form">
                 <span class="fa fa-lock" style="color: #000000;"></span>
-                <input type="password" class="form-control" id="password-login" placeholder="Contraseña">
+                <input type="password" class="form-control" id="password-login" placeholder="Contraseña" (keyup.enter)="comprobarCampos()">
               </div>
               <div class="row btn-options">
                 <button type="submit" class="btn-social" (click)="comprobarCampos()">Iniciar Sesión</button>

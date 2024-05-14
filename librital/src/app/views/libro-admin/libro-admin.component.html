@@ -1,1 +1,42 @@
-<p>libro-admin works!</p>
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<section class="section-add-libro">
+  <div class="div-add-libro">
+    <div class="buscador-libro-admin">
+      <span class="span-lupa">
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </span>
+      <input type="text" class="form-control form-buscador" placeholder="Busca el libro" [(ngModel)]="libroBuscar" (input)="activarBorrarContenido()" (keyup.enter)="onEnter()">
+      <span class="span-borrar" *ngIf="tieneContenido" (click)="borrarBuscador()">
+        <i class="fa-solid fa-circle-xmark"></i>
+      </span>
+    </div>
+    <div class="lista-libros">
+      <div class="card" *ngFor="let libro of listaLibros | paginate: {
+               itemsPerPage: numLibrosPerPage,
+               currentPage: paginaActual,
+               totalItems: numeroTotalLibros
+              }; let i = index" [class.active]="i == currentIndex" (click)="irEditarInfoLibro(libro.id_libro)">
+        <div class="div-img">
+          <img class="img-cover" [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/https')) ? decodeURIComponent(libro.portada.substring(1)) : environment.imageLocalLibro+libro.portada )">
+        </div>
+        <div class="card-info">
+          <h3>{{ comprobarTitulo(libro.titulo) }}</h3>
+          <p>{{ comprobarAutor(libro.autor) }}</p>
+          <a class="btn-edit">Editar</a>
+        </div>
+      </div>
+    </div>
+    <div class="paginacion">
+      <pagination-controls
+        previousLabel="Anterior"
+        nextLabel="Siguiente"
+        (pageChange)="handlePageChange($event)"
+        [maxSize]="10"
+      ></pagination-controls>
+    </div>
+  </div>
+</section>
+
+
+<app-footer></app-footer>

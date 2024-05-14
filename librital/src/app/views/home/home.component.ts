@@ -96,7 +96,6 @@ export class HomeComponent {
 
 
   public irAInfoLibro(id_libro: number) {
-    console.log("id_libro: ", id_libro);
     this.route.navigate(['/libro-info/', id_libro]);
   }
 

@@ -1,0 +1,255 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+
+.section-edit-libro {
+  margin-top: 100px;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/librital-camara-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+.div-edit-libro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5%;
+}
+
+
+.column-cover {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-cover {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cover {
+  width: 100%;
+  height: 100%;
+}
+
+
+input[type="file"] {
+  display: none;
+}
+
+
+.custom-file-upload {
+  display: inline-block;
+  padding: 0 1rem;
+  cursor: pointer;
+  background: var(--amarillo);
+  border: 0;
+  border-radius: 12px;
+  color: #FFFFFF;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 2.5;
+  outline: transparent;
+  text-align: center;
+  text-decoration: none;
+  transition: box-shadow .2s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  margin: 1rem;
+}
+
+.custom-file-upload:hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--amarillo), .125rem .125rem 1rem var(--amarilloOscuro);
+}
+
+
+.column2-info {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 5% 1%;
+  box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
+}
+
+.column2-info label {
+  color: black;
+  margin: 1rem;
+}
+
+
+.div-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.div-title, .div-autor,
+.div-categorias, .div-editorial,
+.div-fecha, .div-descripcion,
+.div-activo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+
+.div-isbn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+
+
+#title {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+#autor {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+.select-categorias {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+#editorial {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+#fecha {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+}
+
+#desc {
+  width: 80%;
+  height: 200px;
+  padding: 0.5rem;
+}
+
+#isbn13, #isbn10 {
+  width: 80%;
+  height: 100%;
+  padding: 0.5rem;
+
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.red {
+  color: red;
+}
+
+#tip-titulo, #tip-autor,
+#tip-categoria, #tip-categoria,
+#tip-fecha, #tip-isbn, #tip-editorial {
+  font-weight: 400;
+  color: var(--tips);
+
+}
+
+
+
+
+
+
+
+
+
+
+.div-btn {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+}
+
+
+
+.btn-guardar, .btn-cancelar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--amarilloOscuro);
+  border-radius: 9999px;
+  background-color: var(--amarillo);
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+  color: rgb(61, 60, 60);
+  outline: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin: 1rem;
+}
+
+.btn-guardar:hover, .btn-cancelar:hover {
+  background-color: transparent;
+  color: rgb(61, 60, 60);
+}
+
+
+
+/** RESPONSIVE **/
+
+@media (max-width: 315px) {
+
+  .div-cover {
+    width: 100%;
+    height: 100%;
+  }
+
+  .div-btn {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2%;
+  }
+
+
+}

@@ -1,7 +1,46 @@
-<section class="section-estadisticas">
+<!--<section class="section-best-categoria">
   <div class="echart-libros">
     <div echarts [options]="option" class="demo-chart"></div>
+  </div>
+</section>-->
+
+<app-loading-spinner *ngIf="isLoading"></app-loading-spinner>
+
+<section class="section-best-categoria">
+  <h3>Mejores libros por Categoría</h3>
+  <div class="div-best-categoria">
+    <div class="lista-best-categoria">
+      <a class="book-container" rel="noreferrer noopener" *ngFor="let libro of mejoresLibrosPerCategoria; let i = index">
+        <div class="book" (click)="irLibroId(libro.id_libro!)">
+          <img [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/https')) ? decodeURIComponent(libro.portada.substring(1)) : environment.imageLocalLibro+libro.portada)">
+        </div>
+        <div class="card-info">
+          <p class="text-genero">Género: {{ libro.nombres_categorias }}</p>
+          <p class="text-titulo">{{ comprobarTitulo(libro.titulo) }}</p>
+          <p class="text-num-votos"> Nº votos: {{ votosLibros[i] }}</p>
+        </div>
+      </a>
+    </div>
   </div>
 </section>
 
 
+
+<section class="section-chart-librosCategorias">
+  <div class="div-charts-categorias">
+    <h3>Libros por Categoría</h3>
+    <div class="chart-categoria">
+      <div echarts [options]="optionChartLibrosPerCategoria" class="chart-libro-categoria"></div>
+    </div>
+  </div>
+  <div class="div-charts-best-category">
+    <h3>Ranking de Categorías</h3>
+    <div class="chart-best-category">
+      <div echarts [options]="optionChartBestCategoria" class="chart-best-categoria"></div>
+    </div>
+  </div>
+</section>
+
+
+
+<app-footer></app-footer>

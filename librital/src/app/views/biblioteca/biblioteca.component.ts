@@ -53,6 +53,9 @@ export class BibliotecaComponent {
   tipoEtiqueta = 'default'
   valorBuscarInput = '';
 
+  hayEtiquetasUser = false;
+  hayLibrosBibliotecaUser = false;
+
 /*  numLibrosPerPage = 0;
   currentIndex = -1;
   paginaActual = 1;
@@ -136,8 +139,10 @@ export class BibliotecaComponent {
 
         if (data.message == 'No hay etiquetas') {
           this.listaEtiquetasCustom = [];
+          this.hayEtiquetasUser = true;
         } else if (data.message == 'Etiquetas cargadas') {
           this.listaEtiquetasCustom = data.etiquetas;
+          this.hayEtiquetasUser = false;
         }
       });
     }
@@ -152,12 +157,13 @@ export class BibliotecaComponent {
     setTimeout(() => {
       this.libroService.cargarTodosLibrosUsuario(this.usuarioLogueado.id!, this.paginaActual, this.etiquetaSeleccionada, this.tipoEtiqueta, this.valorBuscarInput).subscribe((data: any) => {
         if (data.message == 'No hay libros') {
-          alert('No hay libros');
           this.librosUsuario = [];
+          this.hayLibrosBibliotecaUser = true;
         } else if (data.message == 'Obtenidos') {
           this.librosUsuario = data.libros;
           this.numLibrosPerPage = data.numLibroPerPage;
           this.numeroTotalLibros = data.totalLibros;
+          this.hayLibrosBibliotecaUser = false;
         }
       });
       this.isLoading = false;

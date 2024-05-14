@@ -1,0 +1,289 @@
+
+.section-add-libro {
+  width: 100%;
+  height: 100%;
+  //margin-top: 100px;
+  padding-top: 100px;
+  background-color: var(--logoLibrital);
+}
+
+.div-add-libro {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.buscador-libro-admin {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2% 0;
+}
+
+.span-lupa {
+  left: 26%;
+  position: absolute;
+}
+
+.form-buscador {
+  width: 50%;
+  text-indent: 5%;
+  padding: 1% 3% 1% 3%;
+}
+
+.span-borrar {
+  right: 26%;
+  position: absolute;
+}
+
+
+.lista-libros {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  width: 320px;
+  //height: 480px;
+  height: auto;
+  background: var(--usuarioSubscription);
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 2% 1%;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  width: 100%;
+  height: 100%;
+  background: var(--logoLibrital);
+  transform: skewY(345deg);
+  transition: 0.5s;
+}
+
+.card:hover::before {
+  top: -70%;
+  transform: skewY(390deg);
+}
+
+.card::after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-weight: 600;
+  font-size: 6em;
+  color: rgba(0, 0, 0, 0.1);
+}
+
+.card .div-img {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+
+.card .card-info {
+  position: relative;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  z-index: 2;
+  height: 100%;
+}
+
+.card .card-info h3 {
+  font-size: 18px;
+  color: black;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+.card .card-info .btn-edit {
+  position: relative;
+  top: 100px;
+  opacity: 0;
+  padding: 10px 30px;
+  margin-top: 15px;
+  color: #000000;
+  text-decoration: none;
+  background: var(--amarillo);
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: 0.5s;
+}
+
+.card:hover .card-info .btn-edit {
+  top: 0;
+  opacity: 1;
+}
+
+.img-cover {
+  height: 300px;
+  width: 225px;
+  padding-top: 3%;
+}
+
+
+.paginacion {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1100px) {
+
+  .form-buscador {
+    padding: 1% 7% 1% 3%;
+  }
+
+  .span-borrar {
+    right: 30%;
+  }
+}
+
+@media (max-width: 830px) {
+
+  .form-buscador {
+    padding: 1% 9% 1% 4%;
+  }
+
+  .span-borrar {
+    right: 31%;
+  }
+}
+
+
+@media (max-width: 650px) {
+
+  .form-buscador {
+    padding: 1% 11% 1% 5%;
+  }
+
+  .card {
+    width: 220px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .img-cover {
+    height: 250px;
+    width: 200px;
+  }
+
+  .card .card-info h3 {
+    width: 100%;
+  }
+
+  .span-borrar {
+    right: 33%;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .form-control {
+    //text-indent: 15%;
+    padding: 1% 11% 1% 8%;
+  }
+
+  .div-search-isbn {
+    position: initial;
+    margin: 0 1%;
+  }
+
+  .card {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    margin: 5%;
+  }
+
+  .span-borrar {
+    right: 33%;
+  }
+}
+
+@media (max-width: 370px) {
+
+  .span-lupa {
+    left: 2%;
+    position: absolute;
+  }
+
+  .span-borrar {
+    right: 15%;
+  }
+
+  .form-control {
+    width: 100%;
+    margin: 0 1%;
+  }
+
+}
+
+@media (max-width: 290px) {
+
+  .div-img {
+    width: 100%;
+  }
+
+  .img-cover {
+    width: 100%;
+    padding: 5%;
+    border-radius: 20px;
+  }
+
+  .span-borrar {
+    right: 20%;
+  }
+
+}
+
+
+@media (max-width: 220px) {
+
+  .span-borrar {
+    right: 27%;
+  }
+}
+
+
+
+
+
+

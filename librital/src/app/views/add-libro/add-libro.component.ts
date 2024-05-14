@@ -280,8 +280,6 @@ export class AddLibroComponent {
 
     const archivoSeleccionado = fileInput.files[0];
 
-    console.log(archivoSeleccionado);
-
     if (archivoSeleccionado) {
 
       this.fileInput.nativeElement.value = '';

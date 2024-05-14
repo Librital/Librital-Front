@@ -186,11 +186,40 @@ export class LibroService {
 
   }
 
-
-
   public cargarTodosLibrosUsuario(id_user: number, pagina: number, etiqueta: string, tipoEtiqueta: string, valorBuscar: string) {
     return this.httpClient.post<any>(environment.apiUrl + "api/libro_usuario/cargarTodosLibrosUsuario", { "id_user": id_user, "pagina": pagina, "etiqueta": etiqueta, "tipoEtiqueta": tipoEtiqueta,"valorBuscar": valorBuscar });
   }
 
 
+  public obtenerMejoresLibrosPerCategoria() {
+    return this.httpClient.get<any>(environment.apiUrl + "api/categoria/obtenerMejoresLibrosPerCategoria");
+  }
+
+
+  public obtenerTodosLibrosActivosNoActivos(pagina: number, titulo: string) {
+    return this.httpClient.post<any>(environment.apiUrl + "api/libro/obtenerTodosLibrosAdmin", { "pagina": pagina, "titulo": titulo });
+  }
+
+
+  public obtenerTodosLibrosActivosNoActivosAdmin(id_libro: number) {
+    return this.httpClient.get<any>(environment.apiUrl + "api/libro/obtenerInfoLibroIdAdmin/" + id_libro);
+  }
+
+  public modificarLibro(libro: Libro, id_libro:number, categoria: string, portada: FormData) {
+
+    const data = new FormData();
+
+    // Agregar el libro, la categoría y el usuario como campos en el objeto FormData
+    data.append('libro', JSON.stringify(libro));
+    data.append('categoria', categoria);
+    data.append('id_libro', id_libro.toString());
+
+    // Iterar sobre las claves y valores del objeto FormData original y agregarlos al nuevo objeto FormData
+    portada.forEach((value, key) => {
+      data.append(key, value);
+    });
+    return this.httpClient.post<any>(environment.apiUrl + "api/libro/modificarLibro", data);
+
+
+  }
 }
