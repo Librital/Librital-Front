@@ -10,6 +10,8 @@ import {Usuario} from "../../models/usuario";
 import {UsuarioService} from "../../services/usuario.service";
 import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
 import {LibroService} from "../../services/libro.service";
+import {MapaService} from "../../services/mapa.service";
+import {Mapa} from "../../models/mapa";
 
 @Component({
   selector: 'app-perfil',
@@ -47,6 +49,12 @@ export class PerfilComponent {
   fotoPerfil: string = ''
   fotoPerfilInicial: string = '';
 
+  listaMarcadores: Mapa[] = [];
+  tieneDesc = false;
+  puntoActivo = true;
+
+  estadoMarcadores: { [key: string]: boolean } = {};
+
 
   // hoja 2
   cambiarPassword: boolean = false;
@@ -63,14 +71,18 @@ export class PerfilComponent {
     'https://cdn-icons-png.flaticon.com/512/12817/12817725.png'];
 
 
-  constructor(private autenticacionService: AutenticacionService, private usuarioService: UsuarioService, private libroService: LibroService) { }
+  constructor(private autenticacionService: AutenticacionService, private usuarioService: UsuarioService,
+              private libroService: LibroService, private mapaService: MapaService) { }
 
 
   ngOnInit() {
+
     this.cargarInformacionUsuarioPerfil();
     this.comprobarExistePag();
     this.comprobarExisteBusqueda();
-    this.isLoading = false;
+
+    this.obtenerTodosMarkerUserMapa();
+
   }
 
   public comprobarExistePag() {
@@ -90,6 +102,8 @@ export class PerfilComponent {
 
 
   private cargarInformacionUsuarioPerfil() {
+
+    this.isLoading = true;
 
     let nombre = document.getElementById("nombre-perfil") as HTMLInputElement;
     let apellido = document.getElementById("apellido-perfil") as HTMLInputElement;
@@ -305,5 +319,41 @@ export class PerfilComponent {
       });
     }
   }
+
+
+  public obtenerTodosMarkerUserMapa() {
+
+    this.mapaService.obtenerMarkersUserMapa(this.usuario.id!).subscribe((data: any) => {
+      if (data.message == "Obtenidos") {
+        this.listaMarcadores = data.marcadores;
+
+        this.listaMarcadores.forEach(puntoMapa => {
+          this.estadoMarcadores[puntoMapa.id_marker!] = puntoMapa.activo; // Inicialmente, todos los marcadores están desactivados
+        });
+
+      } else if (data.message == "No hay marcadores") {
+        this.listaMarcadores = [];
+      }
+      this.isLoading = false;
+    });
+
+  }
+
+
+  public desactivarPuntoUserMapa(id_punto: number) {
+
+    this.estadoMarcadores[id_punto] = !this.estadoMarcadores[id_punto];
+
+    this.mapaService.desactivarPuntoMapaUser(id_punto, this.estadoMarcadores[id_punto]).subscribe((data: any) => {
+
+      if (data.message == 'Correcto') {
+        alert('Se ha desactivado el marcador');
+        this.obtenerTodosMarkerUserMapa();
+      } else {
+        alert('No se ha podido desactivar el marcador');
+      }
+    });
+  }
+
 
 }

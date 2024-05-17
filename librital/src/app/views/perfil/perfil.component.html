@@ -111,7 +111,27 @@
           <input type="radio" class="tabs-radio" name="tabs-perfil" id="tab-mapa">
           <label for="tab-mapa" class="tab-opcion">Mapa</label>
           <div class="tabs-content">
-            Mapa
+            <div class="title-mapa">
+              <h3>Tus puntos de Bookcrossing</h3>
+            </div>
+            <div class="marker-pag">
+              <div class="lista-markers">
+                <div class="card-marker" *ngFor="let punto of listaMarcadores">
+                  <div class="marker-image">
+                    <img src="assets/leaflet/bookcrossing.png">
+                  </div>
+                  <div class="marker-info">
+                    <p class="titulo-punto">{{ punto.titulo }}</p>
+                    <p class="desc-punto">{{ punto.descripcion }}</p>
+                  </div>
+                  <div class="marker-options">
+                    <span class="span-btn" (click)="desactivarPuntoUserMapa(punto.id_marker!)">
+                      <img [src]="estadoMarcadores[punto.id_marker!] ? 'https://cdn-icons-png.flaticon.com/512/2767/2767194.png' : 'https://cdn-icons-png.flaticon.com/512/2767/2767146.png'">
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

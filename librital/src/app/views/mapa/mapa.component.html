@@ -1,4 +1,51 @@
-<section class="section-mapa">
-  <p>mapa works!</p>
+<section class="secton-add-marker">
+  <h3>¡Bienvenid&#64; al mapa de Librital!</h3>
+  <div class="div-add-marker">
+    <p>Añade un nuevo punto de bookcrossing para que todo el mundo pueda conocerlo</p>
+    <div class="form-add-marker">
+      <div class="title">
+        <label>Título</label>
+        <input id="titulo" type="text">
+      </div>
+      <div class="desc">
+        <label>Descripción</label>
+        <textarea id="descripcion"></textarea>
+      </div>
+      <div class="coordenadas">
+        <p>Haz click en el mapa para obtener las coordenadas</p>
+        <div class="info">
+          <div class="lat">
+            <label>Latitud</label>
+            <input type="text" id="latitud">
+          </div>
+          <div class="long">
+            <label>Longitud</label>
+            <input type="text" id="longitud">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-add-marker">
+      <a class="btn" (click)="addMarkerMap()">
+          <span class="span-btnIcon">
+            <img src="assets/marker.svg">
+          </span>
+        <span class="span-btnText">
+            <span class="text">Añade tu punto</span>
+          </span>
+      </a>
+    </div>
+  </div>
 </section>
 
+
+
+<section class="section-mapa">
+  <div class="map-container">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

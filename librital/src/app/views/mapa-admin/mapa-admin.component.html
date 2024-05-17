@@ -1,1 +1,61 @@
-<p>mapa-admin works!</p>
+<section class="section-map-options">
+  <h3>Puntos de Bookcrossing</h3>
+  <div class="div-options">
+    <div class="form-marker">
+      <div class="div-activo" *ngIf="puntoSeleccionado">
+        <label>
+          <input id="activo" type="checkbox" [(ngModel)]="puntoActivo">
+          {{ puntoActivo ? 'Activo' : 'Inactivo' }}
+        </label>
+      </div>
+      <div class="title">
+        <label>Título</label>
+        <input id="titulo" type="text">
+      </div>
+      <div class="desc">
+        <label>Descripción</label>
+        <textarea id="descripcion"></textarea>
+      </div>
+      <div class="coordenadas">
+        <div class="lat">
+          <label>Latitud</label>
+          <input id="latitud" type="text">
+        </div>
+        <div class="long">
+          <label>Longitud</label>
+          <input id="longitud" type="text">
+        </div>
+      </div>
+    </div>
+    <div class="btn-options">
+      <a class="btn" (click)="guardarCambiosMarcador()">
+          <span class="span-btnIcon">
+            <img src="assets/save.svg">
+          </span>
+        <span class="span-btnText">
+            <span class="text">Guardar cambios</span>
+          </span>
+      </a>
+      <a class="btn" (click)="eliminarMarcadorMapa()">
+          <span class="span-btnIcon">
+            <img src="assets/remove.svg">
+          </span>
+        <span class="span-btnText">
+            <span class="text">Eliminar marcador</span>
+          </span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="section-mapa">
+  <div class="map-container">
+    <div class="map-frame">
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+
+<app-footer></app-footer>

@@ -1,7 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Exo+2:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lora:ital,wght@0,400..700;1,400..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /** HOME **/
 
 .section-hostspot {
@@ -58,8 +56,9 @@ svg {
   text-align: center;
 }
 
-.desc-texto {
-  font-family: "Exo 2", sans-serif;
+.desc-texto p {
+  font-family: "EB Garamond", serif;
+  color: #282626;
 }
 
 .div-btn-home {

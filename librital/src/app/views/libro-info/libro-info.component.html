@@ -127,15 +127,12 @@
             </div>
         </div>
         <div class="column2">
-          <div class="libro-autor" *ngIf="existeAutor">
-            <p id="autor">Autor: {{ libroMostrar.autor }}</p>
-          </div>
-          <div class="descripcion-libro" *ngIf="existeDescripcion">
-            <p>{{ libroMostrar.descripcion }}</p>
-          </div>
           <div class="section-info">
             <div class="div-info">
               <div class="libro-categorias">
+                <div class="libro-autor" *ngIf="existeAutor">
+                  <p id="autor">Autor: {{ libroMostrar.autor }}</p>
+                </div>
                 <div class="libro-publicacion" *ngIf="existeFecha">
                   <p id="date-publicacion">Año de publicación: {{ libroMostrar.fecha }}</p>
                 </div>
@@ -149,6 +146,9 @@
                   <p id="isbn13">ISBN13: {{ libroMostrar.isbn13 }}</p>
                 </div>
               </div>
+              <div class="descripcion-libro" *ngIf="existeDescripcion">
+                <p>{{ libroMostrar.descripcion }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -158,7 +158,7 @@
 </section>
 
 
-<section class="section-comprar">
+<!--<section class="section-comprar">
   <div class="title-compra">
     <h3>Consigue tu libro:</h3>
   </div>
@@ -192,7 +192,7 @@
       </div>
     </div>
   </div>
-</section>
+</section>-->
 
 
 <section class="section-libros-relacionados">

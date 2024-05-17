@@ -30,7 +30,7 @@ export const routes: Routes = [
   {path: 'libro-info/:id', component:LibroInfoComponent},
 
   {path: 'libro-detail/:id', component:LibroDetailComponent, canActivate: [adminGuard]},
-  {path: 'mapa', component:MapaComponent, canActivate: [registradoGuard] },
+  {path: 'mapa', component:MapaComponent},
   {path: 'biblioteca', component:BibliotecaComponent, canActivate: [registradoGuard] },
   {path: 'add-libro', component:AddLibroComponent, canActivate: [registradoGuard]},
   {path: 'buscador', component:BuscadorComponent},

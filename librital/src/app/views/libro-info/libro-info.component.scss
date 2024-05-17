@@ -116,9 +116,6 @@
 
 }
 
-.libro-autor {
-  padding: 0 0 0 280px;
-}
 
 .list-genre {
   height: 100%;
@@ -148,8 +145,7 @@
 
 .descripcion-libro {
   margin-top: 1%;
-  padding: 0 2% 0 280px;
-
+  //padding: 0 2% 0 280px;
 }
 
 .libro-etiquetas {
@@ -356,6 +352,48 @@
   padding: 0 0 0 280px;
 }
 
+.libro-categorias {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.libro-autor, .libro-publicacion,
+.libro-editorial, .libro-isbn, .libro-isbn13 {
+  margin: 2%;
+  border: 1px solid var(--amarillo);
+  border-radius: 10px;
+
+  p {
+    margin: 0;
+    padding: 5px;
+  }
+
+}
+
+.descripcion-libro {
+  margin: 0 2%;
+  border: 1px solid var(--amarillo);
+  border-radius: 10px;
+
+  p {
+    margin: 0;
+    padding: 5px;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
 
 .btn {
   display: inline-flex;
@@ -434,7 +472,10 @@
 
 
 
-
+/** SECTION LIBROS RELACIONADOS **/
+.section-libros-relacionados {
+  padding-top: 5%;
+}
 
 
 
@@ -509,9 +550,15 @@
     margin: 0;
   }
 
-  .libro-autor {
+  .libro-categorias {
+    padding: 2%;
+    justify-content: center;
+  }
+
+  .libro-autor, .libro-publicacion,
+  .libro-editorial, .libro-isbn, .libro-isbn13{
     //margin-top: 5%;
-    padding: 5%;
+    //padding: 5%;
     text-align: center;
   }
 
@@ -520,7 +567,7 @@
   }
 
   .descripcion-libro {
-    padding: 0 5%;
+    //padding: 0 5%;
     width: 100%;
 
     p {

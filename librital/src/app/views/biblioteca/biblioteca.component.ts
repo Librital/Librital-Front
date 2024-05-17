@@ -136,13 +136,13 @@ export class BibliotecaComponent {
       usuario = this.authService.obtenerUsuarioDelToken();
 
       this.etiequetaService.cargarTodasEtiquetasCustomUser(usuario.id!).subscribe((data: any) => {
-
+        console.log(data);
         if (data.message == 'No hay etiquetas') {
           this.listaEtiquetasCustom = [];
-          this.hayEtiquetasUser = true;
+          this.hayEtiquetasUser = false;
         } else if (data.message == 'Etiquetas cargadas') {
           this.listaEtiquetasCustom = data.etiquetas;
-          this.hayEtiquetasUser = false;
+          this.hayEtiquetasUser = true;
         }
       });
     }
@@ -164,6 +164,7 @@ export class BibliotecaComponent {
           this.numLibrosPerPage = data.numLibroPerPage;
           this.numeroTotalLibros = data.totalLibros;
           this.hayLibrosBibliotecaUser = false;
+
         }
       });
       this.isLoading = false;

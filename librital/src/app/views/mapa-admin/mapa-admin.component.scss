@@ -1,0 +1,206 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.section-map-options {
+  margin-top: 100px;
+  background-color: var(--logoLibrital);
+}
+
+.section-map-options h3 {
+  font-family: 'Pacifico', cursive;
+  color: white;
+  text-align: center;
+  margin: 0;
+  padding: 2%;
+}
+
+.div-options {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-marker {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1% 0;
+}
+
+#titulo {
+  width: 30%;
+}
+
+.desc {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1% 0;
+}
+
+#descripcion {
+  width: 30%;
+
+}
+
+.coordenadas {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.lat, .long {
+  //width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2%;
+}
+
+#latitud, #longitud {
+  width: 100%;
+}
+
+
+
+
+
+.btn-options {
+  padding-top: 1%;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--amarilloOscuro);
+  border-radius: 9999px;
+  background-color: var(--amarillo);
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+  color: rgb(61, 60, 60);
+  outline: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  margin: 0 1%;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: white;
+}
+
+.span-btnIcon {
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 0 1%;
+
+  img {
+
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.section-mapa {
+  //margin-top: 100px;
+  width: 100%;
+  height: calc(100vh - 100px);
+  position: relative;
+  background-color: var(--logoLibrital);
+}
+
+.map-container {
+  /*  position: absolute;
+    top: 100px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: 1%;*/
+  width: 100%;
+  height: 100%;
+  padding: 2%;
+}
+
+.map-frame {
+  border: 2px solid black;
+  height: 100%;
+  width: 100%;
+}
+
+#map {
+  height: 100%;
+  z-index: 2;
+}
+
+
+
+@media (max-width: 875px) {
+
+  #titulo, #descripcion {
+    width: 80%;
+  }
+
+  .lat, .long {
+    width: 100%;
+  }
+
+  #latitud, #longitud {
+    width: 90%;
+  }
+
+}
+
+
+@media (max-width: 439px) {
+
+  .btn {
+    padding: 2%;
+    margin: 1%;
+  }
+
+}

@@ -162,6 +162,7 @@
 .tabs-content {
   order: 1;
   width: 100%;
+  height: 100%;
   display: none;
 }
 
@@ -297,8 +298,97 @@
 
 
 
+/** MAPA **/
+
+.marker-pag {
+  width: 100%;
+  height: 770px;
+  overflow: hidden;
+  overflow-y: scroll;
+  //height: 100%;
+}
+
+.title-mapa {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.lista-markers {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 2%;
+}
+
+.card-marker {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: var(--colorFondo);
+  color: var(--logoLibrital);
+  border: 1px solid var(--logoLibrital);
+  border-radius: 20px;
+  margin: 1% 0;
+}
+
+.titulo-punto {
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.desc-punto {
+  text-align: center;
+  padding: 0 2%;
+}
 
 
+.marker-image {
+  padding: 0 0 0 2%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.marker-image img {
+  width: 3rem;
+  height: 3rem;
+
+}
+
+.marker-info {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.marker-options {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 2%;
+}
+
+.marker-options img {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
 
 
 
@@ -339,11 +429,44 @@
   .page2 {
     border-top: 2px solid black;
   }
+
+  .marker-pag {
+    height: 100%;
+  }
+
 }
+
+
+@media (max-width: 545px) {
+
+  .card-marker {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .marker-image {
+    padding: 1% 0;
+    width: 100%;
+    height: 100%;
+  }
+
+}
+
 
 
 @media (max-width: 400px) {
   .div-password-change, .div-change-img-profile {
     flex-direction: column;
   }
+
+  .title-mapa h3 {
+    padding: 1%;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
 }
