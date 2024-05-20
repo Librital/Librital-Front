@@ -222,4 +222,10 @@ export class LibroService {
 
 
   }
+
+  public obtenerRecomendacionesCategoriaUserLibro(id_user: number) {
+    return this.httpClient.post<any>(environment.apiUrl + "api/libro_usuario/obtenerRecomendacionesCategoriaLibrosUser", { "id_user": id_user });
+  }
+
+
 }

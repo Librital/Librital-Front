@@ -10,6 +10,8 @@ import {Router, RouterLink} from "@angular/router";
 import {Categoria} from "../../models/categoria";
 import {CategoriaService} from "../../services/categoria.service";
 import {environment} from "../../../environments/environment";
+import {AutenticacionService} from "../../services/autenticacion.service";
+import {Usuario} from "../../models/usuario";
 
 @Component({
   selector: 'app-home',
@@ -31,21 +33,28 @@ export class HomeComponent {
 
   listaLibrosTendencia: any [] = [];
   listaLibrosNewArrivals: Libro[] = [];
-
+  listaLibrosRecomendaciones: any [] = [];
+  noHayLibrosRecomendados = true;
 
   listaCategorias: Categoria[] = [];
+
+  usuarioLogueado = false;
+  usuario = new Usuario('', '', '', '', '', 1, 0, 1, '');
+
 
 
 
   protected readonly decodeURIComponent = decodeURIComponent;
 
 
-  constructor(private spinnerService: SpinnerService, private libroService: LibroService, private route: Router, private categoriaService: CategoriaService) {}
+  constructor(private spinnerService: SpinnerService, private libroService: LibroService, private route: Router,
+              private categoriaService: CategoriaService, private authService: AutenticacionService) {}
 
 
   ngOnInit() {
     this.comprobarExistePag();
     this.comprobarExisteBusqueda();
+    this.comprobarUsuarioLogueado();
     this.obtenerBestRatings();
     this.obtenerNewArrivalsLibros();
     this.obtenerCategoriasLista();
@@ -64,6 +73,21 @@ export class HomeComponent {
       return autor.substring(0, 30) + '...';
     }
     return autor;
+  }
+
+
+  public comprobarUsuarioLogueado() {
+    if (this.authService.comprobarUsuarioLogueado()) {
+      this.usuarioLogueado = true;
+
+      this.usuario = this.authService.obtenerUsuarioDelToken();
+
+      this.obtenerRecomendacionesUserLibro();
+
+    } else {
+      this.usuarioLogueado = false;
+      this.noHayLibrosRecomendados = false;
+    }
   }
 
 
@@ -86,6 +110,22 @@ export class HomeComponent {
       }
     });
   }
+
+  public obtenerRecomendacionesUserLibro() {
+    this.libroService.obtenerRecomendacionesCategoriaUserLibro(this.usuario.id!).subscribe((data: any) => {
+
+      if (data.message == 'Obtenido') {
+        this.listaLibrosRecomendaciones = data.libros;
+        this.noHayLibrosRecomendados = false
+      } else if (data.message == 'No hay libros valorados') {
+        this.listaLibrosRecomendaciones = [];
+        this.noHayLibrosRecomendados = true;
+      }
+
+    });
+  }
+
+
 
   public obtenerCategoriasLista() {
     this.categoriaService.obtenerTodasCategorias().subscribe((data) => {

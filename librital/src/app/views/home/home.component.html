@@ -132,6 +132,29 @@
 </section>
 
 
+<section class="section-categoria-recommed" *ngIf="usuarioLogueado">
+  <h3> Quizás te puede interesar</h3>
+  <div class="div-categoria-recommend">
+    <div class="lista-categoria-recommend" *ngIf="!noHayLibrosRecomendados">
+      <a class="book-container" rel="noreferrer noopener" *ngFor="let libro of listaLibrosRecomendaciones">
+        <div class="book" (click)="irAInfoLibro(libro.id_libro!)">
+          <img [src]="((libro.portada == null || libro.portada == '') ? 'assets/NoCover.png' : (libro.portada.startsWith('/https')) ? decodeURIComponent(libro.portada.substring(1)) : environment.imageLocalLibro+libro.portada)">
+        </div>
+        <div class="card-info" (click)="irAInfoLibro(libro.id_libro!)">
+          <p>{{ comprobarTitulo(libro.titulo) }}</p>
+          <p>{{ comprobarAutor(libro.autor) }}</p>
+        </div>
+    </a>
+  </div>
+  <div class="no-recomendation" *ngIf="noHayLibrosRecomendados">
+    <p>¡Añade o valora cualquier libro para poder recomendarte libros!</p>
+  </div>
+  </div>
+</section>
+
+
+
+
 
 <section class="section-know-categorias">
   <div class="div-know-categorias">
@@ -214,7 +237,6 @@
     </div>
   </div>
 </section>
-
 
 
 
