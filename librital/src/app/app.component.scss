@@ -62,16 +62,22 @@
 
 .menu-bar .dropdown-link-title {
   font-weight: 600;
+  font-family: 'Patrick Hand', cursive;
 }
 
 
 .menu-bar .nav-link {
   font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.6px;
+  //font-weight: 500;
   padding: 0.3rem;
   margin: 0 0.6rem;
 
+}
+
+.nav-link {
+  color: var(--textoPlain);
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
 }
 
 

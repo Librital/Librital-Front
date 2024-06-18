@@ -12,6 +12,7 @@ import {CategoriaService} from "../../services/categoria.service";
 import {FooterComponent} from "../footer/footer.component";
 import {Libro} from "../../models/libro";
 import {AutenticacionService} from "../../services/autenticacion.service";
+import {ToastService} from "../../services/toast.service";
 
 
 
@@ -73,7 +74,7 @@ export class AddLibroComponent {
 
   constructor(private libroService: LibroService, private spinnerService: SpinnerService,
               private cameraService: CamaraService, private router: Router, private categoriaService: CategoriaService,
-              private authService: AutenticacionService) {
+              private authService: AutenticacionService, private toastService: ToastService) {
     this.captures = [];
     this.navigationStartSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
@@ -217,7 +218,8 @@ export class AddLibroComponent {
   capturarFoto(): void {
 
     if (!this.camaraEncendida) {
-      alert('Enciende la cámara antes de capturar una foto');
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary: 'Información', detail: 'Enciende la cámara para capturar una foto'})
     } else {
 
       const canvas = this.canvas.nativeElement;
@@ -285,7 +287,8 @@ export class AddLibroComponent {
       this.fileInput.nativeElement.value = '';
 
       if (archivoSeleccionado.type.indexOf('image') < 0) {
-        alert('El archivo seleccionado no es una imagen')
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El archivo seleccionado no es una imagen'});
       } else {
         const formData = new FormData();
         formData.append('cover', archivoSeleccionado);
@@ -338,7 +341,8 @@ export class AddLibroComponent {
           this.displayCameras = false;
           this.btnCamaraOn = false;
 
-          alert('Libro encontrado');
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail: 'Libro encontrado'});
 
           if (data.isbn13 != "") {
             this.isbnData = data.isbn13;
@@ -378,7 +382,8 @@ export class AddLibroComponent {
 
 
           this.stopCamera();
-          alert('No se ha encontrado ningún libro');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'No se ha encontrado el libro'});
         }
         this.isLoading = false;
       });
@@ -446,17 +451,17 @@ export class AddLibroComponent {
 
     if (tituloInput.value != '' && editorialInput.value != '' && fechaInput.value != '' && inputIsbn.value != '' && categoriaSelect.value != '') {
 
-      console.log('Añadiendo libro a la biblioteca');
-
       if (autorInput.value != '') {
         if (autorInput.value.length > 100) {
-          alert('El autor sobrepasa el límite de caracteres permitidos');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'El autor no puede tener más de 100 caracteres'});
           camposCorrectos = false;
         }
       }
 
       if (inputIsbn.value.length > 13 || inputIsbn.value.length < 10) {
-        alert('El formato del ISBN no es correcto');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El formato del ISBN no es válido'});
         camposCorrectos = false;
       }
 
@@ -464,7 +469,6 @@ export class AddLibroComponent {
 
 
       if (camposCorrectos) {
-        console.log("Todos campso correctos");
 
         let usuario = this.authService.obtenerUsuarioDelToken();
 
@@ -478,13 +482,20 @@ export class AddLibroComponent {
 
         this.libroService.addLibroNuevoBiblioteca(libroNuevo, categoriaLibro, usuario, this.nombreArchivoSeleccionado).subscribe((data: any) => {
           if (data.message == 'Guardado') {
-            alert('Libro añadido a la biblioteca');
-            this.router.navigate(['/biblioteca']);
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail: 'Libro añadido a la biblioteca'});
+            setTimeout(() => {
+              this.router.navigate(['/biblioteca']);
+            }, 1000);
           } else if (data.message == 'Ya existe en tu biblioteca') {
-              alert('El libro ya existe en tu biblioteca');
+            this.toastService.clear();
+            this.toastService.add({severity:'info', summary: 'Información', detail: 'El libro ya existe en tu biblioteca'});
           } else if (data.message == 'Guardado en tu biblioteca') {
-            alert('Libro añadido a la biblioteca');
-            this.router.navigate(['/biblioteca']);
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail: 'Libro añadido a la biblioteca'});
+            setTimeout(() => {
+              this.router.navigate(['/biblioteca']);
+            }, 1000);
           }
         });
 

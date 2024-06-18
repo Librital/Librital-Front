@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import {Router, RouterLink} from "@angular/router";
+import {NavigationEnd, Router, RouterLink} from "@angular/router";
 import {UsuarioService} from "../../services/usuario.service";
 import {Usuario} from "../../models/usuario";
 import {AutenticacionService} from "../../services/autenticacion.service";
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {LibroService} from "../../services/libro.service";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ import {LibroService} from "../../services/libro.service";
 export class LoginComponent {
 
   constructor(private route: Router, private usuarioService: UsuarioService, private autenticacionService: AutenticacionService,
-              private libroService: LibroService) { }
+              private libroService: LibroService, private toastService: ToastService) { }
 
   ngOnInit(): void {
     if (this.autenticacionService.comprobarUsuarioLogueado() && this.autenticacionService.obtenerUsuarioDelToken().tipo != 3) {
@@ -51,7 +52,8 @@ export class LoginComponent {
     let contrasenia = (<HTMLInputElement>document.getElementById('password-login')).value;
 
     if (email == "" || contrasenia == "") {
-      alert("No puede haber campos vacíos.");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'Debes rellenar todos los campos.'});
     } else {
       this.loginUsuario();
     }
@@ -66,14 +68,22 @@ export class LoginComponent {
 
     this.usuarioService.loginUsuario(usuarioLogin).subscribe((data: any) => {
       if (data.message == "No existe") {
-        alert("No se ha encontrado el usuario con el email introducido.");
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'No se ha encontrado el usuario con el email introducido.'});
       } else if (data.message == "Credenciales incorrectas") {
-          alert("Error al iniciar sesión.");
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Error al iniciar sesión.'});
       } else if (data.message == "Correcto")  {
-          alert("Se ha logeado correctamente");
+
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail:'Se ha logeado correctamente.'});
+
           this.autenticacionService.guardarToken(data.access_token);
           this.autenticacionService.guardarRefreshToken(data.refresh);
-          this.route.navigate(['/']);
+          setTimeout(() => {
+            this.route.navigate(['/']);
+          }, 1000);
+
 
 
       }

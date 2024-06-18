@@ -6,6 +6,7 @@ import {HttpClientXsrfModule, provideHttpClient, withInterceptors} from "@angula
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {authInterceptorInterceptor} from "./interceptors/auth-interceptor.interceptor";
 import {NgxEchartsModule, provideEcharts} from "ngx-echarts";
+import {MessageService} from "primeng/api";
 
 
 export const appConfig: ApplicationConfig = {
@@ -14,5 +15,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(), provideAnimationsAsync(),
     provideHttpClient(withInterceptors([authInterceptorInterceptor])),
     provideEcharts(),
+    MessageService,
   ]
 };

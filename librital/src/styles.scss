@@ -45,6 +45,7 @@ $librital-theme: mat.define-light-theme((
   --amarillo: #F7BC47FF;
   --amarilloOscuro: #d19b00;
   --azulVerde: #00918a;
+  --textoPlain: #2c2b2b;
   --usuarioSubscription: linear-gradient(to top, var(--logoLibrital), 20%, #2d8d8d);
 
   --tips: rgba(51, 49, 49, 0.71);
@@ -53,3 +54,23 @@ $librital-theme: mat.define-light-theme((
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&family=Patrick+Hand&display=swap');
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+
+::-webkit-scrollbar {
+  width: 15px;
+  height: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--amarillo);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--colorFondo);
+  border-radius: 10px;
+}

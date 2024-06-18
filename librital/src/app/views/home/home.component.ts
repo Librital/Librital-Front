@@ -13,6 +13,13 @@ import {environment} from "../../../environments/environment";
 import {AutenticacionService} from "../../services/autenticacion.service";
 import {Usuario} from "../../models/usuario";
 
+
+import { ToastModule } from 'primeng/toast';
+import {Button} from "primeng/button";
+import {Ripple} from "primeng/ripple";
+import {MessageService} from "primeng/api";
+import {ToastService} from "../../services/toast.service";
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -23,6 +30,9 @@ import {Usuario} from "../../models/usuario";
     NgForOf,
     NgClass,
     RouterLink,
+    ToastModule,
+    Button,
+    Ripple,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
@@ -48,7 +58,8 @@ export class HomeComponent {
 
 
   constructor(private spinnerService: SpinnerService, private libroService: LibroService, private route: Router,
-              private categoriaService: CategoriaService, private authService: AutenticacionService) {}
+              private categoriaService: CategoriaService, private authService: AutenticacionService,
+              private toastService: ToastService) {}
 
 
   ngOnInit() {
@@ -89,7 +100,6 @@ export class HomeComponent {
       this.noHayLibrosRecomendados = false;
     }
   }
-
 
   public obtenerNewArrivalsLibros() {
     this.libroService.obtenerNewArrivals().subscribe((data) => {
@@ -168,6 +178,23 @@ export class HomeComponent {
 
   public irBuscadorGenero(nombre_categoria: string) {
     this.route.navigate(['/buscador/', nombre_categoria]);
+  }
+
+
+  public irBibliotecaUsuario() {
+
+    if (this.usuarioLogueado) {
+      this.route.navigate(['/biblioteca']);
+    } else {
+      this.toastService.clear();
+      this.toastService.add({severity: 'info', summary: 'Información', detail:  'Debes tener una cuenta para poder sumergirte en tu biblioteca',
+        life: 5000});
+      setTimeout(() => {
+        this.route.navigate(['/login']);
+      }, 1000);
+
+    }
+
   }
 
 

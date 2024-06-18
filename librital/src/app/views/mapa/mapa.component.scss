@@ -27,11 +27,14 @@
   align-items: center;
 }
 
-.div-add-marker p {
+.desc-mapa {
   text-align: center;
   padding: 0 2%;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--textoPlain);
+  font-family: 'Patrick Hand', cursive;
 }
-
 
 .form-add-marker {
   width: 100%;
@@ -41,6 +44,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.form-add-marker label {
+  //color: var(--textoPlain);
+  font-size: 18px;
+  color: white;
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
+
 }
 
 .title {
@@ -82,6 +94,13 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.coordenadas p {
+    font-size: 18px;
+    color: var(--textoPlain);
+    font-family: 'Patrick Hand', cursive;
+    font-weight: bold;
 }
 
 .info {
@@ -127,7 +146,9 @@
   background-color: var(--amarillo);
   padding: 0.625rem 1.5rem;
   text-align: center;
-  color: rgb(61, 60, 60);
+  color: var(--textoPlain);
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
   outline: 0;
   transition: all 0.2s ease;
   text-decoration: none;

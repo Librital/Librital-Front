@@ -17,19 +17,22 @@ import {
 import {faBars} from "@fortawesome/free-solid-svg-icons/faBars";
 import {UsuarioService} from "./services/usuario.service";
 import {faMapLocation} from "@fortawesome/free-solid-svg-icons/faMapLocation";
+import {ToastModule} from "primeng/toast";
+import {ToastService} from "./services/toast.service";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    CommonModule,
-    RouterOutlet,
-    LoadingSpinnerComponent,
-    FooterComponent,
-    RouterLink,
-    RouterLinkActive,
-    FontAwesomeModule,
-  ],
+    imports: [
+        CommonModule,
+        RouterOutlet,
+        LoadingSpinnerComponent,
+        FooterComponent,
+        RouterLink,
+        RouterLinkActive,
+        FontAwesomeModule,
+        ToastModule,
+    ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -73,7 +76,7 @@ export class AppComponent {
 
 
   constructor(private route: Router, private authService: AutenticacionService, private renderer: Renderer2, private elementRef: ElementRef,
-              private usuarioService: UsuarioService, private router: Router) {
+              private usuarioService: UsuarioService, private router: Router, private toastService: ToastService) {
 
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationStart) {
@@ -264,11 +267,14 @@ export class AppComponent {
 
         });
       } else {
-        alert('Debe iniciar sesión');
+        this.toastService.clear();
+        this.toastService.add({severity: 'info', summary: 'Información', detail: 'Su sesión ha expirado. Debe iniciar sesión.'})
         if (this.authService.getToken()) {
           this.authService.logout();
         }
-        this.route.navigate(['/login']);
+        setTimeout(() => {
+          this.route.navigate(['/login']);
+        }, 1000);
       }
     }
   }
@@ -288,9 +294,13 @@ export class AppComponent {
   }
 
   public cerrarSesion() {
-    alert('Se ha cerrado sesión');
+    this.toastService.clear();
+    this.toastService.add({severity: 'info', summary: 'Información', detail: 'Sesión cerrada correctamente.'})
     this.authService.logout();
-    this.route.navigate(['/']);
+    setTimeout(() => {
+      this.route.navigate(['/']);
+    }, 1000);
+
   }
 
 

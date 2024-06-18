@@ -110,11 +110,19 @@
 
 .card .card-info h3 {
   font-size: 18px;
-  color: black;
-  font-weight: 500;
+  color: var(--textoPlain);
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
   text-transform: uppercase;
   letter-spacing: 1px;
   text-align: center;
+}
+
+.card-info p {
+  color: var(--textoPlain);
+  font-family: 'Patrick Hand', cursive;
+  text-align: center;
+  font-weight: bold;
 }
 
 .card .card-info .btn-edit {

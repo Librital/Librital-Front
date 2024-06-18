@@ -7,6 +7,7 @@ import {Mapa} from "../../models/mapa";
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {LibroService} from "../../services/libro.service";
+import {ToastService} from "../../services/toast.service";
 
 L.Icon.Default.imagePath = 'assets/leaflet/bookcrossing.png';
 
@@ -41,7 +42,8 @@ export class MapaAdminComponent {
 
 
 
-  constructor(private mapaService: MapaService, private authService: AutenticacionService, private libroService: LibroService) { }
+  constructor(private mapaService: MapaService, private authService: AutenticacionService, private libroService: LibroService,
+              private toastService: ToastService) { }
 
   ngOnInit(): void {
     this.comprobarExistePag();
@@ -211,7 +213,8 @@ export class MapaAdminComponent {
 
           this.addMarkers();
 
-          alert('Marcador actualizado correctamente');
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail: 'Marcador actualizado correctamente'});
         }
       });
     }
@@ -240,7 +243,8 @@ export class MapaAdminComponent {
 
         this.addMarkers();
 
-        alert('Marcador eliminado correctamente');
+        this.toastService.clear();
+        this.toastService.add({severity:'success', detail: 'Marcador eliminado correctamente'});
       }
 
     });

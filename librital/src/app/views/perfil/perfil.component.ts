@@ -12,6 +12,7 @@ import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.compon
 import {LibroService} from "../../services/libro.service";
 import {MapaService} from "../../services/mapa.service";
 import {Mapa} from "../../models/mapa";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-perfil',
@@ -72,7 +73,7 @@ export class PerfilComponent {
 
 
   constructor(private autenticacionService: AutenticacionService, private usuarioService: UsuarioService,
-              private libroService: LibroService, private mapaService: MapaService) { }
+              private libroService: LibroService, private mapaService: MapaService, private toastService: ToastService) { }
 
 
   ngOnInit() {
@@ -175,16 +176,21 @@ export class PerfilComponent {
     let passwordConfirmacion = document.getElementById("password-confirm-perfil") as HTMLInputElement;
 
     if (this.nombreIni == nombre.value && this.apellidoIni == apellido.value && this.fechaNacimientoIni == fechaNacimiento.value && this.emailIni == email.value) {
-      alert('No se ha realizado ningún cambio');
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'No se ha realizado ningún cambio'});
     } else if (nombre.value == '' || apellido.value == '' || fechaNacimiento.value == '' || email.value == ''
       || password.value == '' || passwordConfirmacion.value == '') {
-      alert('Todos los campos son obligatorios');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'Todos los campos son obligatorios'});
     } else if (!this.expresionEmail.test(email.value)) {
-      alert('El email no es válido');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'El email no tiene un formato válido'});
     } else if (fechaDate > new Date()) {
-      alert('La fecha de nacimiento no puede ser mayor a la fecha actual');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'La fecha de nacimiento no puede ser mayor a la actual'});
     } else if (password.value != passwordConfirmacion.value) {
-      alert('Las contraseñas no coinciden');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'Las contraseñas no coinciden'});
     } else {
       let usuario = new Usuario(nombre.value, apellido.value, email.value, password.value, fechaNacimiento.value, 1, 0, 1, '');
       this.actualizarInformacionUsuario(usuario, this.emailIni);
@@ -226,12 +232,15 @@ export class PerfilComponent {
         this.autenticacionService.guardarToken(data.access_token);
         this.autenticacionService.guardarRefreshToken(data.refresh);
         this.cargarInformacionUsuarioPerfil();
-        alert('Se ha actualizado la información del usuario');
+        this.toastService.clear();
+        this.toastService.add({severity:'success', detail:'Se ha actualizado la información del usuario correctamente'});
       } else if (data.message == "Contraseña incorrecta") {
-        alert("La constraseña introducida es incorrecta");
+        this.toastService.clear();
+        this.toastService.add({severity:'error', detail:'La contraseña introducida es incorrecta'});
         this.ponerCamposDefault();
       } else if (data.message == "Correo ya existe") {
-        alert("El email introducido ya se encuentra registrado");
+        this.toastService.clear();
+        this.toastService.add({severity:'error', detail:'El correo introducido ya existe'});
         this.ponerCamposDefault();
       }
     });
@@ -266,14 +275,17 @@ export class PerfilComponent {
 
 
     if (passwordInicial.value == '' || passwordChange.value == '' || passwordConfirmacion.value == '') {
-      alert('Todos los campos son obligatorios');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'Todos los campos son obligatorios'});
     } else if (passwordChange.value != passwordConfirmacion.value) {
-      alert('La constraseña nueva no coincide con la confirmación');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'Las contraseñas no coincide con la confirmación'});
     } else {
       let usuario = new Usuario('', '', email.value, passwordChange.value, '', 1, 0, 1, '');
       this.usuarioService.cambiarPassword(usuario, passwordInicial.value).subscribe((data: any) => {
         if (data.message == "Actualizada") {
-          alert('Se ha actualizado la contraseña del usuario');
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail:'Se ha cambiado la contraseña con éxito'});
           this.cancelarPasswordChange();
           passwordInicial.value = '';
           passwordChange.value = '';
@@ -283,7 +295,8 @@ export class PerfilComponent {
           this.autenticacionService.guardarRefreshToken(data.refresh);
 
         } else if (data.message == "Incorrecta") {
-          alert('La contraseña actual es incorrecta');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', detail:'La contraseña introducida es incorrecta'});
           passwordInicial.value = '';
         }
       });
@@ -302,7 +315,8 @@ export class PerfilComponent {
   public guardarCambioAvatar() {
 
     if (this.fotoPerfil == this.fotoPerfilInicial) {
-      alert('No se ha realizado ningún cambio');
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'No se ha realizado ningún cambio en la imagen de perfil'});
       this.cambiarImgProfile = false;
     } else {
       let usuario = new Usuario('', '', this.emailIni, '', '', 1, 1, 1, this.fotoPerfil);
@@ -311,10 +325,13 @@ export class PerfilComponent {
           this.autenticacionService.guardarToken(data.access_token);
           this.autenticacionService.guardarRefreshToken(data.refresh);
           this.cargarInformacionUsuarioPerfil();
-          alert('Se ha cambiado la imagen de perfil con éxito');
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail:'Se ha cambiado la imagen de perfil con éxito'});
           this.cambiarImgProfile = false;
+          this.isLoading = false;
         } else {
-          alert('No se ha podido cambiar la imagen de perfil');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', detail:'No se ha podido cambiar la imagen de perfil'});
         }
       });
     }
@@ -347,10 +364,12 @@ export class PerfilComponent {
     this.mapaService.desactivarPuntoMapaUser(id_punto, this.estadoMarcadores[id_punto]).subscribe((data: any) => {
 
       if (data.message == 'Correcto') {
-        alert('Se ha desactivado el marcador');
+        this.toastService.clear();
+        this.toastService.add({severity:'success', detail:'Se ha desactivado el marcador correctamente'});
         this.obtenerTodosMarkerUserMapa();
       } else {
-        alert('No se ha podido desactivar el marcador');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail:'No se ha podido desactivar el marcador'});
       }
     });
   }

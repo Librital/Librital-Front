@@ -5,6 +5,7 @@ import {Libro} from "../models/libro";
 import {Etiqueta} from "../models/etiqueta";
 import {Subject} from "rxjs";
 import {Usuario} from "../models/usuario";
+import {ToastService} from "./toast.service";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class LibroService {
   private actualizarEtiquetasUser = new Subject();
   actualizarEtiquetasUser$ = this.actualizarEtiquetasUser.asObservable();
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, private toastService: ToastService) { }
 
 
   public obtenerMejoresLibros() {
@@ -143,7 +144,8 @@ export class LibroService {
         if (data.message == "Guardado") {
           this.actualizarEtiquetasUser.next(data.etiquetas);
         } else if (data.message == "Ya existe") {
-          alert('La etiqueta ya existe');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'La etiqueta ya existe'})
         }
       }
     );
@@ -156,7 +158,8 @@ export class LibroService {
         if (data.message == "Eliminado") {
           this.actualizarEtiquetasUser.next(data.etiquetas);
         } else if (data.message == "Error") {
-          alert('Error al eliminar la etiqueta');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'Error al eliminar la etiqueta'})
         }
       }
     );

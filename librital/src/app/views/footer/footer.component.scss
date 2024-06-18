@@ -28,12 +28,61 @@ body {
 
 }
 
+.company-info p {
+  padding: 0 2%;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Patrick Hand", serif;
+  color: var(--textoPlain);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--amarilloOscuro);
+  border-radius: 9999px;
+  background-color: var(--amarillo);
+  padding: 0.625rem 1.5rem;
+  text-align: center;
+  color: var(--textoPlain);
+  outline: 0;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background-color: transparent;
+  color: white;
+}
+
+.text {
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Patrick Hand", serif;
+}
+
+
+
 .help-info {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.help-info a {
+  padding: 0 2%;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Patrick Hand", serif;
+  text-decoration: underline;
+  color: inherit;
+}
+
+.help-info a:hover {
+  color: white;
 }
 
 
@@ -90,7 +139,8 @@ body {
 
 .footer-title {
   margin-bottom: 10%;
-  color: #000000;
+  font-family: 'Pacifico', cursive;
+  color: white;
 }
 
 
@@ -160,6 +210,13 @@ body {
 
 
 
+.text-rights {
+  color: var(--textoPlain);
+  font-family: "Patrick Hand", serif;
+}
+
+
+
 
 /** RESPONSIVE **/
 
@@ -183,10 +240,47 @@ body {
 }
 
 
+@media (max-width: 420px) {
+  .btn {
+    padding: 0.625rem 1rem;
+
+  }
+}
+
+
+
 
 @media (max-width: 410px) {
   .footer {
     position: relative;
     overflow-x: hidden;
+  }
+}
+
+@media (max-width: 400px) {
+  .footer_top .footer_background .footer_background_one {
+    width: 30%;
+    height: 40%;
+    left: 10%;
+  }
+  .footer_top .footer_background .footer_background_two {
+    width: 30%;
+    height: 40%;
+    left: 18%;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 375px) {
+  .col-6 {
+    width: 100%;
+  }
+
+  .help-info {
+    padding: 20% 0;
   }
 }

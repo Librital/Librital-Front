@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Lora:ital,wght@0,400..700;1,400..700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 /** HOME **/
 
 .section-hostspot {
@@ -27,7 +25,7 @@
   justify-content: center;
   align-items: center;
   z-index: 2;
-  color: #414141;
+  color: var(--textoPlain);
 }
 
 .home-description h1 {
@@ -54,11 +52,15 @@ svg {
   justify-content: center;
   align-items: center;
   text-align: center;
+  padding: 0 5%;
 }
 
 .desc-texto p {
-  font-family: "EB Garamond", serif;
-  color: #282626;
+  padding-top: 1%;
+  font-family: "Patrick Hand", serif;
+  font-weight: bold;
+  color: #2c2b2b;
+  font-size: 1.5rem;
 }
 
 .div-btn-home {
@@ -77,7 +79,7 @@ svg {
   background-color: var(--amarillo);
   padding: 0.625rem 1.5rem;
   text-align: center;
-  color: rgb(61, 60, 60);
+  color: var(--textoPlain);
   outline: 0;
   transition: all 0.2s ease;
   text-decoration: none;
@@ -171,6 +173,9 @@ svg {
 
   p {
     text-align: center;
+    font-family: "Patrick Hand", serif;
+    font-weight: bold;
+    font-size: 1rem;
   }
 }
 
@@ -211,29 +216,6 @@ svg {
   overflow-x: scroll;
   padding: 5% 2%;
 }
-
-/*.card-tendencia {
-  width: 250px;
-  height: 420px;
-  text-align: center;
-  padding: 0 3%;
-  margin: 0 1%;
-}
-
-.card-image img {
-  width: 150px;
-  height: 250px;
-}
-
-.card-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}*/
-
-
-
 
 .book-container {
   display: flex;
@@ -326,10 +308,13 @@ svg {
   border-radius: 20px;
 
   p {
-    color: black;
+    color: var(--textoPlain);
+    padding: 1% 2%;
     font-size: 1.2em;
-    font-weight: 500;
+    font-weight: bold;
     text-align: center;
+    font-family: "Patrick Hand", serif;
+    text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white;
   }
 
 }
@@ -437,6 +422,12 @@ svg {
   height: 100%;
 }
 
+.card-info-libro p {
+  font-family: "Patrick Hand", serif;
+  font-weight: bold;
+  color: #2c2b2b;
+}
+
 .title-new-arrcontenido-cardivals {
   padding: 0 2.5%;
 }
@@ -454,10 +445,15 @@ svg {
   background-color: var(--amarillo);
   padding: 0.625rem 1.5rem;
   text-align: center;
-  color: rgb(61, 60, 60);
   outline: 0;
   transition: all 0.2s ease;
   text-decoration: none;
+}
+
+.text {
+  font-family: "Patrick Hand", serif;
+  font-weight: bold;
+  color: var(--textoPlain);
 }
 
 .btn-new-arrivals:hover {
@@ -566,6 +562,15 @@ svg {
   font-family: 'Pacifico', cursive;
   text-align: center;
   padding: 2% 0;
+}
+
+.div-text-categorias p {
+  color: var(--textoPlain);
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-family: 'Patrick Hand', serif;
+  text-align: center;
+  padding: 1% 0;
 }
 
 .div-categorias-ejemplo {
@@ -771,16 +776,23 @@ svg {
 }
 
 .div-title {
+  width: 100%;
+  height: 100%;
   padding: 5% 0 0 0;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 
   p {
+    width: 100%;
+    height: 100%;
     margin: 0;
     padding: 0;
     color: white;
     text-align: center;
+    font-family: 'Patrick Hand', serif;
+    font-weight: bold;
   }
 
 }
@@ -851,6 +863,15 @@ svg {
   text-align: center;
   padding: 2% 0;
 }
+
+.div-text-mapa p {
+  color: var(--textoPlain);
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Patrick Hand', serif;
+  text-align: center;
+}
+
 
 .div-image-mapa {
   width: 100%;

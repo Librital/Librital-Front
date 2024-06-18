@@ -11,6 +11,7 @@ import {NgxPaginationModule} from "ngx-pagination";
 import {CategoriaService} from "../../services/categoria.service";
 import {Categoria} from "../../models/categoria";
 import {environment} from "../../../environments/environment";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-buscador',
@@ -62,7 +63,8 @@ export class BuscadorComponent {
   private sub: any;
 
   constructor(private libroService: LibroService, private categoriaService: CategoriaService,
-              private spinnerService: SpinnerService, private route: Router, private activatedRoute: ActivatedRoute) { }
+              private spinnerService: SpinnerService, private route: Router, private activatedRoute: ActivatedRoute,
+              private toastService: ToastService) { }
 
   ngOnInit() {
 
@@ -109,12 +111,14 @@ export class BuscadorComponent {
       this.libroService.getLibros(this.paginaActual, this.filtroSelected, this.valorBuscador, this.generoSelected).subscribe((data: any) => {
 
         if (data.message == "Error") {
-          alert('Error al obtener los libros. Vuelva a intentarlo más tarde.');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Ha ocurrido un error al obtener los libros. Inténtelo de nuevo más tarde.'});
           this.isLoading = false;
         } else if (data.message == "Obtenido") {
 
           if (data.libros.length == 0) {
-            alert('No se han encontrado libros con los criterios de búsqueda seleccionados.');
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary:'Error', detail:'No se han encontrado libros con los criterios de búsqueda seleccionados. Inténtelo de nuevo.'});
             this.listaLibros = [];
           } else {
             this.listaLibros = data.libros;
@@ -188,7 +192,8 @@ export class BuscadorComponent {
         this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
 
       } else {
-        alert('Introduzca un título.');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'Introduzca un título.'});
       }
     } else if (this.filtroSelected == 'autor') {
       if (this.valorBuscador != '') {
@@ -203,7 +208,8 @@ export class BuscadorComponent {
         this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
 
       } else {
-        alert('Introduzca un autor.');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'Introduzca un autor.'});
       }
     } else if (this.filtroSelected == 'isbn') {
 
@@ -221,10 +227,12 @@ export class BuscadorComponent {
           this.libroService.guardarBusqueda(this.filtroSelected, this.generoSelected, this.valorBuscador);
 
         } else {
-          alert('Introduzca un ISBN válido.');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Introduzca un ISBN válido.'});
         }
       } else {
-        alert('Introduzca un ISBN.');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'Introduzca un ISBN.'});
       }
     } else if (this.filtroSelected == 'categoria') {
       if (this.generoSelected != '') {
@@ -239,7 +247,8 @@ export class BuscadorComponent {
 
         this.obtenerLibrosBuscador();
       } else {
-        alert('Seleccione un género.');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'Seleccione una categoría.'});
       }
     }
   }

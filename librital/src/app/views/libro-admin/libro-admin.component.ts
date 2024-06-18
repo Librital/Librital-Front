@@ -8,6 +8,7 @@ import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.compon
 import {FormsModule} from "@angular/forms";
 import {FooterComponent} from "../footer/footer.component";
 import {Router} from "@angular/router";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-libro-admin',
@@ -43,7 +44,8 @@ export class LibroAdminComponent {
   numeroTotalLibros = 0;
 
 
-  constructor(private libroService: LibroService, private spinnerService: SpinnerService, private route: Router) { }
+  constructor(private libroService: LibroService, private spinnerService: SpinnerService, private route: Router,
+              private toastService: ToastService) { }
 
 
 
@@ -110,7 +112,8 @@ export class LibroAdminComponent {
           this.numLibrosPerPage = data.numMostrar;
         } else{
           this.listaLibros = [];
-          alert('No se han encontrado libros');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'No se han podido obtener los libros'});
         }
         this.isLoading = false;
       });

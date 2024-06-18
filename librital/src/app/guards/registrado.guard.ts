@@ -1,11 +1,13 @@
 import {CanActivateFn, Router} from '@angular/router';
 import {inject} from "@angular/core";
 import {AutenticacionService} from "../services/autenticacion.service";
+import {ToastService} from "../services/toast.service";
 
 
 export const registradoGuard: CanActivateFn = (route, state) => {
 
   const autenticacionService = inject(AutenticacionService);
+  const toastService = inject(ToastService);
   const router = inject(Router);
 
   if (autenticacionService.getToken() != null) {
@@ -17,8 +19,12 @@ export const registradoGuard: CanActivateFn = (route, state) => {
       return false;
     }
   } else {
-    alert("No has iniciado sesion");
-    router.navigate(['/login']);
+    toastService.clear();
+    toastService.add({severity:'info', summary:'Información', detail:'No has iniciado sesion'});
+
+    setTimeout(() => {
+      router.navigate(['/login']);
+    }, 1000);
     return false;
   }
 };

@@ -81,11 +81,14 @@
 }
 
 .title-libro {
-  color: #000000;
+  color: var(--textoPlain);
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
   font-size: 30px;
   position: relative;
   text-align: center;
   padding: 0 1% 0 0;
+  text-shadow: -2px 0 white, 0 2px white, 2px 0 white, 0 -2px white;
 
 }
 
@@ -244,7 +247,10 @@
   p {
     text-align: center;
     margin: 0;
+    font-size: 18px;
     font-weight: 500;
+    color: var(--textoPlain);
+    font-family: 'Patrick Hand', cursive;
   }
 
 }
@@ -304,9 +310,10 @@
   border: 0;
   border-radius: 12px;
   color: #FFFFFF;
+  font-weight: 500;
+  font-family: 'Patrick Hand', cursive;
   cursor: pointer;
   font-size: 16px;
-  font-weight: 500;
   line-height: 2.5;
   outline: transparent;
   padding: 0 1rem;
@@ -323,7 +330,6 @@
 .btn-option-libro:hover {
   box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem var(--logoLibrital), .125rem .125rem 1rem rgb(11, 180, 183);
 }
-
 
 
 

@@ -9,6 +9,7 @@ import {BarcodeFormat} from "html5-qrcode/third_party/zxing-js.umd";
 import {NavigationStart, Router} from "@angular/router";
 import {CamaraService} from "../../services/camara.service";
 import {LibroService} from "../../services/libro.service";
+import {ToastService} from "../../services/toast.service";
 
 LOAD_WASM().subscribe();
 
@@ -32,7 +33,8 @@ export class CameraComponent {
 
   private navigationStartSubscription!: Subscription;
 
-  constructor(private camaraService: CamaraService, private libroService: LibroService, private router: Router) {
+  constructor(private camaraService: CamaraService, private libroService: LibroService, private router: Router,
+              private toastService: ToastService) {
     this.navigationStartSubscription = this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         this.stopCamera();
@@ -54,7 +56,8 @@ export class CameraComponent {
         //alert(`Scan result: ${decodedText}`);
         this.libroService.obtenerLibroPorScanIsbn(decodedText).subscribe((data: any) => {
           if (data.message == "No encontrado") {
-            alert("Libro no encontrado");
+            this.toastService.clear();
+            this.toastService.add({severity: 'error', summary: 'Error', detail: 'Libro no encontrado'})
           } else if (data.message == "Encontrado") {
             this.router.navigate(['/libro-info/', data.libro['id_libro']]);
           }

@@ -30,8 +30,23 @@ body {
   margin-bottom: 2.5rem;
 }
 
+.div-information-title h3 {
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: 'Pacifico', cursive;
+  color: var(--logoLibrital);
+}
+
 .div-information-text {
   width: 80%;
+}
+
+.div-information-text p {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--textoPlain);
+  text-align: center;
+  font-family: 'Patrick Hand', cursive;
 }
 
 
@@ -100,6 +115,20 @@ body {
   flex-direction: column;
 }
 
+.descripcion1 h3, .descripcion2 h3 {
+  font-weight: 600;
+  font-family: 'Pacifico', cursive;
+  color: var(--logoLibrital);
+  padding: 1.5rem 0;
+
+}
+
+.descripcion1 p, .descripcion2 p {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--textoPlain);
+  font-family: 'Patrick Hand', cursive;
+}
 
 
 /** SECTION TEAM **/
@@ -116,6 +145,13 @@ body {
 
 .title-team {
   margin-bottom: 2.5rem;
+}
+
+.title-team h3 {
+  font-weight: 600;
+  letter-spacing: 5px;
+  font-family: 'Pacifico', cursive;
+  color: var(--logoLibrital);
 }
 
 .div-info-team {
@@ -158,6 +194,14 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.content-team h3 {
+  font-weight: 600;
+  letter-spacing: 5px;
+  font-family: 'Pacifico', cursive;
+  color: var(--logoLibrital);
+  padding: 1.5rem 0;
 }
 
 

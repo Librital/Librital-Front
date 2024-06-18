@@ -4,6 +4,7 @@ import {MapaService} from "../../services/mapa.service";
 import {FooterComponent} from "../footer/footer.component";
 import {AutenticacionService} from "../../services/autenticacion.service";
 import {Mapa} from "../../models/mapa";
+import {ToastService} from "../../services/toast.service";
 
 L.Icon.Default.imagePath = 'assets/leaflet/bookcrossing.png';
 
@@ -30,7 +31,7 @@ export class MapaComponent {
   });
 
 
-  constructor(private mapaService: MapaService, private authService: AutenticacionService) { }
+  constructor(private mapaService: MapaService, private authService: AutenticacionService, private toastService: ToastService) { }
 
   ngOnInit(): void {
 
@@ -90,7 +91,8 @@ export class MapaComponent {
           marker.addTo(this.map);
         });
       } else {
-        alert('Error al obtener los marcadores');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'Error al obtener los marcadores'});
       }
     });
   }
@@ -99,7 +101,8 @@ export class MapaComponent {
   public addMarkerMap() {
 
     if (!this.authService.comprobarUsuarioLogueado()) {
-      alert('Debes estar logueado para añadir un marcador');
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary: 'Información', detail: 'Debes estar logueado para añadir un marcador'});
     } else {
 
       let usuario = this.authService.obtenerUsuarioDelToken();
@@ -151,7 +154,8 @@ export class MapaComponent {
         this.mapaService.addMarcadorMapaUser(mapa).subscribe((data: any) => {
 
           if (data.message == 'Correcto') {
-            alert('Marcador añadido correctamente');
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail: 'Marcador añadido correctamente'});
 
             marker.addTo(this.map);
 
@@ -164,7 +168,8 @@ export class MapaComponent {
 
 
           } else if (data.message == 'Ya existe') {
-            alert('Ya existe un marcador en esa posición');
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary: 'Error', detail: 'Ya existe un marcador en esa posición'});
           }
         });
       }

@@ -13,6 +13,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {AddEtiquetaComponent} from "../add-etiqueta/add-etiqueta.component";
 import {Etiqueta} from "../../models/etiqueta";
 import {environment} from "../../../environments/environment";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-libro-info',
@@ -70,7 +71,7 @@ export class LibroInfoComponent {
 
 
   constructor(private libroService: LibroService, private activatedRoute: ActivatedRoute, private route: Router,
-              private authService: AutenticacionService, private dialog: MatDialog) {}
+              private authService: AutenticacionService, private dialog: MatDialog, private toastService: ToastService) {}
 
   ngOnInit() {
     this.cargarLibroSelected();
@@ -104,8 +105,13 @@ export class LibroInfoComponent {
       this.libroService.obtenerLibroPorId(id).subscribe((data: any) => {
 
         if (data.message == "Error") {
-          alert("No se ha encontrado el libro");
-          this.route.navigate(['/buscador']);
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'No se ha encontrado el libro'});
+
+          setTimeout(() => {
+            this.route.navigate(['/buscador']);
+          }, 1000);
+
         } else if (data.message == "Obtenido") {
           this.libroMostrar = data.libro;
 
@@ -196,7 +202,8 @@ export class LibroInfoComponent {
   public cargarInfoEtiquetasLibroUser() {
 
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
       this.libroService.cargarEtiquetasCustomUserLibro(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
 
@@ -216,21 +223,25 @@ export class LibroInfoComponent {
   public valorarLibro(valoracion: number) {
 
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
       this.valoracionUserLibro = valoracion;
 
       if (this.usuario.id != null && this.libroMostrar.id_libro != null) {
         this.libroService.guardarValoracionLibroUser(this.usuario.id, this.libroMostrar.id_libro, valoracion).subscribe((data: any) => {
           if (data.message == "Guardado") {
-            alert("Valoración guardada correctamente");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Valoración guardada correctamente'});
             this.cargarInfoLibro();
           } else if (data.message == "Error") {
-            alert("Error al guardar la valoración");
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary:'Error', detail:'Error al guardar la valoración'});
           }
         });
       } else {
-        alert("Error al guardar la valoración");
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary:'Error', detail:'Error al guardar la valoración'});
       }
     }
 
@@ -241,15 +252,18 @@ export class LibroInfoComponent {
     if (this.valoracionUserLibro != 0) {
       this.libroService.eliminarValoracionLibroUser(this.usuario.id!, this.libroMostrar.id_libro!, 0).subscribe((data: any) => {
         if (data.message == "Eliminado") {
-          alert("Se ha eliminado la valoración");
+          this.toastService.clear();
+          this.toastService.add({severity:'success', detail:'Se ha eliminado la valoración'});
           this.valoracionUserLibro = 0;
           this.cargarInfoLibro();
         } else if (data.message = "Error") {
-          alert("Error al eliminar la valoración");
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Error al eliminar la valoración'});
         }
       });
     } else {
-      alert("No tienes una valoración guardada para este libro");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary:'Error', detail:'No tienes una valoración para eliminar'});
     }
   }
 
@@ -279,19 +293,24 @@ export class LibroInfoComponent {
   public addFavoritoLibro() {
 
       if (!this.usuarioLogueado) {
-        alert("Debes estar logueado para poder realizar esta acción");
+        this.toastService.clear();
+        this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
       } else {
         this.libroService.addFavoritoLibro(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
           if (data.message == "Guardado") {
             if (data.es_favorito == false) {
-              alert("Libro eliminado de favoritos");
+              this.toastService.clear();
+              this.toastService.add({severity:'success', detail:'Libro eliminado de favoritos'});
+
               this.esFavoritoLibroUser = false;
             } else {
-              alert("Libro añadido a favoritos");
+              this.toastService.clear();
+              this.toastService.add({severity:'success', detail:'Libro añadido a favoritos'});
               this.esFavoritoLibroUser = true;
             }
           } else if (data.message == "Error") {
-            alert("Error al realizar la acción");
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary:'Error', detail:'Error al realizar la acción'});
           }
         });
       }
@@ -301,19 +320,23 @@ export class LibroInfoComponent {
   public addReadLater() {
 
       if (!this.usuarioLogueado) {
-        alert("Debes estar logueado para poder realizar esta acción");
+        this.toastService.clear();
+        this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
       } else {
         this.libroService.addReadLater(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
           if (data.message == "Guardado") {
             if (data.es_leer_mas_tarde == false) {
-              alert("Libro eliminado de leer más tarde");
+              this.toastService.clear();
+              this.toastService.add({severity:'success', detail:'Libro eliminado de leer más tarde'});
               this.esReadLater = false;
             } else {
-              alert("Libro añadido a leer más tarde");
+              this.toastService.clear();
+              this.toastService.add({severity:'success', detail:'Libro añadido a leer más tarde'});
               this.esReadLater = true;
             }
           } else if (data.message == "Error") {
-            alert("Error al realizar la acción");
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary:'Error', detail:'Error al realizar la acción'});
           }
         });
       }
@@ -322,19 +345,23 @@ export class LibroInfoComponent {
   public addTerminadoLeer() {
 
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
       this.libroService.addTerminadoLeer(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
         if (data.message == "Guardado") {
           if (data.es_leido == false) {
-            alert("Libro eliminado de terminado de leer");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro eliminado de terminado de leer'});
             this.esTerminadoLeer = false;
           } else {
-            alert("Libro añadido a terminado de leer");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro añadido a terminado de leer'});
             this.esTerminadoLeer = true;
           }
         } else if (data.message == "Error") {
-          alert("Error al realizar la acción");
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Error al realizar la acción'});
         }
       });
     }
@@ -344,19 +371,23 @@ export class LibroInfoComponent {
   public addActualmenteLeyendo() {
 
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
       this.libroService.addActualmenteLeyendo(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
         if (data.message == "Guardado") {
           if (data.actualmente_leyendo == false) {
-            alert("Libro eliminado de actualmente leyendo");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro eliminado de actualmente leyendo'});
             this.esActualmenteLeyendo = false;
           } else {
-            alert("Libro añadido a actualmente leyendo");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro añadido a actualmente leyendo'});
             this.esActualmenteLeyendo = true;
           }
         } else if (data.message == "Error") {
-          alert("Error al realizar la acción");
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Error al realizar la acción'});
         }
       });
     }
@@ -364,17 +395,23 @@ export class LibroInfoComponent {
 
   public addBibliotecaUser() {
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
       this.libroService.addEnBibliotecaLibroUser(this.usuario.id!, this.libroMostrar.id_libro!).subscribe((data: any) => {
         if (data.message = "Guardado") {
           if (data.en_biblioteca == false) {
-            alert("Libro eliminado de la biblioteca");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro eliminado de la biblioteca'});
             this.esAnadidoBiblioteca = false;
           } else {
-            alert("Libro añadido a la biblioteca");
+            this.toastService.clear();
+            this.toastService.add({severity:'success', detail:'Libro añadido a la biblioteca'});
             this.esAnadidoBiblioteca = true;
           }
+        } else if (data.message == "Error") {
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary:'Error', detail:'Error al realizar la acción'});
         }
       });
     }
@@ -384,7 +421,8 @@ export class LibroInfoComponent {
   public addEtiquetaPersonalizada() {
 
     if (!this.usuarioLogueado) {
-      alert("Debes estar logueado para poder realizar esta acción");
+      this.toastService.clear();
+      this.toastService.add({severity:'info', summary:'Información', detail:'Debes estar logueado para poder realizar esta acción'});
     } else {
 
       let dialogRef = this.dialog.open(AddEtiquetaComponent, {

@@ -4,6 +4,7 @@ import {UsuarioService} from "../../services/usuario.service";
 import {Usuario} from "../../models/usuario";
 import {AutenticacionService} from "../../services/autenticacion.service";
 import {LibroService} from "../../services/libro.service";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -23,7 +24,8 @@ export class SignUpComponent {
   emailUsuario: string = '';
   contraseniaUsuario: string = '';
 
-  constructor(private route: Router, private usuarioService: UsuarioService, private autenticacionService: AutenticacionService, private libroService: LibroService) {}
+  constructor(private route: Router, private usuarioService: UsuarioService, private autenticacionService: AutenticacionService,
+              private libroService: LibroService, private toastService: ToastService) {}
 
   ngOnInit(): void {
     if (this.autenticacionService.comprobarUsuarioLogueado() && this.autenticacionService.obtenerUsuarioDelToken().tipo != 3) {
@@ -60,14 +62,18 @@ export class SignUpComponent {
     let contrasenia = (<HTMLInputElement>document.getElementById('form-password')).value;
 
     if (nombre == '' || apellido == '' || fechaNacimiento == '' || email == '' || contrasenia == '') {
-      alert("No puede haber campos vacios");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'Debes rellenar todos los campos'});
     } else if (!this.expresionEmail.test(email)) {
-      alert("El email introducido no es valido");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'El email no es correcto'});
     } else if (fechaDate >= this.fechaActual) {
-      alert("La fecha de nacimiento no puede ser superior a la fecha actual");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'La fecha de nacimiento no puede ser superior a la actual'});
     }
     else if (contrasenia.length < 8) {
-      alert("La contraseña debe tener al menos 8 caracteres");
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'La contraseña debe tener al menos 8 caracteres'});
     }
     else {
       this.registrarUsuario(nombre, apellido, fechaNacimiento, email, contrasenia);
@@ -79,11 +85,16 @@ export class SignUpComponent {
     let usuarioNuevo: Usuario = new Usuario(nombre, apellido, email, contrasenia, fechaNacimiento, 1, 0, 1, 'https://cdn-icons-png.flaticon.com/512/11116/11116689.png');
     this.usuarioService.registrarUsuario(usuarioNuevo).subscribe((data: any) => {
       if (data.message == "Existente") {
-        alert("El email introducido ya se encuentra en uso.");
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El email introducido ya se encuentra en uso'});
       } else {
-        alert("Se ha registrado correctamente");
-        this.route.navigate(['login']);
-        this.ponerCamposVacios();
+        this.toastService.clear();
+        this.toastService.add({severity:'success', detail: 'Se ha registrado correctamente'});
+        setTimeout(() => {
+          this.ponerCamposVacios();
+          this.route.navigate(['login']);
+        }, 1000);
+
       }
     });
 

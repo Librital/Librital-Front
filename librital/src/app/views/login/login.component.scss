@@ -35,7 +35,7 @@
 
 .title-login {
   color: var(--logoLibrital);
-  font-size: 2rem;
+  font-family: 'Pacifico', cursive;
   font-weight: 500;
   margin-bottom: 2rem;
   text-align: center;
@@ -62,9 +62,10 @@
   color: #FFFFFF;
   cursor: pointer;
   font-size: 16px;
-  font-weight: 500;
   line-height: 2.5;
   outline: transparent;
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
   //padding: 0 1rem;
   text-align: center;
   text-decoration: none;
@@ -100,6 +101,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    font-family: 'Patrick Hand', cursive;
   }
 }
 
@@ -113,6 +115,7 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    font-family: 'Patrick Hand', cursive;
   }
 
 }

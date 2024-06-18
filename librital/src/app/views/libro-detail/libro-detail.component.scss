@@ -61,7 +61,6 @@ input[type="file"] {
   border-radius: 12px;
   color: #FFFFFF;
   font-size: 16px;
-  font-weight: 500;
   line-height: 2.5;
   outline: transparent;
   text-align: center;
@@ -70,6 +69,8 @@ input[type="file"] {
   user-select: none;
   -webkit-user-select: none;
   margin: 1rem;
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
 }
 
 .custom-file-upload:hover {
@@ -112,6 +113,13 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
   margin-top: 2%;
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
+}
+
+#activo {
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
 }
 
 .div-isbn {
@@ -122,6 +130,8 @@ input[type="file"] {
   justify-content: center;
   align-items: center;
   margin-top: 2%;
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
 }
 
 
@@ -218,11 +228,13 @@ input[type="file"] {
   background-color: var(--amarillo);
   padding: 0.625rem 1.5rem;
   text-align: center;
-  color: rgb(61, 60, 60);
+  color: var(--textoPlain);
   outline: 0;
   transition: all 0.2s ease;
   text-decoration: none;
   margin: 1rem;
+  font-family: 'Patrick Hand', cursive;
+  font-weight: bold;
 }
 
 .btn-guardar:hover, .btn-cancelar:hover {

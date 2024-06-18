@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { Etiqueta} from "../../models/etiqueta";
 import {LibroService} from "../../services/libro.service";
 import {NgForOf} from "@angular/common";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-add-etiqueta',
@@ -34,7 +35,7 @@ export class AddEtiquetaComponent {
 
   constructor(public dialogRef: MatDialogRef<AddEtiquetaComponent>,
     @Inject(MAT_DIALOG_DATA) public data: {id_user: number, id_libro: number, listaEtiquetas: Etiqueta[]},
-              private libroService: LibroService){
+              private libroService: LibroService, private toastService: ToastService){
   }
 
   ngOnInit() {
@@ -51,7 +52,8 @@ export class AddEtiquetaComponent {
   public addEtiquetaLibro() {
 
     if (this.inputEtiquetaValor == '') {
-      alert('El valor de la etiqueta no puede estar vacío');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'El valor de la etiqueta no puede estar vacío'});
     } else {
 
       if (this.inputEtiquetaValor.length < 50) {
@@ -60,7 +62,8 @@ export class AddEtiquetaComponent {
 
         this.dialogRef.close();
       } else {
-        alert('El valor de la etiqueta no puede superar los 50 caracteres');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El valor de la etiqueta no puede superar los 50 caracteres'});
       }
     }
   }

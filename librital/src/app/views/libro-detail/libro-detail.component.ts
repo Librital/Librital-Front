@@ -9,6 +9,7 @@ import {NgForOf, NgIf} from "@angular/common";
 import {CategoriaService} from "../../services/categoria.service";
 import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
 import {Libro} from "../../models/libro";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-libro-detail',
@@ -55,7 +56,7 @@ export class LibroDetailComponent {
   protected readonly environment = environment;
 
   constructor(private activatedRoute: ActivatedRoute, private libroService: LibroService,
-              private categoriaService: CategoriaService, private route: Router) { }
+              private categoriaService: CategoriaService, private route: Router, private toastService: ToastService) { }
 
 
   ngOnInit(): void {
@@ -100,7 +101,8 @@ export class LibroDetailComponent {
             this.obtenerCategoriaLibroId();
 
           } else if (data.message == 'Error') {
-            alert('Error al obtener el libro');
+            this.toastService.clear();
+            this.toastService.add({severity:'error', summary: 'Error', detail: 'No se ha podido obtener la información del libro'});
           }
           this.isLoading = false;
         });
@@ -136,7 +138,8 @@ export class LibroDetailComponent {
     if (archivoSeleccionado) {
 
       if (archivoSeleccionado.type.indexOf('image') < 0) {
-        alert('El archivo seleccionado no es una imagen')
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El archivo seleccionado no es una imagen'});
         //this.hayImagenLocal = false;
       } else {
        /* const formData = new FormData();
@@ -227,20 +230,23 @@ export class LibroDetailComponent {
     if (tituloInput.value != '' && editorialInput.value != '' && fechaInput.value != '' && isbn13Input.value != '' && isbn10Input.value != '' && categoriaInput.value != '') {
 
       if (autorInput.value.length > 100) {
-        alert('El autor no puede tener más de 100 caracteres');
+        this.toastService.clear();
+        this.toastService.add({severity:'error', summary: 'Error', detail: 'El autor no puede tener más de 100 caracteres'});
         camposCorrectos = false;
       }
 
       if (isbn13Input.value != 'No ISBN') {
         if (isbn13Input.value.length != 13) {
-          alert('El ISBN-13 debe tener 13 caracteres');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'El ISBN-13 debe tener 13 caracteres'});
           camposCorrectos = false;
         }
       }
 
       if (isbn10Input.value != 'No ISBN') {
         if (isbn10Input.value.length != 10) {
-          alert('El ISBN-10 debe tener 10 caracteres');
+          this.toastService.clear();
+          this.toastService.add({severity:'error', summary: 'Error', detail: 'El ISBN-10 debe tener 10 caracteres'});
           camposCorrectos = false;
         }
       }
@@ -268,7 +274,8 @@ export class LibroDetailComponent {
         this.guardarCambiosLibro(liboModificado, this.libro.id_libro, categoria, portadaLibro);
       }
     } else {
-      alert('Faltan campos por completar');
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'Rellene los campos obligatorios'});
     }
 
   }
@@ -278,8 +285,12 @@ export class LibroDetailComponent {
     this.libroService.modificarLibro(libro, id_libro, categoria, portada).subscribe((data: any) => {
 
       if (data.message == 'Modificado') {
-        alert('Libro modificado correctamente');
-        this.route.navigate(['/libro-admin']);
+        this.toastService.clear();
+        this.toastService.add({severity:'success', detail: 'Libro modificado correctamente'});
+        setTimeout(() => {
+          this.route.navigate(['/libro-admin']);
+        }, 1000);
+
       }
 
     });

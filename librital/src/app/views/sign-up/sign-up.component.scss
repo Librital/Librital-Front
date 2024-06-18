@@ -42,14 +42,21 @@ html, body{
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  padding: 5% 0;
 
   h3 {
     margin: 0;
+    color: var(--logoLibrital);
     font-weight: 400;
+    font-family: 'Pacifico', cursive;
   }
 
-  p, h3 {
-    padding: 0 10px;
+  p {
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: var(--textoPlain);
+    padding: 1% 10px;
+    font-family: 'Patrick Hand', cursive;
   }
 
 }
@@ -62,11 +69,22 @@ html, body{
   margin-bottom: 20px;
 }
 
+.form-group label {
+  color: var(--textoPlain);
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
+}
+
 .div-options {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.div-options a {
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
 }
 
 
@@ -86,7 +104,9 @@ html, body{
   transition: box-shadow .2s ease-in-out;
   user-select: none;
   -webkit-user-select: none;
-  white-space: nowrap;
+  font-weight: bold;
+  font-family: 'Patrick Hand', cursive;
+
 }
 
 

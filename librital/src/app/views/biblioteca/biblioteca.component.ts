@@ -15,6 +15,7 @@ import {environment} from "../../../environments/environment";
 import {NgxPaginationModule} from "ngx-pagination";
 import {LoadingSpinnerComponent} from "../loading-spinner/loading-spinner.component";
 import {SpinnerService} from "../../services/spinner.service";
+import {ToastService} from "../../services/toast.service";
 
 @Component({
   selector: 'app-biblioteca',
@@ -75,7 +76,7 @@ export class BibliotecaComponent {
 
 
   constructor(private libroService: LibroService, private authService: AutenticacionService, private etiequetaService: EtiquetaService,
-              private router: Router, private spinnerService: SpinnerService) { }
+              private router: Router, private spinnerService: SpinnerService, private toastService: ToastService) { }
 
   ngOnInit() {
 
@@ -122,8 +123,12 @@ export class BibliotecaComponent {
     if (this.authService.comprobarUsuarioLogueado()) {
       this.usuarioLogueado = this.authService.obtenerUsuarioDelToken();
     } else {
-      alert('No hay usuario logueado');
-      this.router.navigate(['/login']);
+      this.toastService.clear();
+      this.toastService.add({severity:'error', summary: 'Error', detail: 'No has iniciado sesión'});
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 1000);
+
     }
   }
 
